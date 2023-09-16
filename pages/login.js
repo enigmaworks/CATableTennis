@@ -20,7 +20,9 @@ export default function Login(){
 
     if(res.ok){
       // re-route to proper page
-      //return router.push("/page");
+      return router.push("/admin");
+    } else {
+      alert("wrong username/password");
     }
   }
   return (

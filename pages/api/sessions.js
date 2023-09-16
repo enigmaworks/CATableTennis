@@ -9,7 +9,7 @@ async function createSessionRoute(req, res){
   if(req.method === "POST"){
     const {username, password} = req.body;
 
-    if(user === TEST_USERNAME && password === TEST_PASSWORD){
+    if(username === TEST_USERNAME && password === TEST_PASSWORD){
       req.session.user = {
         username: username,
         permisions: 0,
