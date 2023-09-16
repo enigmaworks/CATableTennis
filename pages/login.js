@@ -1,7 +1,22 @@
+import { withSessionSsr  } from "./lib/config/withSession";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 
-export default function Login(){
+export const getServerSideProps = withSessionSsr(
+  async ({req, res}) => {
+    const user = req.session.user;
+
+    if(!user){
+      return {
+        props: { signedin: false }
+      }
+    }
+
+    return { props: { signedin: true, user: user } }
+  }
+)
+
+export default function Login(props){
   const router = useRouter();
   const usernameInput = useRef();
   const passwordIndput = useRef();
@@ -25,13 +40,30 @@ export default function Login(){
       alert("wrong username/password");
     }
   }
-  return (
-  <form onSubmit={handleSubmit}>
-    <label htmlFor="username">username: </label>
-    <input type="text" id="username" ref={usernameInput} />
-    <label htmlFor="password">password: </label>
-    <input type="password" id="password" ref={passwordIndput} />
-    <button type="submit">Sign In</button>
-  </form>
-  );
+  
+  if(!props.signedin){
+    return (
+      <>
+        <h1>Login page</h1>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">username: </label>
+          <input type="text" id="username" ref={usernameInput} />
+          <label htmlFor="password">password: </label>
+          <input type="password" id="password" ref={passwordIndput} />
+          <button type="submit">Sign In</button>
+        </form>
+        <div>
+          <a href="/">home</a>
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <h1>Login page</h1>
+        <div>Already signed in as {props.user.username}. <a href="/logout">Log out?</a></div>
+        <div><a href="/">Home</a></div>
+      </>
+    );
+  }
 }
