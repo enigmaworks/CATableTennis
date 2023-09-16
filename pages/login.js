@@ -2,21 +2,19 @@ import { withSessionSsr  } from "./lib/config/withSession";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 
-export function getServerSideProps() {
-  withSessionSsr(
-    async ({req, res}) => {
-      const user = req.session.user;
+export const getServerSideProps = withSessionSsr(
+  async ({req, res}) => {
+    const user = req.session.user;
 
-      if(!user){
-        return {
-          props: { signedin: false }
-        }
+    if(!user){
+      return {
+        props: { signedin: false }
       }
-
-      return { props: { signedin: true, user: user } }
     }
-  )
-}
+
+    return { props: { signedin: true, user: user } }
+  }
+)
 
 export default function Login(props){
   const router = useRouter();
