@@ -61,7 +61,7 @@ export default function Login(props){
     return (
       <>
         <h1>Login page</h1>
-        <div>Already signed in as {props.user.username}. <a href="/logout">Log out?</a></div>
+        <div>Already signed in as {props.user.username}</div>
         <div><a href="/">Home</a></div>
       </>
     );
