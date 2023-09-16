@@ -7,11 +7,11 @@ export default withSessionRoute(createSessionRoute);
 
 async function createSessionRoute(req, res){
   if(req.method === "POST"){
-    const {user, password} = req.body;
+    const {username, password} = req.body;
 
     if(user === TEST_USERNAME && password === TEST_PASSWORD){
       req.session.user = {
-        username: user,
+        username: username,
         permisions: 0,
       };
       await req.session.save();
@@ -20,6 +20,6 @@ async function createSessionRoute(req, res){
 
     return res.status(403).send("");
   }
-  
+
   return res.status(404).send("");
 }
