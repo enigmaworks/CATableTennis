@@ -4,10 +4,10 @@ let data = require("/data/users.json");
 const bcrypt = require ('bcrypt');
 const saltRounds = 10;
 
-export const users = {
+export default {
   getALl: () => data,
   findUser: (username) => data.find(x => x.username.toString() === username.toString()),
-  findUserById: (id) =>  data.find(x => x.id.toString() === id.toString()),
+  findUserById: (id) => data.find(x => x.id.toString() === id.toString()),
   createUser: createfn,
   updateUser: updatefn,
   updateUserStats: updatestats,
