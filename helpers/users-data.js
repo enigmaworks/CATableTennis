@@ -14,7 +14,7 @@ export const users = {
   deleteUser: deletefn
 }
 
-function createfn (username, password, permisions, userinfo = {}){
+function createfn (username, password, permissions, userinfo = {}){
   let user = {};
   //generate sequential user ids
   user.id = data.length ? Math.max(...data.map(x => x.id)) + 1 : 1;
@@ -24,7 +24,7 @@ function createfn (username, password, permisions, userinfo = {}){
   user.lastStatUpdate = new Date().toISOString();
 
   user.username = username;
-  user.permisions = permisions;
+  user.permissions = permissions;
  
   user.info = {};
   user.info.firstname = userinfo.firstname || "user";

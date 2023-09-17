@@ -2,11 +2,11 @@ import { users } from "helpers/users-data";
 
 export default function create(req, res){
   if(req.method = "POST"){
-    const {username, password, permisions, userinfo} = req.body;
+    const {username, password, permissions, userinfo} = req.body;
     if(users.findUser(username)) return res.send(400);
 
     if(req.session && req.session.user.permisions === 1){
-      createUser(username, password, permisions, userinfo);
+      createUser(username, password, permissions, userinfo);
     } else {
       createUser(username, password, 0, userinfo);
     }
