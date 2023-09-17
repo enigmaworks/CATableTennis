@@ -1,6 +1,9 @@
 import * as fs from "fs";
 let data = require("/data/users.json");
 
+const bcrypt = require ('bcrypt');
+const saltRounds = 10;
+
 export const users = {
   getALl: () => data,
   findUser: (username) => data.find(x => x.username.toString() === username.toString()),
@@ -21,17 +24,21 @@ function createfn (username, password, permisions, userinfo = {}){
   user.lastStatUpdate = new Date().toISOString();
 
   user.username = username;
-  user.password = password;
   user.permisions = permisions;
-
+ 
+  user.info = {};
   user.info.firstname = userinfo.firstname || "user";
   user.info.lastname = userinfo.lastname || "";
   user.info.gradyear = userinfo.gradyear || "";
   
   user.statistics = {};
 
-  data.push(user);
-  saveData();
+  bcrypt.hash(password, saltRounds, function(err, hash) {
+    user.password = hash;
+    console.log(hash, err);
+    data.push(user);
+    saveData();
+  });
 }
 
 function deletefn (id) {
@@ -59,5 +66,5 @@ function updatestats(id, season, w, l){
 }
 
 function saveData() {
-  fs.writeFileSync('data/users.json', JSON.stringify(users, null, 4));
+  fs.writeFileSync('data/users.json', JSON.stringify(data, null, 4));
 }
