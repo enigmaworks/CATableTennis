@@ -26,18 +26,21 @@ export default function Login(props){
 
     const username = usernameInput.current.value;
     const password = passwordIndput.current.value;
-  
-    const res = await fetch("/api/sessions", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({username, password})
-    });
 
-    if(res.ok){
-      // re-route to proper page
-      return router.push("/admin");
+    if(username !== "" && password !== "") {
+      const res = await fetch("/api/sessions", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({username, password})
+      });
+
+      if(res.status === 200){
+        return router.push("/");
+      } else {
+        alert("Incorrect username or password.");
+      }
     } else {
-      alert("wrong username/password");
+      alert("You must enter both a username and password.");
     }
   }
   
