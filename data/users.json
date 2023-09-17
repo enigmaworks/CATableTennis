@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "dateCreated": 0,
+    "dateUpdated": 0,
+    "lastStatUpdate": 0,
+    "username": "test",
+    "pasword": "12345",
+    "permisions": 0,
+    "info": {
+      "firstname": "test",
+      "lastname": "user",
+      "gradyear": "2025"
+    },
+    "statistics": {}
+  }
+]
