@@ -8,10 +8,10 @@ async function createSessionRoute(req, res){
   if(req.method === "POST"){
     const {username, password} = req.body;
     let user = users.findUser(username.toString());
-
-    if( user ){
-      bcrypt.compare(password.toString(), user.password, async function(err, result) {
-        if (result) {
+    
+    if(user !== undefined) {
+      bcrypt.compare(password.toString(), user.password, async function (err, result) {
+        if(result === true) {
           req.session.user = {
             username: user.username,
             id: user.id,
@@ -19,17 +19,15 @@ async function createSessionRoute(req, res){
             firstname: user.info.firstname,
             lastname: user.info.lastname,
           };
+          
           await req.session.save();
           res.status(200).send("");
-        }
-        if(err){
-          return res.status(403).send("");
+        } else if (err) {
+          res.status(500).send("");
+        } else if (result === false) {
+          res.status(401).send("");
         }
       });
-    } else{
-      return res.status(403).send("");
-    }
-  } else {
-    return res.status(404).send("");
-  }
+    } else { return res.status(401).send(""); }
+  } else { return res.status(405).send(""); }
 }
