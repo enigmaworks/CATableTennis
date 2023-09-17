@@ -4,16 +4,17 @@ export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     const user = req.session.user;
 
-    if(!user){
+    if(user && user.permissions === 1){
+      return { props: {user: user } }
+    } else {
       return {
         redirect: {
           permanent: false,
-          destination: "/login",
+          destination: "/",
         }
       }
     }
 
-    return { props: {user: user } }
   }
 )
 
