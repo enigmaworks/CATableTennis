@@ -19,10 +19,10 @@ async function createSessionRoute(req, res){
             firstname: user.info.firstname,
             lastname: user.info.lastname,
           };
-
           await req.session.save();
-          return res.send({ok:true});
-        } else {
+          res.status(200).send("");
+        }
+        if(err){
           return res.status(403).send("");
         }
       });
