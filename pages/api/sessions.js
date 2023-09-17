@@ -22,6 +22,8 @@ async function createSessionRoute(req, res){
 
           await req.session.save();
           return res.send({ok:true});
+        } else {
+          return res.status(403).send("");
         }
       });
     } else{
