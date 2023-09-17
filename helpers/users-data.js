@@ -1,9 +1,9 @@
 import * as fs from "fs";
-import data from "/data/users.json";
+let data = require("/data/users.json");
 
 export const users = {
   getALl: () => data,
-  findUser: (user) => data.find(user),
+  findUser: (username) => data.find(x => x.username.toString() === username.toString()),
   findUserById: (id) =>  data.find(x => x.id.toString() === id.toString()),
   createUser: createfn,
   updateUser: updatefn,
@@ -41,7 +41,7 @@ function deletefn (id) {
 }
 
 function updatefn(id, newdata) {
-  const user = data.find(x => x.id.toString() === id.toString());
+  let user = data.find(x => x.id.toString() === id.toString());
   user = Object.assign(user, newdata);
 
   user.dateUpdated = new Date().toISOString();
@@ -50,7 +50,7 @@ function updatefn(id, newdata) {
 }
 
 function updatestats(id, season, w, l){
-  const user = data.find(x => x.id.toString() === id.toString());
+  let user = data.find(x => x.id.toString() === id.toString());
   
   user.statistics[season] = {w: w, l: l};
   user.lastStatUpdate = new Date().toISOString();
