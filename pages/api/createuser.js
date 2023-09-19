@@ -1,6 +1,9 @@
+import {withSessionRoute} from "pages/lib/config/withSession";
 import users from "helpers/users-data";
 
-export default function create(req, res){
+export default withSessionRoute(create);
+
+function create(req, res){
   if(req.method = "POST"){
     const {username, password, permissions, userinfo} = req.body;
     if(users.findUser(username)) return res.send(400);
