@@ -1,4 +1,4 @@
-import { users } from "helpers/users-data";
+import users from "helpers/users-data";
 
 export default function create(req, res){
   if(req.method = "POST"){

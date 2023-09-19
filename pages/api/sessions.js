@@ -1,5 +1,5 @@
 import {withSessionRoute} from "pages/lib/config/withSession";
-import { users } from "helpers/users-data";
+import users from "helpers/users-data";
 const bcrypt = require ('bcrypt');
 
 export default withSessionRoute(createSessionRoute);
