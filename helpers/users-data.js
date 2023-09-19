@@ -1,3 +1,22 @@
+/* SAMPLE USER OBJECT
+{
+    "id": num,
+    "dateCreated": "ISO Date String",
+    "dateUpdated": "ISO Date String",
+    "lastStatUpdate": "ISO Date String",
+    "username": "string",
+    "flair": "string",
+    "permissions": num (0-1),
+    "info": {
+        "firstname": "string",
+        "lastname": "string",
+        "gradyear": num
+    },
+    "statistics": {"num": {"w": num, "l": num}},
+    "password": "string hash"
+}
+*/
+
 import * as fs from "fs";
 let data = require("/data/users.json");
 
@@ -30,6 +49,7 @@ function createfn (username, password, permissions, userinfo = {}){
   user.info.firstname = userinfo.firstname || "user";
   user.info.lastname = userinfo.lastname || "";
   user.info.gradyear = userinfo.gradyear || "";
+  user.info.flair = userinfo.flair || "";
   
   user.statistics = {};
 
