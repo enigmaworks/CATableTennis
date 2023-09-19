@@ -5,8 +5,8 @@ export default withSessionRoute(getusersdata);
 
 function getusersdata(req, res){
   if(req.method = "GET"){
-    let usersData = users.getAll();
-    usersData = usersData.map(user => {
+    let usersdata = users.getAll();
+    usersdata = usersdata.map(user => {
       return {
         id: user.id,
         lastStatUpdate: user.lastStatUpdate,
@@ -16,7 +16,7 @@ function getusersdata(req, res){
         statistics: user.statistics,
       }
     })
-    return res.json({data: usersData});
+    return res.json(usersdata);
   } else {
     return res.send(405);
   }
