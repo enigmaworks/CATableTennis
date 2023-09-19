@@ -18,7 +18,7 @@ async function createSessionRoute(req, res){
             lastname: "Testprofile",
         };
         await req.session.save();
-        return res.status(200).send("");
+        return res.status(200).send();
       } else if (username === "user" && password === "password"){
         req.session.user = {
             username: "user",
@@ -28,7 +28,7 @@ async function createSessionRoute(req, res){
             lastname: "Testprofile",
         };
         await req.session.save();
-        return res.status(200).send("");
+        return res.status(200).send();
       }
     }
 
@@ -46,13 +46,13 @@ async function createSessionRoute(req, res){
           };
           
           await req.session.save();
-          res.status(200).send("");
+          res.status(200).send();
         } else if (err) {
-          res.status(500).send("");
+          res.status(500).send();
         } else if (result === false) {
-          res.status(401).send("");
+          res.status(401).send();
         }
       });
-    } else { return res.status(401).send(""); }
-  } else { return res.status(405).send(""); }
+    } else { return res.status(401).send(); }
+  } else { return res.status(405).send(); }
 }

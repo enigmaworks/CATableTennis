@@ -19,9 +19,9 @@ function getusersdata(req, res){
       })
       return res.json(usersdata);
     } else {
-      return res.status(401).send("");
+      return res.status(401).send([]);
     }
   } else {
-    return res.status(405).send("");
+    return res.status(405).send([]);
   }
 }
