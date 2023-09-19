@@ -30,31 +30,35 @@ export default function Admin(props){
   async function handleCreateUserSubmit(e){
     e.preventDefault();
 
-    const res = await fetch("/api/createuser", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        username: usernameInput.current.value,
-        password: passwordInput.current.value,
-        permisions: permissionsInput.current.value,
-        userinfo: {
-          firstname: firstnameInput.current.value,
-          lastname: lastnameInput.current.value,
-          gradyear: gradyearInput.current.value
-        }
+    if( usernameInput.current.value !== "" && passwordInput.current.value !== "" && permissionsInput.current.value !== "" ){
+      const res = await fetch("/api/createuser", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          username: usernameInput.current.value,
+          password: passwordInput.current.value,
+          permisions: permissionsInput.current.value,
+          userinfo: {
+            firstname: firstnameInput.current.value,
+            lastname: lastnameInput.current.value,
+            gradyear: gradyearInput.current.value
+          }
+        })
       })
-    })
-
-    if(res.ok){
-      usernameInput.current.value = "";
-      passwordInput.current.value = "";
-      permissionsInput.current.value = "";
-      firstnameInput.current.value = "";
-      lastnameInput.current.value = "";
-      gradyearInput.current.value = "";
-      alert("created user sucessfully");
+  
+      if(res.ok){
+        usernameInput.current.value = "";
+        passwordInput.current.value = "";
+        permissionsInput.current.value = "";
+        firstnameInput.current.value = "";
+        lastnameInput.current.value = "";
+        gradyearInput.current.value = "";
+        alert("created user sucessfully");
+      } else {
+        alert("failed to create user");
+      }
     } else {
-      alert("failed to create user");
+      alert("You must enter a username, password, and permissions level.");
     }
   }
 
