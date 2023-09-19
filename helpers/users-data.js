@@ -55,7 +55,6 @@ function createfn (username, password, permissions, userinfo = {}){
 
   bcrypt.hash(password, saltRounds, function(err, hash) {
     user.password = hash;
-    console.log(hash, err);
     data.push(user);
     saveData();
   });
