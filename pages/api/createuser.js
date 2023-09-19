@@ -8,13 +8,16 @@ function create(req, res){
     const {username, password, permissions, userinfo} = req.body;
     if(users.findUser(username)) return res.send(400);
 
-    if(req.session && req.session.user.permisions === 1){
-      createUser(username, password, permissions, userinfo);
+    if(req.session) {
+      if(req.session.user.permisions === 1){
+        createUser(username, password, permissions, userinfo);
+      } else {
+        createUser(username, password, 0, userinfo);
+      }
+      return res.send(200);
     } else {
-      createUser(username, password, 0, userinfo);
+      return res.send(401);
     }
-
-    return res.send(200);
   }
   return res.send(405)
 }
