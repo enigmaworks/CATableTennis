@@ -6,7 +6,7 @@ export const getServerSideProps = withSessionSsr(
     const user = req.session.user;
 
     if(user && user.permissions === 1){
-      let data = await fetch(process.env.URL + "/api/getuserdata", req);
+      let data = await fetch(process.env.URL + "/api/users/getdata", req);
       data = await data.json();
       return { props: {user: user, usersdata: data} }
     } else {
