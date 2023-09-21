@@ -1,37 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
+
 .label {
-    height: 418px;
-    width: 719px;
-  }
-  
-  .label .flexcontainer {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    height: 418px;
-    position: relative;
-    width: 719px;
-  }
-  
-  .label .text {
-    align-self: stretch;
-    color: #3f3f3f;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: 0.16px;
-    line-height: 28px;
-    position: relative;
+    height: 56px;
+    width: 222px;
   }
   
   .label .text-wrapper {
-    color: #3f3f3f;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 16px;
+    color: #691616;
+    font-family: 'Jockey One', sans-serif;
+    font-size: 54px;
     font-weight: 400;
-    letter-spacing: 0.16px;
-    line-height: 28px;
+    height: 56px;
+    left: 0;
+    letter-spacing: -1.08px;
+    line-height: 42px;
+    position: fixed;
+    top: 0;
+    width: 222px;
   }
+  
   .image {
     height: 81px;
     width: 81px;
