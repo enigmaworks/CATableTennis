@@ -68,11 +68,23 @@ function deletefn (id) {
 
 function updatefn(id, newdata) {
   let user = data.find(x => x.id.toString() === id.toString());
+  if(!user) return;
+  
+  const oldpassword = user.password;
+
   user = Object.assign(user, newdata);
+  user.permissions = parseInt(user.permissions);
 
   user.dateUpdated = new Date().toISOString();
-
-  saveData();
+  
+  if(user.password !== oldpassword){
+    bcrypt.hash(user.password, saltRounds, function(err, hash) {
+      user.password = hash;
+      saveData();
+    });
+  } else {
+    saveData();
+  }
 }
 
 function updatestats(id, season, w, l){
