@@ -185,7 +185,7 @@ export default function Admin(props){
     }
   }
 
-  
+
   return (
     <>
       <h1>Admin Page!</h1>
@@ -222,26 +222,25 @@ export default function Admin(props){
         </form>
       </div>
       <div>
-        <h3>edit user</h3>
+        <h2>edit user</h2>
         <div>
-        <select id="userselect" onChange={handleUserSelectChange} ref={userSelect}>
-          {usersdata.map((user) => {
-            return (
-            <option key={user.id} value={user.id}>
-              {user.info.firstname} {user.info.lastname} ( {user.username} )
-            </option>
-            )})}
-        </select>
-        <button onClick={deleteUser}>Delete User</button>
+          <select id="userselect" onChange={handleUserSelectChange} ref={userSelect}>
+            {usersdata.map((user) => {
+              return (
+              <option key={user.id} value={user.id}>
+                {user.info.firstname} {user.info.lastname} ( {user.username} )
+              </option>
+              )})}
+          </select>
+          <button onClick={deleteUser}>Delete User</button>
         </div>
         <form onSubmit={handleChangePasswordSubmit}>
           <div>
             <label htmlFor="passwordChange">Set New Password: </label>
             <input type="text" id="passwordChange" ref={passwordChangeInput} />
+            <button type="submit">Set Password</button>
           </div>
-          <button type="submit">Set Password</button>
         </form>
-        <br />
         <form onSubmit={handleChangeUserSubmit}>
           <div>
             <label htmlFor="firstnameChange">First Name: </label>
