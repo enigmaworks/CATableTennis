@@ -1,4 +1,4 @@
-import { withSessionSsr  } from "lib/config/withSession";
+import { withSessionSsr  } from "helpers/lib/config/withSession";
 import { useRef, useState } from "react";
 
 export const getServerSideProps = withSessionSsr(
