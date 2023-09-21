@@ -62,7 +62,6 @@ function createfn (username, password, permissions, userinfo = {}){
 
 function deletefn (id) {
   data = data.filter(x => x.id.toString() !== id.toString());
-
   saveData();
 }
 
