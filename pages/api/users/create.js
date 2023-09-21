@@ -9,7 +9,7 @@ function create(req, res){
     if(users.findUser(username)) return res.status(400).send();
 
     if(req.session) {
-      if(req.session.user.permisions === 1){
+      if(req.session.user.permissions === 1){
         createUser(username, password, permissions, userinfo);
       } else {
         createUser(username, password, 0, userinfo);
@@ -22,6 +22,6 @@ function create(req, res){
   return res.status(405).send();
 }
 
-function createUser(username, password, permisions, userinfo){
-  users.createUser(username.toString(), password.toString(), permisions, userinfo);
+function createUser(username, password, permissions, userinfo){
+  users.createUser(username.toString(), password.toString(), permissions, userinfo);
 }
