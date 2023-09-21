@@ -23,7 +23,7 @@ async function createSessionRoute(req, res){
         req.session.user = {
             username: "user",
             id: 0,
-            permissions: 1,
+            permissions: 0,
             firstname: "User",
             lastname: "Testprofile",
         };
