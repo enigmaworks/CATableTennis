@@ -8,7 +8,7 @@ function create(req, res){
     const {username, password, permissions, userinfo} = req.body;
     if(users.findUser(username)) return res.status(400).send();
 
-    if(req.session) {
+    if(req.session && req.session.user) {
       if(req.session.user.permissions === 1){
         createUser(username, password, permissions, userinfo);
       } else {
