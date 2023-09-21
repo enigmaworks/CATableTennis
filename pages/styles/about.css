@@ -1,35 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
-.label {
-    height: 56px;
-    width: 222px;
-  }
-  
-  .label .text-wrapper {
+  .heading {
+    display:inline-flexbox;
     color: #691616;
     font-family: 'Jockey One', sans-serif;
     font-size: 54px;
     font-weight: 400;
-    height: 56px;
-    left: 0;
-    letter-spacing: -1.08px;
-    line-height: 42px;
-    position: fixed;
-    top: 0;
-    width: 222px;
+    margin-left:0 auto;
+    text-align: center;
   }
   
-  .image {
+
+  
+.CATT-logo {
     height: 81px;
-    width: 81px;
+    display:inline-flexbox;
   }
   
-  .image .CATT-logo {
-    height: 81px;
-    left: 0;
-    object-fit: cover;
-    position: fixed;
-    top: 0;
-    width: 81px;
+
+
+  .maintext {
+    margin:0% 25% 0% 25%;
+    text-align:"center";
+    color: #3f3f3f;
+    font-family: "Inter-Regular", Helvetica;
   }
   
