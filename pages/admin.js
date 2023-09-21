@@ -63,8 +63,8 @@ export default function Admin(props){
         firstnameInput.current.value = "";
         lastnameInput.current.value = "";
         gradyearInput.current.value = "";
+        await refreshUsersData();
         alert("created user sucessfully");
-        refreshUsersData();
       } else {
         alert("failed to create user");
       }
@@ -102,7 +102,9 @@ export default function Admin(props){
       if(res.status === 200){
         passwordChangeInput.current.value = "";
         alert("User Deleted");
-        refreshUsersData();
+        await refreshUsersData();
+        userSelect.current.value = usersdata[0].id;
+        handleUserSelectChange();
       } else {
         alert("Something went wrong.");
       }
@@ -173,8 +175,8 @@ export default function Admin(props){
 
     if(res.status === 200){
       location.reload(true);
+      await refreshUsersData();
       alert("Changes saved.");
-      refreshUsersData();
     } else {
       alert("Something went wrong.");
     }
