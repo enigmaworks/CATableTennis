@@ -1,0 +1,48 @@
+.label {
+    height: 418px;
+    width: 719px;
+  }
+  
+  .label .flexcontainer {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 418px;
+    position: relative;
+    width: 719px;
+  }
+  
+  .label .text {
+    align-self: stretch;
+    color: #3f3f3f;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.16px;
+    line-height: 28px;
+    position: relative;
+  }
+  
+  .label .text-wrapper {
+    color: #3f3f3f;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.16px;
+    line-height: 28px;
+  }
+  .image {
+    height: 81px;
+    width: 81px;
+  }
+  
+  .image .CATT-logo {
+    height: 81px;
+    left: 0;
+    object-fit: cover;
+    position: fixed;
+    top: 0;
+    width: 81px;
+  }
+  
