@@ -21,6 +21,7 @@ export const getServerSideProps = withSessionSsr(
   }
 )
 
+
 export default function Admin(props){
   let [usersdata, setUsersdata] = useState(props.usersdata);
 
@@ -29,6 +30,17 @@ export default function Admin(props){
     data = await data.json();
     setUsersdata(data);
   }
+
+
+  const userSelect = useRef();
+  const [selectedUser, setSelectedUser] = useState(props.usersdata[0]);
+  
+  function handleUserSelectChange (e) {
+    setSelectedUser(usersdata.find((searchUser) => {
+      return userSelect.current.value.toString() === searchUser.id.toString();
+    }));
+  }
+
 
   const usernameInput = useRef();
   const passwordInput = useRef();
@@ -73,22 +85,13 @@ export default function Admin(props){
     }
 
   }
-
-  const userSelect = useRef();
-  const [selectedUser, setSelectedUser] = useState(props.usersdata[0]);
   
+
   const passwordChangeInput = useRef();
   const firstnameChangeInput = useRef();
   const lastnameChangeInput = useRef();
   const permissionsChangeInput = useRef();
   const gradYearChangeInput = useRef();
-
-  
-  function handleUserSelectChange (e) {
-    setSelectedUser(usersdata.find((searchUser) => {
-      return userSelect.current.value.toString() === searchUser.id.toString();
-    }));
-  }
 
   async function deleteUser(){
     if(confirm("Delete \"" + selectedUser.username + "\"?")){
@@ -182,6 +185,7 @@ export default function Admin(props){
     }
   }
 
+  
   return (
     <>
       <h1>Admin Page!</h1>
