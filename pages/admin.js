@@ -22,6 +22,14 @@ export const getServerSideProps = withSessionSsr(
 )
 
 export default function Admin(props){
+  let [usersdata, setUsersdata] = useState(props.usersdata);
+
+  async function refreshUsersData(){
+    let data = await fetch("/api/users/getdata");
+    data = await data.json();
+    setUsersdata(data);
+  }
+
   const usernameInput = useRef();
   const passwordInput = useRef();
   const permissionsInput = useRef();
@@ -56,12 +64,14 @@ export default function Admin(props){
         lastnameInput.current.value = "";
         gradyearInput.current.value = "";
         alert("created user sucessfully");
+        refreshUsersData();
       } else {
         alert("failed to create user");
       }
     } else {
       alert("You must enter a username, password, and permissions level.");
     }
+
   }
 
   const userSelect = useRef();
@@ -75,7 +85,7 @@ export default function Admin(props){
 
   
   function handleUserSelectChange (e) {
-    setSelectedUser(props.usersdata.find((searchUser) => {
+    setSelectedUser(usersdata.find((searchUser) => {
       return userSelect.current.value.toString() === searchUser.id.toString();
     }));
   }
@@ -92,6 +102,7 @@ export default function Admin(props){
       if(res.status === 200){
         passwordChangeInput.current.value = "";
         alert("User Deleted");
+        refreshUsersData();
       } else {
         alert("Something went wrong.");
       }
@@ -163,6 +174,7 @@ export default function Admin(props){
     if(res.status === 200){
       location.reload(true);
       alert("Changes saved.");
+      refreshUsersData();
     } else {
       alert("Something went wrong.");
     }
@@ -207,7 +219,7 @@ export default function Admin(props){
         <h3>edit user</h3>
         <div>
         <select id="userselect" onChange={handleUserSelectChange} ref={userSelect}>
-          {props.usersdata.map((user) => {
+          {usersdata.map((user) => {
             return (
             <option key={user.id} value={user.id}>
               {user.info.firstname} {user.info.lastname} ( {user.username} )
