@@ -33,7 +33,7 @@ export default function Admin(props){
     e.preventDefault();
 
     if( usernameInput.current.value !== "" && passwordInput.current.value !== "" && permissionsInput.current.value !== "" ){
-      const res = await fetch("/api/createuser", {
+      const res = await fetch("/api/users/create", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -61,6 +61,92 @@ export default function Admin(props){
       }
     } else {
       alert("You must enter a username, password, and permissions level.");
+    }
+  }
+
+  const userSelect = useRef();
+  const [selectedUser, setSelectedUser] = useState(props.usersdata[0]);
+  
+  const passwordChangeInput = useRef();
+  const firstnameChangeInput = useRef();
+  const lastnameChangeInput = useRef();
+  const permissionsChangeInput = useRef();
+  const gradYearChangeInput = useRef();
+
+  
+  function handleUserSelectChange (e) {
+    setSelectedUser(props.usersdata.find((searchUser) => {
+      return userSelect.current.value.toString() === searchUser.id.toString();
+    }));
+  }
+
+  async function handleChangePasswordSubmit(e){
+    e.preventDefault();
+    if(passwordChangeInput.current.value !== ""){
+      const res = await fetch("/api/users/edit", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          id: selectedUser.id,
+          data: {
+            password: passwordChangeInput.current.value
+          }
+        })
+      })
+
+      if(res.status === 200){
+        passwordChangeInput.current.value = "";
+        alert("Changes saved.");
+      } else {
+        alert("Something went wrong.");
+      }
+    } else {
+      alert("Input cannot be blank.");
+    }
+  }
+
+  async function handleChangeUserSubmit(e){
+    e.preventDefault();
+
+    let info = {
+      firstname: firstnameChangeInput.current.value,
+      lastname: lastnameChangeInput.current.value,
+      gradyear: gradYearChangeInput.current.value
+    };
+
+    if(firstnameChangeInput.current.value === ""){
+      firstnameChangeInput.current.value = selectedUser.info.firstname;
+      info.firstname = selectedUser.info.firstname;
+    }
+    if(lastnameChangeInput.current.value === ""){
+      lastnameChangeInput.current.value = selectedUser.info.lastname;
+      info.lastname = selectedUser.info.lastname;
+    }
+    if(gradYearChangeInput.current.value === ""){
+      gradYearChangeInput.current.value = selectedUser.info.gradyear;
+      info.gradyear = selectedUser.info.gradyear;
+    }
+    if(permissionsChangeInput.current.value === ""){
+      permissionsChangeInput.current.value = selectedUser.permissions;
+    }
+
+    const res = await fetch("/api/users/edit", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        id: selectedUser.id,
+        data: {
+          permissions: permissionsChangeInput.current.value,
+          info: info
+        }
+      })
+    })
+
+    if(res.status === 200){
+      location.reload(true);
+      alert("Changes saved.");
+    } else {
+      alert("Something went wrong.");
     }
   }
 
@@ -94,14 +180,48 @@ export default function Admin(props){
           </div>
           <div>
             <label htmlFor="gradyear">gradyear: </label>
-            <input type="number" min="1900" max="2200" step="1" id="gradyear" ref={gradyearInput} />
+            <input type="number" min="2023" step="1" id="gradyear" ref={gradyearInput} />
           </div>
           <button type="submit">Create User</button>
         </form>
       </div>
       <div>
         <h3>edit user</h3>
-        <ul>{props.usersdata.map(user => <li>{user.username}</li>)}</ul>
+        <select id="userselect" onChange={handleUserSelectChange} ref={userSelect}>
+          {props.usersdata.map((user) => {
+            return (
+            <option key={user.id} value={user.id}>
+              {user.info.firstname} {user.info.lastname} ( {user.username} )
+            </option>
+            )})}
+        </select>
+        <form onSubmit={handleChangePasswordSubmit}>
+          <div>
+            <label htmlFor="passwordChange">Set New Password: </label>
+            <input type="text" id="passwordChange" ref={passwordChangeInput} />
+          </div>
+          <button type="submit">Set Password</button>
+        </form>
+        <br />
+        <form onSubmit={handleChangeUserSubmit}>
+          <div>
+            <label htmlFor="firstnameChange">First Name: </label>
+            <input type="text" id="firstnameChange" placeholder={selectedUser.info.firstname} ref={firstnameChangeInput} />
+          </div>
+          <div>
+            <label htmlFor="lastnameChange">Last Name: </label>
+            <input type="text" id="lastnameChange" placeholder={selectedUser.info.lastname} ref={lastnameChangeInput} />
+          </div>
+          <div>
+            <label htmlFor="gradyearChange">Graduation Year: </label>
+            <input type="number" min="2023" step="1" id="gradyearChange" placeholder={selectedUser.info.gradyear} ref={gradYearChangeInput} />
+          </div>
+          <div>
+            <label htmlFor="permissionsChange">Change Permissions (0 basic, 1 admin): </label>
+            <input type="number" min="0" max="1" step="1" id="permissionsChange" placeholder={selectedUser.permissions} ref={permissionsChangeInput} />
+          </div>
+          <button type="submit">Update User Information</button>
+        </form>
       </div>
     </>
   );
