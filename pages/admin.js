@@ -59,7 +59,7 @@ export default function Admin(props){
         body: JSON.stringify({
           username: usernameInput.current.value,
           password: passwordInput.current.value,
-          permisions: permissionsInput.current.value,
+          permissions: permissionsInput.current.value,
           userinfo: {
             firstname: firstnameInput.current.value,
             lastname: lastnameInput.current.value,
@@ -177,7 +177,6 @@ export default function Admin(props){
     })
 
     if(res.status === 200){
-      location.reload(true);
       await refreshUsersData();
       alert("Changes saved.");
     } else {

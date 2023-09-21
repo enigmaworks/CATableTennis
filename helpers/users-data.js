@@ -70,7 +70,9 @@ function updatefn(id, newdata) {
   if(!user) return;
   
   const oldpassword = user.password;
-
+  if(newdata.info){
+    newdata.info = Object.assign(user.info, newdata.info);
+  }
   user = Object.assign(user, newdata);
   user.permissions = parseInt(user.permissions);
 
