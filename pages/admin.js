@@ -80,6 +80,24 @@ export default function Admin(props){
     }));
   }
 
+  async function deleteUser(){
+    if(confirm("Delete \"" + selectedUser.username + "\"?")){
+      const res = await fetch("/api/users/delete", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          id: parseInt(selectedUser.id)
+        })
+      })
+      if(res.status === 200){
+        passwordChangeInput.current.value = "";
+        alert("User Deleted");
+      } else {
+        alert("Something went wrong.");
+      }
+    }
+  }
+
   async function handleChangePasswordSubmit(e){
     e.preventDefault();
     if(passwordChangeInput.current.value !== ""){
@@ -187,6 +205,7 @@ export default function Admin(props){
       </div>
       <div>
         <h3>edit user</h3>
+        <div>
         <select id="userselect" onChange={handleUserSelectChange} ref={userSelect}>
           {props.usersdata.map((user) => {
             return (
@@ -195,6 +214,8 @@ export default function Admin(props){
             </option>
             )})}
         </select>
+        <button onClick={deleteUser}>Delete User</button>
+        </div>
         <form onSubmit={handleChangePasswordSubmit}>
           <div>
             <label htmlFor="passwordChange">Set New Password: </label>
