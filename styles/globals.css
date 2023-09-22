@@ -4,6 +4,16 @@
 :root{
     --clr_highlight: #691616;
     --clr_dark: #404040;
+    --clr_dark-a50: #40404088;
+    --ff_base: "Inter";
+    --ff_highlight: "Jockey One";
+    --f-size-scale: 1.5;
+    --f-size-base: clamp(0.875rem, 1rem + 0.25vmin, 1.125rem);
+    --f-size-small: calc(1rem / var(--f-size-scale));
+    --f-size-med: calc(1rem * var(--f-size-scale));
+    --f-size-large: calc(1rem * (var(--f-size-scale) ** 2));
+    --f-size-xl: calc(1rem * (var(--f-size-scale) ** 3));
+    --shadow-small: 0.125rem 0.125rem 0.25rem var( --clr_dark-a50);
 }
 *, *::before, *::after {
     font: inherit;
@@ -14,12 +24,13 @@
 
 body {
     max-width: 100vw;
-    min-height: 100vh;
     overflow-x: hidden;
-    font-family: Inter, sans-serif;
-    line-height: 1.75em;
+    height: 100vh;
+    overflow-y: scroll;
+    font-family: var(--ff_base), sans-serif;
+    font-size: var(--f-size-base);
     color: var(--clr_dark);
-    font-size: clamp(1rem, calc(1rem + .125vw), 1.125rem);
+    line-height: 1.75em;
 }
 img {
     max-width: 100%;
@@ -44,22 +55,31 @@ a {
     margin: 0;
     background-color: transparent;
     border: none;
-    text-decoration: underline;
+    text-decoration: none;
+    color: var(--clr_highlight);
 }
 a:hover,
 a:focus-within {
     outline: none;
+    text-decoration: underline;
 }
-button, input[type="submit"] {
-    background-color: #eee;
-    border-radius: 0;
-    border: 1px solid black;
-    cursor: pointer;
-    padding: 0.25em .5em;
-    font-size: 0.9em;
-    border-radius: 0.25em;
-    text-decoration: none;
+
+button, input[type="submit"], .button {
     margin: 0.1em 0;
+    padding: 0.25em 1em;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 0.25em;
+    border: 2px solid var(--clr_dark);
+    color: var(--clr_dark);
+    font-size: var(--f-size-base);
+    font-family: var(--ff_highlight);
+    text-transform: uppercase;
+    text-decoration: none;
+}
+button:hover, input[type="submit"]:hover, .button:hover,
+button:focus-within, input[type="submit"]:focus-within, .button:focus-within{
+    box-shadow: var(--shadow-small);
 }
 p {
     margin-top: 1em;
@@ -70,7 +90,7 @@ p {
 h1,
 h2,
 h3 {
-    font-family: "Jockey One", serif;
+    font-family: var(--ff_highlight), serif;
     color: var(--clr_highlight);
     font-weight: 800;
     margin-top: 1rem;
