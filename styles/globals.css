@@ -20,6 +20,7 @@ img {
 }
 main{
   padding: 0.5rem;
+  position: relative;
 }
 div{
   margin-top: 0.5rem;
@@ -43,7 +44,6 @@ button, input[type="submit"] {
     cursor: pointer;
     padding: 0.25em .5em;
     font-size: 0.9em;
-    opacity: 0.8;
     border-radius: 0.25em;
     text-decoration: none;
     margin: 0.1em 0;
