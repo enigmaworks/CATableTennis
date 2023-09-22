@@ -2,19 +2,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
   .heading {
-    display:inline-block;
+    margin:0 auto;
+    display:flex;
+    justify-content:center;
+  }
+  
+  .title{
     color: #691616;
     font-family: 'Jockey One', sans-serif;
     font-size: 54px;
     font-weight: 400;
-    margin:0 auto;
-    text-align: center;
   }
-  
 
   
 .CATT-logo {
-    height: 81px;
+  margin-top:20px;
+  float:left;
+    height: 70px;
   }
   
 

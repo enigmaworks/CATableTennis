@@ -1,4 +1,4 @@
-// import "/styles/about.css";
+import "/styles/about.css";
 
 export default function about() {
   return (
@@ -7,7 +7,7 @@ export default function about() {
       
       <div class="heading">
         <img class="CATT-logo" alt="CATT logo" src="/CATTLogo.png" />
-        <h1>About CATT</h1>
+        <h1 class="title">About CATT</h1>
       </div>
       <div class="maintext">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
