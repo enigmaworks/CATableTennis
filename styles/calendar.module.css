@@ -1,0 +1,6 @@
+.calendarframe{
+  display: block;
+  aspect-ratio: 8 / 6;
+  width: 90vmin;
+  margin: 0 auto;
+}

@@ -17,8 +17,9 @@ export default function Nav(){
       <button className={styles.navbutton} onClick={handleOnClick}>{navIsOpen ? "Close" : "Menu"}</button>
       <ul className={styles.navlist} aria-hidden={!navIsOpen} >
         <li className="button" is-active={router.pathname === "/" ? "true" : "false"}><a href="/">Home</a></li>
-        <li className="button" is-active={router.pathname === "/match" ? "true" : "false"}><a href="/match">Match</a></li>
         <li className="button" is-active={router.pathname === "/players" ? "true" : "false"}><a href="/players">Players</a></li>
+        <li className="button" is-active={router.pathname === "/match" ? "true" : "false"}><a href="/match">Match</a></li>
+        <li className="button" is-active={router.pathname === "/calendar" ? "true" : "false"}><a href="/calendar">Calendar</a></li>
         <li className="button" is-active={router.pathname === "/about" ? "true" : "false"}><a href="/about">About</a></li>
       </ul>
       </div>
