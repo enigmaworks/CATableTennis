@@ -6,7 +6,7 @@ export default function about() {
  
       
       <div class="heading">
-      <img class="CATT-logo" alt="Catt logo" src="/CATTLogo.png" />
+        <img class="CATT-logo" alt="CATT logo" src="/CATTLogo.png" />
         <h1>About CATT</h1>
       </div>
       <div class="maintext">
