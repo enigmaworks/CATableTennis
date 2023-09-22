@@ -1,0 +1,15 @@
+.heading {
+  display: grid;
+  grid-template-columns: auto auto;
+  width: fit-content;
+  margin-inline: auto;
+}
+.heading > * {
+  width: fit-content;
+  margin: auto;
+}
+.logo {
+  height: 3.5rem;
+  margin-right: 0.5rem;
+}
+

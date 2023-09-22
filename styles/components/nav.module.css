@@ -1,26 +1,95 @@
-.navlist {
+.nav{
+  position: relative;
+  z-index: 2;
+  --transistion-time: 0.3s;
+}
+
+.navcontainer{
   position: absolute;
-  list-style: none;
-  padding-right: 3rem;
-  padding-left: 1rem;
-  padding-top: 2.5rem;
   top: 0;
-  background: linear-gradient(90deg, white calc(100% - 3rem), transparent);
-  height: 100%;
-  transition: transform 0.5s ease-in;
-  left: 0;
+  transition: background-color var(--transistion-time);
+}
+
+.navlist {
+  padding: 0;
+  list-style: none;
+  transition:
+  transform var(--transistion-time) ease-in,
+  opacity var(--transistion-time) ease-out;
+}
+
+.nav[nav-state="open"] ul{
+  transition:
+  transform var(--transistion-time) ease-out,
+  opacity var(--transistion-time) ease-in;
+  transform: translate(0);
+  opacity: 1;
+  box-shadow: 0 0 1rem #fff;
+  background-color: white;
+}
+.nav[nav-state="closed"] ul{
   transform: translate(-100%);
-  z-index: 1;
-  height: 100%;
+  opacity: 0;
+  position: fixed;
+  background-color: white;
+  pointer-events: none;
+}
+
+.nav[nav-state="open"] div{
+  position: fixed;
+  background-color: white;
+  /* don't know how to delay this until the slide tranistion is over */
 }
 
 .navbutton{
   position: relative;
-  z-index: 2;
+  margin: 0.5rem;
   margin-inline: 1rem;
+  z-index: 3;
+  border: none;
+  border-radius: 0;
+}
+.navbutton:hover,
+.navbutton:focus-within{
+  box-shadow: none;
+  border-color: var(--clr_highlight);
+  text-decoration: underline;
 }
 
-.nav_open > ul{
-  transition: transform 0.5s ease-out;
-  transform: translate(0%);
+.navlist li{
+  text-align: center;
+  border: 2px solid var(--clr_dark);
+  background-color: white;
+  border-left: none;
+  border-radius:  0rem;
+  margin-top: 0.2em;
+  padding: 0;
+  transition: scale 100ms, box-shadow 100ms;
+  font-size: calc(var(--f-size-base) + 0.25vmin);
+}
+.navlist li:last-child{
+  border-bottom-right-radius: 0.75rem;
+}
+.navlist li:first-child{
+  border-top-right-radius: 0.75rem;
+}
+
+.navlist li:hover,
+.navlist li:focus-within{
+  scale: 1.03;
+}
+.navlist li:hover a,
+.navlist li:focus-within a{
+  text-decoration: underline;
+}
+
+.navlist a{
+  color: var(--clr_highlight);
+  font-family: var(--ff_highlight);
+  text-transform: uppercase;
+  padding: 0.5em 3em;
+  width: 100%;
+}
+.active{
+  border-color: var(--clr_highlight);
 }

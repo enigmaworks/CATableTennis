@@ -1,4 +1,4 @@
-import "/styles/about.css";
+import styles from "styles/about.module.css";
 
 export default function about() {
   return (
@@ -15,14 +15,16 @@ export default function about() {
         ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
         nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
         anim id est laborum.
-        
+        </p>
+        <p>
         Vitae tortor condimentum lacinia quis vel eros donec ac odio. Egestas egestas fringilla phasellus faucibus
         scelerisque eleifend donec. Ridiculus mus mauris vitae ultricies. Iaculis urna id volutpat lacus laoreet non
         curabitur gravida arcu. Eu ultrices vitae auctor eu augue ut lectus. Erat nam at lectus urna duis. Aenean
         sed adipiscing diam donec. Fermentum leo vel orci porta non pulvinar neque. Fermentum et sollicitudin ac
         orci phasellus egestas tellus. Quam id leo in vitae turpis massa sed elementum. Vitae aliquet nec
         ullamcorper sit amet risus nullam eget felis.
-      </div>
+        </p>
+      </section>
     </>
   );
 };
