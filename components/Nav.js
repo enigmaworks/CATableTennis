@@ -9,15 +9,16 @@ export default function Nav(){
   }
 
   return (
-  <nav className={navIsOpen ? styles.nav_open : styles.nav_closed}>
-    <button className={styles.navbutton} onClick={handleOnClick}>{navIsOpen ? "Close" : "Menu"}</button>
-    <a href="/login">Login</a>
-    <ul aria-hidden={!navIsOpen}  className={styles.navlist}>
-      <li><a href="/">Home</a></li>
-      <li><a href="/match">Match</a></li>
-      <li><a href="/players">Players</a></li>
-      <li><a href="/about">About</a></li>
-    </ul>
-  </nav>
+    <nav className={styles.nav} nav-state={navIsOpen ? "open" : "closed"}>
+      <div className={styles.navcontainer}>
+      <button className={styles.navbutton} onClick={handleOnClick}>{navIsOpen ? "Close" : "Menu"}</button>
+        <ul className={styles.navlist} aria-hidden={!navIsOpen} >
+          <li className="button"><a href="/">Home</a></li>
+          <li className="button"><a href="/match">Match</a></li>
+          <li className="button"><a href="/players">Players</a></li>
+          <li className="button"><a href="/about">About</a></li>
+        </ul>
+      </div>
+    </nav>
   )
 }
