@@ -3,22 +3,12 @@ import styles from "styles/about.module.css";
 export default function about() {
   return (
     <>
-<<<<<<< HEAD
- 
-      
-      <div class="heading">
-        <img class="CATT-logo" alt="CATT logo" src="/CATTLogo.png" />
-        <h1 class="title">About CATT</h1>
-      </div>
-      <div class="maintext">
-=======
       <header className={styles.heading}>
         <img className={styles.logo} alt="Catt logo" src="/CATTLogo.png" />
         <h1>About CATT</h1>
       </header>
       <section>
         <p>
->>>>>>> c8c3427f1d788244e3f245067c9ed04a860b9652
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
         dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
         ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
