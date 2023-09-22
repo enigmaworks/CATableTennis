@@ -56,7 +56,15 @@
   text-decoration: underline;
 }
 
+.navlist a{
+  padding: 0.5em 3em;
+  width: 100%;
+  color: inherit;
+}
+
 .navlist li{
+  font-family: var(--ff_highlight);
+  text-transform: uppercase;
   text-align: center;
   border: 2px solid var(--clr_dark);
   background-color: white;
@@ -67,6 +75,12 @@
   transition: scale 100ms, box-shadow 100ms;
   font-size: calc(var(--f-size-base) + 0.25vmin);
 }
+
+.navlist li[is-active="true"]{
+  color: var(--clr_highlight);
+  border-color: var(--clr_highlight);
+}
+
 .navlist li:last-child{
   border-bottom-right-radius: 0.75rem;
 }
@@ -83,13 +97,6 @@
   text-decoration: underline;
 }
 
-.navlist a{
-  color: var(--clr_highlight);
-  font-family: var(--ff_highlight);
-  text-transform: uppercase;
-  padding: 0.5em 3em;
-  width: 100%;
-}
 .active{
   border-color: var(--clr_highlight);
 }
