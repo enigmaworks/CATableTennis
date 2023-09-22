@@ -79,6 +79,7 @@
 .navlist li[is-active="true"]{
   color: var(--clr_highlight);
   border-color: var(--clr_highlight);
+  text-decoration: none;
 }
 
 .navlist li:last-child{
