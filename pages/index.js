@@ -12,6 +12,9 @@ export default function Home(props){
         <a href="/admin">admin page</a> (redirects if user is not signed in)
       </li>
       <li>
+        <a href="/about">about page</a> 
+      </li>
+      <li>
         <button onClick={signout}>Sign Out</button>
       </li>
     </ul>
