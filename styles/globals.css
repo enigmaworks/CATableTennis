@@ -7,12 +7,12 @@
     --clr_dark-a50: #40404088;
     --ff_base: "Inter";
     --ff_highlight: "Jockey One";
-    --f-size-scale: 1.5;
+    --f-size-scale: 1.4;
     --f-size-base: clamp(0.875rem, 1rem + 0.25vmin, 1.125rem);
     --f-size-small: calc(1rem / var(--f-size-scale));
     --f-size-med: calc(1rem * var(--f-size-scale));
-    --f-size-large: calc(1rem * (var(--f-size-scale) ** 2));
-    --f-size-xl: calc(1rem * (var(--f-size-scale) ** 3));
+    --f-size-large: calc(1rem * var(--f-size-scale) * var(--f-size-scale));
+    --f-size-xl: calc(1rem * var(--f-size-scale) * var(--f-size-scale) * var(--f-size-scale));
     --shadow-small: 0.125rem 0.125rem 0.25rem var( --clr_dark-a50);
 }
 *, *::before, *::after {
@@ -39,6 +39,7 @@ img {
 }
 main{
     padding: 1rem;
+    margin-top: 2.5rem; /**/
     position: relative;
 }
 section {
@@ -47,7 +48,12 @@ section {
     margin-inline: auto;
 }
 header{
+    display: block;
+    text-align: center;
     margin-block: clamp(1rem, calc(1rem + 3vh), 6rem);
+    margin-inline: auto;
+    width: fit-content;
+    line-height: 2em;
 }
 a {
     cursor: pointer;
@@ -94,16 +100,14 @@ h3 {
     color: var(--clr_highlight);
     font-weight: 800;
     margin-top: 1rem;
-    width: fit-content;
-    margin-inline: auto;
     margin-bottom: 0.25em;
 }
 h1 {
-    font-size: 2.25rem;
+    font-size: var(--f-size-xl);
 }
 h2 {
-    font-size: 1.5rem;
+    font-size: var(--f-size-large);
 }
 h3 {
-    font-size: 1rem;
+    font-size: var(--f-size-med);
 }

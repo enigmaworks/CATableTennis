@@ -2,19 +2,21 @@ import { withSessionSsr  } from "helpers/lib/config/withSession";
 
 export default function Home(props){
   return (<>
-    <h1>Login/Logout Functionality Demo</h1>
+  <header>
+    <h1>Caravel Academy Table Tennis Club</h1>
+  </header>
+  <section>
     <div>{ props.signedin ? `signed in as ${props.user.username}` : "not signed in" }</div>
     <ul>
       <li>
         <a href="/login">login page</a>
       </li>
       <li>
-        <a href="/admin">admin page</a> (redirects if user is not signed in)
-      </li>
-      <li>
         <button onClick={signout}>Sign Out</button>
       </li>
     </ul>
+
+  </section>
   </>);
 }
 

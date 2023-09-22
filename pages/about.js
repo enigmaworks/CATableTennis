@@ -3,8 +3,6 @@ import styles from "styles/about.module.css";
 export default function about() {
   return (
     <>
- 
-      
       <header className={styles.heading}>
         <img className={styles.logo} alt="Catt logo" src="/CATTLogo.png" />
         <h1>About CATT</h1>
