@@ -187,7 +187,9 @@ export default function Admin(props){
 
   return (
     <>
+    <header>
       <h1>Admin Page!</h1>
+    </header>
       <div>logged in as <b>{props.user.username}</b></div>
       <div>
         <a href="/">home</a>

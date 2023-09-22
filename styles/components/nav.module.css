@@ -1,5 +1,6 @@
 .nav{
-  position: relative;
+  position: absolute;
+  top: 0;
   z-index: 2;
   --transistion-time: 0.3s;
 }
@@ -38,7 +39,6 @@
 .nav[nav-state="open"] div{
   position: fixed;
   background-color: white;
-  /* don't know how to delay this until the slide tranistion is over */
 }
 
 .navbutton{
