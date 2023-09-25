@@ -8,7 +8,7 @@ export const getServerSideProps = withSessionSsr(
     if(user && user.permissions === 1){
       let data = await fetch(process.env.URL + "/api/users/getdata", req);
       data = await data.json();
-      return { props: {user: user, usersdata: data} }
+      return { props: {signedin: true, user: user, usersdata: data} }
     } else {
       return {
         redirect: {
@@ -19,8 +19,7 @@ export const getServerSideProps = withSessionSsr(
     }
 
   }
-)
-
+);
 
 export default function Admin(props){
   let [usersdata, setUsersdata] = useState(props.usersdata);

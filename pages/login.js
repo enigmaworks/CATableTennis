@@ -5,16 +5,13 @@ import { useRef, useState } from "react";
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     const user = req.session.user;
-
-    if(!user){
-      return {
-        props: { signedin: false }
-      }
+    if(user){
+      return {props: { signedin: true, user: user }}
+    } else {
+      return {props: { signedin: false, user: null }}
     }
-
-    return { props: { signedin: true, user: user } }
   }
-)
+);
 
 export default function Login(props){
   const router = useRouter();

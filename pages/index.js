@@ -1,5 +1,16 @@
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 
+export const getServerSideProps = withSessionSsr(
+  async ({req, res}) => {
+    const user = req.session.user;
+    if(user){
+      return {props: { signedin: true, user: user }}
+    } else {
+      return {props: { signedin: false, user: null }}
+    }
+  }
+);
+
 export default function Home(props){
   return (<>
   <header>
@@ -19,20 +30,6 @@ export default function Home(props){
   </section>
   </>);
 }
-
-export const getServerSideProps = withSessionSsr(
-  async ({req, res}) => {
-    const user = req.session.user;
-
-    if(!user){
-      return {
-        props: { signedin: false }
-      }
-    }
-
-    return { props: { signedin: true, user: user } }
-  }
-)
 
 function signout(){
   fetch("./api/logout").then(()=>{

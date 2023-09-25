@@ -1,4 +1,16 @@
+import { withSessionSsr  } from "helpers/lib/config/withSession";
 import styles from "/styles/calendar.module.css";
+
+export const getServerSideProps = withSessionSsr(
+  async ({req, res}) => {
+    const user = req.session.user;
+    if(user){
+      return {props: { signedin: true, user: user }}
+    } else {
+      return {props: { signedin: false, user: null }}
+    }
+  }
+);
 
 export default function calendar(){
   // will be replaceable by an admin
