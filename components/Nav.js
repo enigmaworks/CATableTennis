@@ -16,6 +16,7 @@ export default function Nav(pageprops){
       <button className={styles.navbutton} onClick={handleOnClick}>{navIsOpen ? "Close" : "Menu"}</button>
       <ul className={styles.navlist} aria-hidden={!navIsOpen} >
         <NavLink linkhref="/">Home</NavLink>
+        {(pageprops.user && pageprops.user.permissions === 1) ? <NavLink linkhref="/admin">Admin Page</NavLink> : ""}
         <NavLink linkhref="/players">Players</NavLink>
         <NavLink linkhref="/match">Match</NavLink>
         <NavLink linkhref="/calendar">Calendar</NavLink>
