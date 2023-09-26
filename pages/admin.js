@@ -189,12 +189,11 @@ export default function Admin(props){
   return (
     <>
     <header>
-      <h1>Admin Page!</h1>
+      <h1>Admin Panel</h1>
     </header>
-    <div>logged in as <b>{props.user.username}</b></div>
-    <div>
+    <section>
+      <h2>Create New User Account</h2>
       <form onSubmit={handleCreateUserSubmit}>
-        <h2>create user</h2>
         <div>
           <label htmlFor="username">username: </label>
           <input type="text" id="username" ref={usernameInput} />
@@ -219,10 +218,11 @@ export default function Admin(props){
         </div>
         <button type="submit">Create User</button>
       </form>
-    </div>
+    </section>
     
-    <div>
-      <h2>edit user</h2>
+    <section>
+      <h2>Edit Existing User</h2>
+
       <div>
         <select id="userselect" onChange={handleUserSelectChange} ref={userSelect}>
           {usersdata.map((user) => {
@@ -232,41 +232,59 @@ export default function Admin(props){
             </option>)
           })}
         </select>
-        <button onClick={deleteUser}>Delete User</button>
       </div>
-      <form onSubmit={handleChangePasswordSubmit}>
-        <div>
-          <label htmlFor="passwordChange">Set New Password: </label>
-          <input type="text" id="passwordChange" ref={passwordChangeInput} />
+
+      <div>
+        <h3>Set New Password</h3>
+
+        <form onSubmit={handleChangePasswordSubmit}>
+          <div>
+            <label htmlFor="passwordChange">New password: </label>
+            <input type="text" id="passwordChange" ref={passwordChangeInput} />
+          </div>
+
           <button type="submit">Set Password</button>
-        </div>
-      </form>
-      <form onSubmit={handleChangeUserSubmit}>
-        <div>
-          <label htmlFor="firstnameChange">First Name: </label>
-          <input type="text" id="firstnameChange" placeholder={selectedUser.info.firstname} ref={firstnameChangeInput} />
-        </div>
-        <div>
-          <label htmlFor="lastnameChange">Last Name: </label>
-          <input type="text" id="lastnameChange" placeholder={selectedUser.info.lastname} ref={lastnameChangeInput} />
-        </div>
-        <div>
-          <label htmlFor="gradyearChange">Graduation Year: </label>
-          <input type="number" min="2023" step="1" id="gradyearChange" placeholder={selectedUser.info.gradyear} ref={gradYearChangeInput} />
-        </div>
-        <div>
-          <label htmlFor="permissionsChange">Change Permissions (0 basic, 1 admin): </label>
-          <input type="number" min="0" max="1" step="1" id="permissionsChange" placeholder={selectedUser.permissions} ref={permissionsChangeInput} />
-        </div>
-        <div>
-          <label htmlFor="winsChange">Wins: </label>
-          <input type="number" id="winsChange" placeholder={selectedUser.statistics.w} ref={winsChangeInput}/>
-          <label htmlFor="lossesChange">Losses: </label>
-          <input type="number" id="lossesChange" placeholder={selectedUser.statistics.l} ref={lossesChangeInput}/>
-        </div>
-        <button type="submit">Update User Information</button>
-      </form>
-    </div>
+        </form>
+
+      </div>
+
+      <div> 
+        <h3>Update Account Details</h3>
+
+        <form onSubmit={handleChangeUserSubmit}>
+          <div>
+            <label htmlFor="firstnameChange">First Name: </label>
+            <input type="text" id="firstnameChange" placeholder={selectedUser.info.firstname} ref={firstnameChangeInput} />
+          </div>
+
+          <div>
+            <label htmlFor="lastnameChange">Last Name: </label>
+            <input type="text" id="lastnameChange" placeholder={selectedUser.info.lastname} ref={lastnameChangeInput} />
+          </div>
+
+          <div>
+            <label htmlFor="gradyearChange">Graduation Year: </label>
+            <input type="number" min="2023" step="1" id="gradyearChange" placeholder={selectedUser.info.gradyear} ref={gradYearChangeInput} />
+          </div>
+
+          <div>
+            <label htmlFor="permissionsChange">Permissions (0 user, 1 admin): </label>
+            <input type="number" min="0" max="1" step="1" id="permissionsChange" placeholder={selectedUser.permissions} ref={permissionsChangeInput} />
+          </div>
+
+          <div>
+            <label htmlFor="winsChange">Wins: </label>
+            <input type="number" id="winsChange" placeholder={selectedUser.statistics.w} min="0" max="9999" step="1" ref={winsChangeInput}/>
+            <label htmlFor="lossesChange">Losses: </label>
+            <input type="number" id="lossesChange" placeholder={selectedUser.statistics.l} min="0" max="9999" step="1" ref={lossesChangeInput}/>
+          </div>
+
+          <button type="submit">Update User Information</button>
+          <button onClick={deleteUser}>Delete User</button>
+        </form>
+      </div>
+
+    </section>
     </>
   );
 }
