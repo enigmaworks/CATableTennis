@@ -12,7 +12,7 @@
         "lastname": "string",
         "gradyear": num
     },
-    "statistics": {"num": {"w": num, "l": num}},
+    "statistics": {"w": num, "l": num},
     "password": "string hash"
 }
 */
@@ -51,7 +51,7 @@ function createfn (username, password, permissions, userinfo = {}){
   user.info.gradyear = userinfo.gradyear || "";
   user.info.flair = userinfo.flair || "";
   
-  user.statistics = {};
+  user.statistics = {"w": 0, "l": 0};
 
   bcrypt.hash(password, saltRounds, function(err, hash) {
     user.password = hash;
@@ -70,12 +70,16 @@ function updatefn(id, newdata) {
   if(!user) return;
   
   const oldpassword = user.password;
+
   if(newdata.info){
     newdata.info = Object.assign(user.info, newdata.info);
   }
+  if(newdata.statistics !== undefined){
+    newdata.statistics = Object.assign(user.statistics, newdata.statistics);
+  }
+
   user = Object.assign(user, newdata);
   user.permissions = parseInt(user.permissions);
-
   user.dateUpdated = new Date().toISOString();
   
   if(user.password !== oldpassword){
