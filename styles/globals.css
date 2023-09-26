@@ -82,6 +82,7 @@ button, input[type="submit"], .button {
     font-family: var(--ff_highlight);
     text-transform: uppercase;
     text-decoration: none;
+    transition: scale 100ms, box-shadow 100ms;
 }
 button:hover, input[type="submit"]:hover, .button:hover,
 button:focus-within, input[type="submit"]:focus-within, .button:focus-within{
