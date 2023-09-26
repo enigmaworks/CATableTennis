@@ -193,9 +193,6 @@ export default function Admin(props){
     </header>
     <div>logged in as <b>{props.user.username}</b></div>
     <div>
-      <a href="/">home</a>
-    </div>
-    <div>
       <form onSubmit={handleCreateUserSubmit}>
         <h2>create user</h2>
         <div>
