@@ -33,13 +33,31 @@ export default function Admin(props){
 
   const userSelect = useRef();
   const [selectedUser, setSelectedUser] = useState(props.usersdata[0]);
+
+  const passwordChangeInput = useRef();
+  const firstnameChangeInput = useRef();
+  const lastnameChangeInput = useRef();
+  const permissionsChangeInput = useRef();
+  const gradYearChangeInput = useRef();
+  const winsChangeInput = useRef();
+  const lossesChangeInput = useRef();
   
+  function resetInputs(){
+    passwordChangeInput.current.value = "";
+    firstnameChangeInput.current.value = "";
+    lastnameChangeInput.current.value = "";
+    permissionsChangeInput.current.value = "";
+    gradYearChangeInput.current.value = "";
+    winsChangeInput.current.value = "";
+    lossesChangeInput.current.value = "";
+  }
+
   function handleUserSelectChange (e) {
     setSelectedUser(usersdata.find((searchUser) => {
       return userSelect.current.value.toString() === searchUser.id.toString();
     }));
+    resetInputs();
   }
-
 
   const usernameInput = useRef();
   const passwordInput = useRef();
@@ -84,13 +102,6 @@ export default function Admin(props){
     }
 
   }
-  
-
-  const passwordChangeInput = useRef();
-  const firstnameChangeInput = useRef();
-  const lastnameChangeInput = useRef();
-  const permissionsChangeInput = useRef();
-  const gradYearChangeInput = useRef();
 
   async function deleteUser(){
     if(confirm("Delete \"" + selectedUser.username + "\"?")){
@@ -142,26 +153,15 @@ export default function Admin(props){
     e.preventDefault();
 
     let info = {
-      firstname: firstnameChangeInput.current.value,
-      lastname: lastnameChangeInput.current.value,
-      gradyear: gradYearChangeInput.current.value
+      firstname: firstnameChangeInput.current.value || selectedUser.info.firstname,
+      lastname: lastnameChangeInput.current.value || selectedUser.info.lastname,
+      gradyear: gradYearChangeInput.current.value || selectedUser.info.gradyear
     };
 
-    if(firstnameChangeInput.current.value === ""){
-      firstnameChangeInput.current.value = selectedUser.info.firstname;
-      info.firstname = selectedUser.info.firstname;
-    }
-    if(lastnameChangeInput.current.value === ""){
-      lastnameChangeInput.current.value = selectedUser.info.lastname;
-      info.lastname = selectedUser.info.lastname;
-    }
-    if(gradYearChangeInput.current.value === ""){
-      gradYearChangeInput.current.value = selectedUser.info.gradyear;
-      info.gradyear = selectedUser.info.gradyear;
-    }
-    if(permissionsChangeInput.current.value === ""){
-      permissionsChangeInput.current.value = selectedUser.permissions;
-    }
+    let statistics = {
+      w: parseInt(winsChangeInput.current.value || selectedUser.statistics.w),
+      l: parseInt(lossesChangeInput.current.value || selectedUser.statistics.l),
+    };
 
     const res = await fetch("/api/users/edit", {
       method: "POST",
@@ -170,13 +170,15 @@ export default function Admin(props){
         id: selectedUser.id,
         data: {
           permissions: permissionsChangeInput.current.value,
-          info: info
+          info: info,
+          statistics: statistics
         }
       })
     })
 
     if(res.status === 200){
       await refreshUsersData();
+      resetInputs();
       alert("Changes saved.");
     } else {
       alert("Something went wrong.");
@@ -258,6 +260,12 @@ export default function Admin(props){
         <div>
           <label htmlFor="permissionsChange">Change Permissions (0 basic, 1 admin): </label>
           <input type="number" min="0" max="1" step="1" id="permissionsChange" placeholder={selectedUser.permissions} ref={permissionsChangeInput} />
+        </div>
+        <div>
+          <label htmlFor="winsChange">Wins: </label>
+          <input type="number" id="winsChange" placeholder={selectedUser.statistics.w} ref={winsChangeInput}/>
+          <label htmlFor="lossesChange">Losses: </label>
+          <input type="number" id="lossesChange" placeholder={selectedUser.statistics.l} ref={lossesChangeInput}/>
         </div>
         <button type="submit">Update User Information</button>
       </form>
