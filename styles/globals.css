@@ -13,7 +13,8 @@
     --f-size-med: calc(1rem * var(--f-size-scale));
     --f-size-large: calc(1rem * var(--f-size-scale) * var(--f-size-scale));
     --f-size-xl: calc(1rem * var(--f-size-scale) * var(--f-size-scale) * var(--f-size-scale));
-    --shadow-small: 0.125rem 0.125rem 0.25rem var( --clr_dark-a50);
+    --shadow-small: 0.0625rem 0.0625rem 0.125rem var( --clr_dark-a50);
+    --shadow-med: 0.125rem 0.125rem 0.25rem var( --clr_dark-a50);
 }
 *, *::before, *::after {
     font: inherit;
@@ -71,8 +72,8 @@ a:focus-within {
 }
 
 button, input[type="submit"], .button {
-    margin: 0.1em 0;
-    padding: 0.25em 1em;
+    margin: 0.1em 0.1em;
+    padding: 0.125em 1em;
     cursor: pointer;
     background-color: white;
     border-radius: 0.25em;
@@ -87,6 +88,14 @@ button, input[type="submit"], .button {
 button:hover, input[type="submit"]:hover, .button:hover,
 button:focus-within, input[type="submit"]:focus-within, .button:focus-within{
     box-shadow: var(--shadow-small);
+}
+input{
+    color: inherit;
+    border-color: var(--clr_dark-a50);
+    border-radius: 0.25rem;
+    padding: 0.25em 0.25em;
+    height: 100%;
+    margin: 0.1em 0.1em;
 }
 p {
     margin-top: 1em;
