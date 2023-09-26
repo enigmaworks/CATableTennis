@@ -189,78 +189,79 @@ export default function Admin(props){
     <header>
       <h1>Admin Page!</h1>
     </header>
-      <div>logged in as <b>{props.user.username}</b></div>
-      <div>
-        <a href="/">home</a>
-      </div>
-      <div>
-        <form onSubmit={handleCreateUserSubmit}>
-          <h2>create user</h2>
-          <div>
-            <label htmlFor="username">username: </label>
-            <input type="text" id="username" ref={usernameInput} />
-          </div>
-          <div>
-            <label htmlFor="password">password: </label>
-            <input type="text" id="password" ref={passwordInput} />
-          </div>
-          <div>
-            <label htmlFor="permissions">permission level: (0 basic, 1 admin): </label>
-            <input type="number" min="0" max="1" step="1" id="permissions" ref={permissionsInput} />
-          </div>
-          <div>
-            <label htmlFor="firstname">firstname: </label>
-            <input type="text"  id="firstname" ref={firstnameInput} />
-            <label htmlFor="lastname"> lastname: </label>
-            <input type="text"  id="lastname" ref={lastnameInput} />
-          </div>
-          <div>
-            <label htmlFor="gradyear">gradyear: </label>
-            <input type="number" min="2023" step="1" id="gradyear" ref={gradyearInput} />
-          </div>
-          <button type="submit">Create User</button>
-        </form>
-      </div>
-      <div>
-        <h2>edit user</h2>
+    <div>logged in as <b>{props.user.username}</b></div>
+    <div>
+      <a href="/">home</a>
+    </div>
+    <div>
+      <form onSubmit={handleCreateUserSubmit}>
+        <h2>create user</h2>
         <div>
-          <select id="userselect" onChange={handleUserSelectChange} ref={userSelect}>
-            {usersdata.map((user) => {
-              return (
-              <option key={user.id} value={user.id}>
-                {user.info.firstname} {user.info.lastname} ( {user.username} )
-              </option>
-              )})}
-          </select>
-          <button onClick={deleteUser}>Delete User</button>
+          <label htmlFor="username">username: </label>
+          <input type="text" id="username" ref={usernameInput} />
         </div>
-        <form onSubmit={handleChangePasswordSubmit}>
-          <div>
-            <label htmlFor="passwordChange">Set New Password: </label>
-            <input type="text" id="passwordChange" ref={passwordChangeInput} />
-            <button type="submit">Set Password</button>
-          </div>
-        </form>
-        <form onSubmit={handleChangeUserSubmit}>
-          <div>
-            <label htmlFor="firstnameChange">First Name: </label>
-            <input type="text" id="firstnameChange" placeholder={selectedUser.info.firstname} ref={firstnameChangeInput} />
-          </div>
-          <div>
-            <label htmlFor="lastnameChange">Last Name: </label>
-            <input type="text" id="lastnameChange" placeholder={selectedUser.info.lastname} ref={lastnameChangeInput} />
-          </div>
-          <div>
-            <label htmlFor="gradyearChange">Graduation Year: </label>
-            <input type="number" min="2023" step="1" id="gradyearChange" placeholder={selectedUser.info.gradyear} ref={gradYearChangeInput} />
-          </div>
-          <div>
-            <label htmlFor="permissionsChange">Change Permissions (0 basic, 1 admin): </label>
-            <input type="number" min="0" max="1" step="1" id="permissionsChange" placeholder={selectedUser.permissions} ref={permissionsChangeInput} />
-          </div>
-          <button type="submit">Update User Information</button>
-        </form>
+        <div>
+          <label htmlFor="password">password: </label>
+          <input type="text" id="password" ref={passwordInput} />
+        </div>
+        <div>
+          <label htmlFor="permissions">permission level: (0 basic, 1 admin): </label>
+          <input type="number" min="0" max="1" step="1" id="permissions" ref={permissionsInput} />
+        </div>
+        <div>
+          <label htmlFor="firstname">firstname: </label>
+          <input type="text"  id="firstname" ref={firstnameInput} />
+          <label htmlFor="lastname"> lastname: </label>
+          <input type="text"  id="lastname" ref={lastnameInput} />
+        </div>
+        <div>
+          <label htmlFor="gradyear">gradyear: </label>
+          <input type="number" min="2023" step="1" id="gradyear" ref={gradyearInput} />
+        </div>
+        <button type="submit">Create User</button>
+      </form>
+    </div>
+    
+    <div>
+      <h2>edit user</h2>
+      <div>
+        <select id="userselect" onChange={handleUserSelectChange} ref={userSelect}>
+          {usersdata.map((user) => {
+            return (
+            <option key={user.id} value={user.id}>
+              {user.info.firstname} {user.info.lastname} ( {user.username} )
+            </option>)
+          })}
+        </select>
+        <button onClick={deleteUser}>Delete User</button>
       </div>
+      <form onSubmit={handleChangePasswordSubmit}>
+        <div>
+          <label htmlFor="passwordChange">Set New Password: </label>
+          <input type="text" id="passwordChange" ref={passwordChangeInput} />
+          <button type="submit">Set Password</button>
+        </div>
+      </form>
+      <form onSubmit={handleChangeUserSubmit}>
+        <div>
+          <label htmlFor="firstnameChange">First Name: </label>
+          <input type="text" id="firstnameChange" placeholder={selectedUser.info.firstname} ref={firstnameChangeInput} />
+        </div>
+        <div>
+          <label htmlFor="lastnameChange">Last Name: </label>
+          <input type="text" id="lastnameChange" placeholder={selectedUser.info.lastname} ref={lastnameChangeInput} />
+        </div>
+        <div>
+          <label htmlFor="gradyearChange">Graduation Year: </label>
+          <input type="number" min="2023" step="1" id="gradyearChange" placeholder={selectedUser.info.gradyear} ref={gradYearChangeInput} />
+        </div>
+        <div>
+          <label htmlFor="permissionsChange">Change Permissions (0 basic, 1 admin): </label>
+          <input type="number" min="0" max="1" step="1" id="permissionsChange" placeholder={selectedUser.permissions} ref={permissionsChangeInput} />
+        </div>
+        <button type="submit">Update User Information</button>
+      </form>
+    </div>
     </>
   );
 }
