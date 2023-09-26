@@ -8,7 +8,7 @@
     --ff_base: "Inter";
     --ff_highlight: "Jockey One";
     --f-size-scale: 1.4;
-    --f-size-base: clamp(0.875rem, 1rem + 0.25vmin, 1.125rem);
+    --f-size-base: clamp(0.875rem, calc(1rem + 0.125vmin), 1rem);
     --f-size-small: calc(1rem / var(--f-size-scale));
     --f-size-med: calc(1rem * var(--f-size-scale));
     --f-size-large: calc(1rem * var(--f-size-scale) * var(--f-size-scale));
@@ -51,7 +51,7 @@ section {
 header{
     display: block;
     text-align: center;
-    margin-block: clamp(1rem, calc(1rem + 3vh), 6rem);
+    margin-block: clamp(1rem, calc(1rem + 5vmax), 8rem);
     margin-inline: auto;
     width: fit-content;
     line-height: 2em;
@@ -88,10 +88,12 @@ button, input[type="submit"], .button {
 button:hover, input[type="submit"]:hover, .button:hover,
 button:focus-within, input[type="submit"]:focus-within, .button:focus-within{
     box-shadow: var(--shadow-small);
+    outline: none;
 }
-input{
+input, select {
+    all: unset;
     color: inherit;
-    border-color: var(--clr_dark-a50);
+    border: 1px solid var(--clr_dark-a50);
     border-radius: 0.25rem;
     padding: 0.25em 0.25em;
     height: 100%;

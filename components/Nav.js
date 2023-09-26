@@ -11,19 +11,25 @@ export default function Nav(pageprops){
   }
   
   return (
-    <nav className={styles.nav} nav-state={navIsOpen ? "open" : "closed"}>
-      <div className={styles.navcontainer}>
-      <button className={styles.navbutton} onClick={handleOnClick}>{navIsOpen ? "Close" : "Menu"}</button>
-      <ul className={styles.navlist} aria-hidden={!navIsOpen} >
-        <NavLink linkhref="/">Home</NavLink>
-        {(pageprops.user && pageprops.user.permissions === 1) ? <NavLink linkhref="/admin">Admin Page</NavLink> : ""}
-        <NavLink linkhref="/players">Players</NavLink>
-        <NavLink linkhref="/match">Match</NavLink>
-        <NavLink linkhref="/calendar">Calendar</NavLink>
-        <NavLink linkhref="/about">About</NavLink>
-      </ul>
+    <>
+      <div className={styles.loginout}>
+        {(pageprops.signedin) ? pageprops.user.username : ""}{" "}
+        {(pageprops.signedin) ? <a href="" onClick={signout}>Log Out</a>: <a href="/login">Log In</a>}
       </div>
-    </nav>
+      <nav className={styles.nav} nav-state={navIsOpen ? "open" : "closed"}>
+        <div className={styles.navcontainer}>
+          <button className={styles.navbutton} onClick={handleOnClick}>{navIsOpen ? "Close" : "Menu"}</button>
+          <ul className={styles.navlist} aria-hidden={!navIsOpen} >
+            <NavLink linkhref="/">Home</NavLink>
+            {(pageprops.signedin && pageprops.user.permissions === 1) ? <NavLink linkhref="/admin">Admin Page</NavLink> : ""}
+            <NavLink linkhref="/players">Players</NavLink>
+            <NavLink linkhref="/match">Match</NavLink>
+            <NavLink linkhref="/calendar">Calendar</NavLink>
+            <NavLink linkhref="/about">About</NavLink>
+          </ul>
+        </div>
+      </nav>
+    </>
   )
 }
 
@@ -34,4 +40,11 @@ function NavLink({linkhref, children}){
       <a href={linkhref}>{children}</a>
     </li>
   );
+}
+
+
+function signout(){
+  fetch("./api/logout").then(()=>{
+    location.reload(true);
+  })
 }

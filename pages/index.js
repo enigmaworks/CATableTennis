@@ -17,22 +17,6 @@ export default function Home(props){
     <h1>Caravel Academy Table Tennis Club</h1>
   </header>
   <section>
-    <div>{ props.signedin ? `signed in as ${props.user.username}` : "not signed in" }</div>
-    <ul>
-      <li>
-        <a href="/login">login page</a>
-      </li>
-      <li>
-        <button onClick={signout}>Sign Out</button>
-      </li>
-    </ul>
-
   </section>
   </>);
-}
-
-function signout(){
-  fetch("./api/logout").then(()=>{
-    location.reload(true);
-  })
 }

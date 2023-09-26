@@ -1,8 +1,17 @@
-.nav{
+.nav {
   position: absolute;
   top: 0;
   z-index: 2;
   --transistion-time: 0.3s;
+}
+
+.loginout{
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0.5rem;
+  margin-inline: 1rem;
+  width: max-content;
 }
 
 .navcontainer{
@@ -14,31 +23,30 @@
 .navlist {
   padding: 0;
   list-style: none;
+  background-color: white;
   transition:
-  transform var(--transistion-time) ease-in,
-  opacity var(--transistion-time) ease-out;
+    transform var(--transistion-time) ease-in,
+    opacity var(--transistion-time) ease-out;
 }
 
 .nav[nav-state="open"] ul{
   transition:
-  transform var(--transistion-time) ease-out,
-  opacity var(--transistion-time) ease-in;
+    transform var(--transistion-time) ease-out,
+    opacity var(--transistion-time) ease-in;
   transform: translate(0);
   opacity: 1;
   box-shadow: 0 0 1rem #fff;
-  background-color: white;
+
 }
 .nav[nav-state="closed"] ul{
   transform: translate(-100%);
   opacity: 0;
   position: fixed;
-  background-color: white;
   pointer-events: none;
 }
 
 .nav[nav-state="open"] div{
   position: fixed;
-  background-color: white;
 }
 
 .navbutton{
@@ -49,6 +57,7 @@
   border: none;
   border-radius: 0;
 }
+
 .navbutton:hover,
 .navbutton:focus-within{
   box-shadow: none;
@@ -67,7 +76,6 @@
   text-transform: uppercase;
   text-align: center;
   border: 2px solid var(--clr_dark);
-  background-color: white;
   border-left: none;
   border-radius:  0rem;
   margin-top: 0.2em;
@@ -100,4 +108,26 @@
 
 .active{
   border-color: var(--clr_highlight);
+}
+
+@media only screen and (max-width: 60rem) {
+  .navlist{
+    position: fixed;
+    inset: 0;
+    padding-top: 3.5rem;
+    background-color: #fff8;
+    backdrop-filter: blur(20px);
+  }
+  .nav[nav-state="open"] ul{
+    transform: translate(0);
+  }
+  .nav[nav-state="closed"] ul{
+    transform: translate(-100%);
+  }
+  .navlist li{
+    border: 2px solid var(--clr_dark);
+    border-radius: 0.75rem;
+    max-width: 20rem;
+    margin-inline: auto;
+  }
 }
