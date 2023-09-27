@@ -128,19 +128,7 @@ h2 {
 }
 h3 {
     font-size: var(--f-size-med);
-<<<<<<< HEAD
-}
-
-iframe{
-    padding:5px;
-    filter: invert(0) saturate(1) hue-rotate(160deg);
-    border-radius: 8px;
-    border-width: 4px;
-    border-color: #0e16ff;
-    box-shadow: var(--shadow-med);
-=======
     font-weight: 600;
->>>>>>> cac1f6701abf9626a8880028e0fcf43b7aa073f5
 }
 
 iframe{
