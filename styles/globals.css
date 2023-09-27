@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@400;600;800&display=swap');
 
 :root{
     --clr_highlight: #691616;
     --clr_dark: #404040;
     --clr_dark-a50: #40404088;
     --ff_base: "Inter";
-    --ff_highlight: "Jockey One";
+    --ff_highlight: "Gemunu Libre";
     --f-size-scale: 1.4;
     --f-size-base: clamp(0.875rem, calc(1rem + 0.125vmin), 1rem);
     --f-size-small: calc(1rem / var(--f-size-scale));
@@ -38,6 +38,7 @@ body {
     height: 100vh;
     overflow-y: scroll;
     font-family: var(--ff_base), sans-serif;
+    font-weight: 400;
     font-size: var(--f-size-base);
     color: var(--clr_dark);
     line-height: 1.75em;
@@ -93,11 +94,14 @@ button, input[type="submit"], .button {
     text-transform: uppercase;
     text-decoration: none;
     transition: scale 100ms, box-shadow 100ms;
+    font-weight: 600;
+    min-width: 10rem;
 }
 button:hover, input[type="submit"]:hover, .button:hover,
 button:focus-within, input[type="submit"]:focus-within, .button:focus-within{
     box-shadow: var(--shadow-small);
     outline: none;
+    font-weight: 800;
 }
 input, select {
     all: unset;
@@ -131,4 +135,5 @@ h2 {
 }
 h3 {
     font-size: var(--f-size-med);
+    font-weight: 600;
 }
