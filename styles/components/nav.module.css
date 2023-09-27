@@ -131,3 +131,9 @@
     margin-inline: auto;
   }
 }
+
+.logosmall{
+  height:3rem;
+  margin:0 auto;
+  padding-top:7px;
+}

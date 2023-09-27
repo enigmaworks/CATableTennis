@@ -12,6 +12,9 @@ export default function Nav(pageprops){
   
   return (
     <>
+      <div className={styles.logosmall}>
+        <img className={styles.logosmall} alt="Catt logo" src="/CATTLogo.png" />
+      </div>
       <div className={styles.loginout}>
         {(pageprops.signedin) ? pageprops.user.username : ""}{" "}
         {(pageprops.signedin) ? <a href="" onClick={signout}>Log Out</a>: <a href="/login">Log In</a>}
