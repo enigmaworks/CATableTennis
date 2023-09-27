@@ -1,6 +1,7 @@
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
+import Head from 'next/head';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -44,6 +45,9 @@ export default function Login(props){
   if(!props.signedin){
     return (
       <>
+        <Head>
+          <title>Login | Caravel Table Tennis</title>
+        </Head>
         <h1>Login page</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">username: </label>

@@ -1,4 +1,5 @@
 import { withSessionSsr  } from "helpers/lib/config/withSession";
+import Head from 'next/head';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -13,6 +14,9 @@ export const getServerSideProps = withSessionSsr(
 
 export default function Home(props){
   return (<>
+  <Head>
+    <title>Caravel Table Tennis</title>
+  </Head>
   <header>
     <h1>Caravel Academy Table Tennis Club</h1>
   </header>

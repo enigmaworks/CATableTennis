@@ -1,5 +1,6 @@
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 import { useRef, useState } from "react";
+import Head from 'next/head';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -188,6 +189,9 @@ export default function Admin(props){
 
   return (
     <>
+    <Head>
+      <title>Admin | Caravel Table Tennis</title>
+    </Head>
     <header>
       <h1>Admin Panel</h1>
     </header>

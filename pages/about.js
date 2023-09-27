@@ -1,5 +1,6 @@
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 import styles from "styles/about.module.css";
+import Head from 'next/head';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -15,6 +16,9 @@ export const getServerSideProps = withSessionSsr(
 export default function about() {
   return (
     <>
+      <Head>
+        <title>About | Caravel Table Tennis</title>
+      </Head>
       <header className={styles.heading}>
         <img className={styles.logo} alt="Catt logo" src="/CATTLogo.png" />
         <h1>About CATT</h1>
