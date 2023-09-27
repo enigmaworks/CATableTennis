@@ -43,7 +43,6 @@ img {
 }
 main{
     padding: 1rem;
-    margin-top: 2.5rem; /**/
     position: relative;
 }
 section {
@@ -54,7 +53,8 @@ section {
 header{
     display: block;
     text-align: center;
-    margin-block: clamp(1rem, calc(1rem + 5vmax), 8rem);
+    margin-bottom: clamp(1rem, calc(1rem + 7vh), 8rem);
+    margin-top: clamp(0rem, calc(1rem + 3vh), 4rem);
     margin-inline: auto;
     width: fit-content;
     line-height: 2em;

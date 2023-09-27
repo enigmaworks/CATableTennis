@@ -9,9 +9,13 @@
   position: absolute;
   right: 0;
   top: 0;
-  margin: 0.5rem;
+  margin: 0.75rem;
   margin-inline: 1rem;
   width: max-content;
+  font-family: var(--ff_base);
+}
+.loginout a {
+  font-family: var(--ff_highlight);
 }
 
 .navcontainer{
@@ -51,7 +55,7 @@
 
 .navbutton {
   position: relative;
-  margin: 0.5rem;
+  margin: 0.75rem;
   margin-inline: 1rem;
   z-index: 3;
   border: none;
@@ -126,7 +130,7 @@
     transform: translate(0);
   }
   .nav[nav-state="closed"] ul{
-    transform: translate(-100%);
+    transform: translate(0);
   }
   .navlist li{
     border: 2px solid var(--clr_dark);
@@ -136,18 +140,13 @@
   }
 }
 
-.logosmall{
-  height:3rem;
-  margin:0 auto;
-  padding-top:7px;
-  
-}
 .navbutton{
-    background: none;
+  background: none;
 }
 
 .logosmall{
-  height:3rem;
-  margin:0 auto;
-  padding-top:7px;
+  height: 3rem;
+  aspect-ratio: 1;
+  object-fit: contain;
+  margin: .25rem auto;
 }
