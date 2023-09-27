@@ -134,18 +134,16 @@
     max-width: 20rem;
     margin-inline: auto;
   }
-<<<<<<< HEAD
 }
 
 .logosmall{
   height:3rem;
   margin:0 auto;
   padding-top:7px;
-=======
-  .navbutton{
+  
+}
+.navbutton{
     background: none;
-  }
->>>>>>> cac1f6701abf9626a8880028e0fcf43b7aa073f5
 }
 
 .logosmall{
