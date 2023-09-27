@@ -1,5 +1,6 @@
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 import styles from "/styles/calendar.module.css";
+import Head from 'next/head';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -17,6 +18,9 @@ export default function calendar(){
   const calendarLink = "https://calendar.google.com/calendar/embed?src=c_6a41f08e8a8478e98747d458eb4b5b713961521ea88eb365fe5820349cd93a7d%40group.calendar.google.com&ctz=America%2FNew_York";
 
   return (<>
+    <Head>
+      <title>Calendar | Caravel Table Tennis</title>
+    </Head>
     <header>
       <h1>Calendar</h1>
     </header>

@@ -49,13 +49,14 @@
   position: fixed;
 }
 
-.navbutton{
+.navbutton {
   position: relative;
   margin: 0.5rem;
   margin-inline: 1rem;
   z-index: 3;
   border: none;
   border-radius: 0;
+  min-width: auto;
 }
 
 .navbutton:hover,
@@ -67,8 +68,14 @@
 
 .navlist a{
   padding: 0.5em 3em;
-  width: 100%;
+  width: 12rem;
   color: inherit;
+  text-transform: capitalize;
+}
+
+.navlist a:hover,
+.navlist a:focus-within{
+  text-decoration: none;
 }
 
 .navlist li{
@@ -87,6 +94,7 @@
 .navlist li[is-active="true"]{
   color: var(--clr_highlight);
   border-color: var(--clr_highlight);
+  font-weight: 800;
   text-decoration: none;
 }
 
@@ -100,10 +108,6 @@
 .navlist li:hover,
 .navlist li:focus-within{
   scale: 1.03;
-}
-.navlist li:hover a,
-.navlist li:focus-within a{
-  text-decoration: underline;
 }
 
 .active{
@@ -130,6 +134,18 @@
     max-width: 20rem;
     margin-inline: auto;
   }
+<<<<<<< HEAD
+}
+
+.logosmall{
+  height:3rem;
+  margin:0 auto;
+  padding-top:7px;
+=======
+  .navbutton{
+    background: none;
+  }
+>>>>>>> cac1f6701abf9626a8880028e0fcf43b7aa073f5
 }
 
 .logosmall{
