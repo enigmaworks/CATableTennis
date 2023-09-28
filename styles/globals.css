@@ -14,7 +14,7 @@
     --f-size-large: calc(1rem * var(--f-size-scale) * var(--f-size-scale));
     --f-size-xl: calc(1rem * var(--f-size-scale) * var(--f-size-scale) * var(--f-size-scale));
     --shadow-small: 0.0625rem 0.0625rem 0.125rem var( --clr_dark-a50);
-    --shadow-med: 0.125rem 0.125rem 0.25rem var( --clr_dark-a50);
+    --shadow-med: 0.125rem 0.125rem 0.25rem 0.125rem var( --clr_dark-a50);
 }
 *, *::before, *::after {
     font: inherit;

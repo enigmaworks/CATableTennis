@@ -1,0 +1,47 @@
+.leaderboard{
+  --spacing: clamp(0.25rem, 3vw, 4rem);
+  --cell-size: 4rem;
+  list-style: none;
+  padding: 0;
+  border: 2px solid var(--clr_dark);
+  box-shadow: var(--shadow-med);
+}
+.player ul, .headerrow ul{
+  list-style: none;
+  padding: 0.5rem;
+}
+.playerstats *, .headerrow *{
+  margin: 0;
+}
+.player ul{
+  margin-block: clamp(0.5rem, calc(0.5rem + 1vh), 2rem);
+}
+.playerstats, .headerrow ul{
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: var(--cell-size) 1fr repeat(3, var(--cell-size));
+  gap: var(--spacing);
+}
+
+.headerrow{
+  background-color: var(--clr_dark);
+}
+.headerrow * {
+  color: white;
+  font-size: var(--f-size-base);
+}
+.name{
+  font-family: var(--ff_base);
+  font-size: var(--f-size-base);
+  color: var(--clr_dark);
+  font-weight: 400;
+  width: 100%;
+}
+.rank{
+  font-family: var(--ff_highlight);
+  font-size: var(--f-size-large);
+  font-weight: 800;
+}
+.stat, .rank{
+  text-align: center;
+}

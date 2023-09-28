@@ -1,4 +1,5 @@
 import { withSessionSsr  } from "helpers/lib/config/withSession";
+import styles from "styles/index.module.css";
 import Head from 'next/head';
 
 export const getServerSideProps = withSessionSsr(
@@ -7,11 +8,18 @@ export const getServerSideProps = withSessionSsr(
     let data = await fetch(process.env.URL + "/api/users/getdata", req);
     data = await data.json();
     data = data.map(user => {
+      let percent;
+      if(user.statistics.w + user.statistics.l === 0){
+        percent = 0;
+      } else{
+        percent = user.statistics.w / (user.statistics.w + user.statistics.l);
+      }
       return {
+        id: user.id,
         name: user.info.firstname + " " + user.info.lastname,
         w: user.statistics.w,
         l: user.statistics.l,
-        percent: user.statistics.w / (user.statistics.w + user.statistics.l),
+        percent: percent,
       }
     });
     data = data.sort((a, b)=>{
@@ -23,6 +31,7 @@ export const getServerSideProps = withSessionSsr(
         return 0;
       }
     });
+    data = data.slice(0, 5);
     if(user){
       return {props: { signedin: true, user: user, usersdata: data }}
     } else {
@@ -39,17 +48,32 @@ export default function Home(props){
   <header>
     <h1>Caravel Academy Table Tennis Club</h1>
   </header>
-  <div>
-    {props.usersdata.map(user => {
-      return (
-      <ul>
-        <li><h3>{user.name}</h3></li>
-        <li>Win Percent: {user.percent}%</li>
-        <li>Wins: {user.w}</li>
-        <li>Losses: {user.l}</li>
-      </ul>
-      );
-    })}
-  </div>
+  <section>
+    <h2>Leaderboard</h2>
+    <ol className={styles.leaderboard}>
+      <li className={styles.headerrow}>
+        <ul>
+          <li className={styles.rank}><h3>Rank</h3></li>
+          <li><h3>Player</h3></li>
+          <li className={styles.stat}><h3>Win %</h3></li>
+          <li className={styles.stat}><h3>Wins</h3></li>
+          <li className={styles.stat}><h3>Losses</h3></li>
+        </ul>
+      </li>
+      {props.usersdata.map((user, i) => {
+        return (
+        <li className={styles.player} key={user.id}>
+          <ul className={styles.playerstats}>
+            <li className={styles.rank}>{i+1}</li>
+            <li><h4 className={styles.name}>{user.name}</h4></li>
+            <li className={styles.stat}>{Math.round(user.percent*10000)/100}%</li>
+            <li className={styles.stat}>{user.w}</li>
+            <li className={styles.stat}>{user.l}</li>
+          </ul>
+        </li>
+        );
+      })}
+    </ol>
+  </section>
   </>);
 }
