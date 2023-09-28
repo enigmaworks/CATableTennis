@@ -29,6 +29,7 @@ export default function Admin(props){
     let data = await fetch("/api/users/getdata");
     data = await data.json();
     setUsersdata(data);
+    location.reload();
   }
 
 
