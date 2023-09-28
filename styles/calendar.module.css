@@ -1,7 +1,7 @@
 .calendarframe {
   display: block;
   aspect-ratio: 8 / 6;
-  width: 90vmin;
+  width: clamp(90vmin, calc((90vmin + 90vw)/2), 90vw);
   margin: 0 auto;
   border: 2px solid var(--clr_dark);
   box-shadow: var(--shadow-med);
