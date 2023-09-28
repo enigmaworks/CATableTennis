@@ -24,6 +24,8 @@ export default function calendar(){
     <header>
       <h1>Calendar</h1>
     </header>
-    <iframe className={styles.calendarframe} src={calendarLink} frameborder="0"></iframe>
+    <div className={styles.calendarframe}>
+      <iframe src={calendarLink} frameborder="0"></iframe>
+    </div>
   </>);
 }

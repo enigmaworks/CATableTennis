@@ -1,9 +1,13 @@
-.calendarframe {
+.calendarframe{
+  border: 2px solid var(--clr_dark);
+  box-shadow: var(--shadow-med);
+  display: block;
+  margin: 0 auto;
+  width: fit-content;
+}
+.calendarframe iframe{
   display: block;
   aspect-ratio: 8 / 6;
   width: clamp(90vmin, calc((90vmin + 90vw)/2), 90vw);
-  margin: 0 auto;
-  border: 2px solid var(--clr_dark);
-  box-shadow: var(--shadow-med);
   filter: brightness(85%) contrast(150%) grayscale(1);
 }
