@@ -208,12 +208,14 @@ export default function Admin(props){
           <input type="text" id="password" ref={passwordInput} />
         </div>
         <div>
-          <label htmlFor="permissions">permission level: (0 basic, 1 admin): </label>
+          <label htmlFor="permissions">permissions: </label>
           <input type="number" min="0" max="1" step="1" id="permissions" ref={permissionsInput} />
         </div>
         <div>
           <label htmlFor="firstname">firstname: </label>
           <input type="text"  id="firstname" ref={firstnameInput} />
+        </div>
+        <div>
           <label htmlFor="lastname"> lastname: </label>
           <input type="text"  id="lastname" ref={lastnameInput} />
         </div>
@@ -273,13 +275,15 @@ export default function Admin(props){
           </div>
 
           <div>
-            <label htmlFor="permissionsChange">Permissions (0 user, 1 admin): </label>
+            <label htmlFor="permissionsChange">Permissions: </label>
             <input type="number" min="0" max="1" step="1" id="permissionsChange" placeholder={selectedUser.permissions} ref={permissionsChangeInput} />
           </div>
 
           <div>
             <label htmlFor="winsChange">Wins: </label>
             <input type="number" id="winsChange" placeholder={selectedUser.statistics.w} min="0" max="9999" step="1" ref={winsChangeInput}/>
+          </div>
+          <div>
             <label htmlFor="lossesChange">Losses: </label>
             <input type="number" id="lossesChange" placeholder={selectedUser.statistics.l} min="0" max="9999" step="1" ref={lossesChangeInput}/>
           </div>

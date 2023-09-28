@@ -48,17 +48,20 @@ export default function Login(props){
         <Head>
           <title>Login | Caravel Table Tennis</title>
         </Head>
-        <h1>Login page</h1>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="username">username: </label>
-          <input type="text" id="username" ref={usernameInput} />
-          <label htmlFor="password">password: </label>
-          <input type="password" id="password" ref={passwordIndput} />
-          <button type="submit">Sign In</button>
-        </form>
-        <div>
-          <a href="/">home</a>
-        </div>
+        <section className="centercontent">
+          <h2>Login</h2>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="username">username: </label>
+              <input type="text" id="username" ref={usernameInput} />
+            </div>
+            <div>
+              <label htmlFor="password">password: </label>
+              <input type="password" id="password" ref={passwordIndput} />
+            </div>
+            <button type="submit">Sign In</button>
+          </form>
+        </section>
       </>
     );
   } else {
