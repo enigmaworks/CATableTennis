@@ -1,5 +1,8 @@
 import { useRef, useState } from "react";
 import { useRouter } from 'next/router'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faX} from '@fortawesome/free-solid-svg-icons'
+
 
 import styles from "styles/components/nav.module.css"
 
@@ -16,12 +19,15 @@ export default function Nav(pageprops){
         <img className={styles.logosmall} alt="Catt logo" src="/CATTLogo.png" />
       </div>
       <div className={styles.loginout}>
-        {(pageprops.signedin) ? pageprops.user.username : ""}{" "}
+        {(pageprops.signedin) ? pageprops.user.username : ""}{" | "}
         {(pageprops.signedin) ? <a href="" onClick={signout}>Log Out</a>: <a href="/login">Log In</a>}
       </div>
       <nav className={styles.nav} nav-state={navIsOpen ? "open" : "closed"}>
         <div className={styles.navcontainer}>
-          <button className={styles.navbutton} onClick={handleOnClick}>{navIsOpen ? "Close" : "Menu"}</button>
+          <button className={styles.navbutton} onClick={handleOnClick}>
+            {navIsOpen ? <FontAwesomeIcon icon={faX} /> : <FontAwesomeIcon icon={faBars} />}
+            {navIsOpen ? " Close" : " Menu"}
+          </button>
           <ul className={styles.navlist} aria-hidden={!navIsOpen} >
             <NavLink linkhref="/">Home</NavLink>
             {(pageprops.signedin && pageprops.user.permissions === 1) ? <NavLink linkhref="/admin">Admin Page</NavLink> : ""}

@@ -12,9 +12,6 @@
   margin: 0.75rem;
   margin-inline: 1rem;
   width: max-content;
-  font-family: var(--ff_base);
-}
-.loginout a {
   font-family: var(--ff_highlight);
 }
 
@@ -60,14 +57,14 @@
   z-index: 3;
   border: none;
   border-radius: 0;
-  min-width: auto;
 }
 
 .navbutton:hover,
 .navbutton:focus-within{
   box-shadow: none;
   border-color: var(--clr_highlight);
-  text-decoration: underline;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .navlist a{
@@ -80,6 +77,7 @@
 .navlist a:hover,
 .navlist a:focus-within{
   text-decoration: none;
+  font-weight: 600;
 }
 
 .navlist li{
@@ -100,6 +98,11 @@
   border-color: var(--clr_highlight);
   font-weight: 800;
   text-decoration: none;
+}
+
+.navlist li[is-active="true"] a:hover,
+.navlist li[is-active="true"] a:focus-within{
+  font-weight: 800;
 }
 
 .navlist li:last-child{
