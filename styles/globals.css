@@ -115,22 +115,26 @@ h1,
 h2,
 h3 {
     font-family: var(--ff_highlight), serif;
-    color: var(--clr_highlight);
     font-weight: 800;
-    margin-top: 1rem;
+    margin-top: .75em;
     margin-bottom: 0.25em;
 }
 h1 {
+    color: var(--clr_highlight);
     font-size: var(--f-size-xl);
 }
 h2 {
+    color: var(--clr_highlight);
     font-size: var(--f-size-large);
 }
 h3 {
+    color: var(--clr_base);
     font-size: var(--f-size-med);
     font-weight: 600;
 }
-
+header h1{
+    margin-top: 0;
+}
 iframe{
     padding:5px;
     filter: invert(0) saturate(1) hue-rotate(160deg);
