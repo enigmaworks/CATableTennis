@@ -1,6 +1,9 @@
-.calendarframe{
+.calendarframe {
   display: block;
   aspect-ratio: 8 / 6;
   width: 90vmin;
   margin: 0 auto;
+  border: 2px solid var(--clr_dark);
+  box-shadow: var(--shadow-med);
+  filter: brightness(85%) contrast(150%) grayscale(1);
 }

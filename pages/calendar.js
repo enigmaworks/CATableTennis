@@ -15,7 +15,7 @@ export const getServerSideProps = withSessionSsr(
 
 export default function calendar(){
   // will be replaceable by an admin
-  const calendarLink = "https://calendar.google.com/calendar/embed?src=c_6a41f08e8a8478e98747d458eb4b5b713961521ea88eb365fe5820349cd93a7d%40group.calendar.google.com&ctz=America%2FNew_York";
+  const calendarLink = "https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FNew_York&showTitle=0&showTz=0&showCalendars=0&showPrint=0&showTabs=0&showDate=0&showNav=0&src=Y182YTQxZjA4ZThhODQ3OGU5ODc0N2Q0NThlYjRiNWI3MTM5NjE1MjFlYTg4ZWIzNjVmZTU4MjAzNDljZDkzYTdkQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23AD1457";
 
   return (<>
     <Head>

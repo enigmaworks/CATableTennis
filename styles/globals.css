@@ -146,14 +146,6 @@ h3 {
 header h1{
     margin-top: 0;
 }
-iframe{
-    padding:5px;
-    filter: invert(0) saturate(1) hue-rotate(160deg);
-    border-radius: 8px;
-    border-width: 4px;
-    border-color: #0e16ff;
-    box-shadow: var(--shadow-med);
-}
 form div{
     display: grid;
     grid-auto-flow: column;
