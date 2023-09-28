@@ -4,9 +4,9 @@ import Head from 'next/head';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
-    const user = req.session.user;
     let data = await fetch(process.env.URL + "/api/users/getdata", req);
     data = await data.json();
+
     data = data.map(user => {
       let percent;
       if(user.statistics.w + user.statistics.l === 0){
@@ -22,6 +22,7 @@ export const getServerSideProps = withSessionSsr(
         percent: percent,
       }
     });
+
     data = data.sort((a, b)=>{
       if(a.percent > b.percent){
         return -1;
@@ -31,7 +32,10 @@ export const getServerSideProps = withSessionSsr(
         return 0;
       }
     });
+    
     data = data.slice(0, 5);
+
+    const user = req.session.user;
     if(user){
       return {props: { signedin: true, user: user, usersdata: data }}
     } else {
