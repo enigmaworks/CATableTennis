@@ -1,5 +1,5 @@
 import { withSessionSsr  } from "helpers/lib/config/withSession";
-import styles from "styles/match.module.css";
+import styles from "styles/index.module.css";
 import Head from 'next/head';
 
 export const getServerSideProps = withSessionSsr(
@@ -17,8 +17,8 @@ export default function Match(){
   return (
   <>
     <Head>
-      <title>Match | Caravel Table Tennis </title>
+      <title>Create a Match | Caravel Table Tennis </title>
     </Head>
-    <h1><center>Create a Match</center></h1>
+    Match Page
   </>);
 }

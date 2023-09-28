@@ -19,6 +19,9 @@ export default function Match(){
     <Head>
       <title>Match | Caravel Table Tennis </title>
     </Head>
-    <h1><center>Create a Match</center></h1>
+    <h2 className={styles.p1}>Billy</h2>
+    <h2 className={styles.p2}>Joe</h2>    {/*Obviously all of these will be switched to variables*/}
+    <h2 className={styles.p3}>Bob</h2>
+    <h2 className={styles.p4}>Will</h2>
   </>);
 }
