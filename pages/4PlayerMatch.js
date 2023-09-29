@@ -21,8 +21,9 @@ export default function Match(){
     </Head>
     <div className={styles.side1}>
       <h2 className={styles.p1}>Billy</h2>
-      <button className={styles.scoreButton}>+</button>
-      <button className={styles.scoreButton}>-</button>
+      <button className={styles.scoreButton2}>+</button>
+      <button className={styles.scoreButton2}>-</button>
+      <h1 className={styles.score1}>4</h1>
       <h2 className={styles.p3}>Bob</h2>
       
     </div>
@@ -30,8 +31,9 @@ export default function Match(){
 
     <div className={styles.side2}>
       <h2 className={styles.p2}>Joe</h2>
-      <button className={styles.scoreButton}>+</button>
-      <button className={styles.scoreButton}>-</button>
+      <button className={styles.scoreButton2}>+</button>
+      <button className={styles.scoreButton2}>-</button>
+      <h1 className={styles.score2}>4</h1>
       <h2 className={styles.p4}>Will</h2>
     </div>
     

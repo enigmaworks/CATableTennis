@@ -2,6 +2,18 @@
   width:50%;
   display:inline-block;
 }
+.buttons1{
+  width:50%;
+  display:inline-block;
+}
+.score1{
+  display:inline-block;
+  width:50%;
+}
+.score2{
+  display:inline-block;
+  width:50%;
+}
 
 .side2{
   display:inline-block;
@@ -23,7 +35,13 @@
   background-color: gray;
   text-align: center;
 }
-.scoreButton{
+.scoreButton1{
+  font-size: larger;
+  margin:3px;
+  width: 10px;
+  height:100px;
+}
+.scoreButton2{
   font-size: larger;
   margin:30px;
   width: 100px;
