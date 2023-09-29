@@ -187,6 +187,43 @@ export default function Admin(props){
     }
   }
 
+  const calendarLinkInput = useRef();
+  const numLeaderboardPlayersInput = useRef();
+  const aboutTextInput = useRef();
+
+  async function handleUpdateSiteInfo(e){
+    e.preventDefault();
+    if(calendarLinkInput.current.value === "" && numLeaderboardPlayersInput.current.value === "" && aboutTextInput.current.value === ""){
+      alert("Please enter a value.");
+    } else {
+      let data = {};
+
+      if(calendarLinkInput.current.value !== ""){
+        data.calendarlink = calendarLinkInput.current.value;
+      }
+      if(numLeaderboardPlayersInput.current.value !== ""){
+        data.numplayersonleaderboard = numLeaderboardPlayersInput.current.value;
+      }
+      if(aboutTextInput.current.value !== ""){
+        data.about = aboutTextInput.current.value;
+      }
+
+      const res = await fetch("/api/sitedata", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({...data})
+      })
+
+      if(res.status === 200){
+        calendarLinkInput.current.value = "";
+        numLeaderboardPlayersInput.current.value = "";
+        aboutTextInput.current.value = "";
+        alert("Changes saved.");
+      } else {
+        alert("Something went wrong.");
+      }
+    }
+  }
 
   return (
     <>
@@ -293,6 +330,27 @@ export default function Admin(props){
         </form>
       </div>
 
+      <div>
+        <h2>Update Site Information</h2>
+        <form onSubmit={handleUpdateSiteInfo}>
+          <div>
+            <label htmlFor="calendarlink">Google Calendar Embed Link</label>
+            <input type="text" id="calendarlink" ref={calendarLinkInput} />
+          </div>
+
+          <div>
+            <label htmlFor="leaderboardplayers">Players on Leaderboard</label>
+            <input type="number" id="leaderboardplayers" ref={numLeaderboardPlayersInput}/>
+          </div>
+
+          <div>
+            <label htmlFor="aboutsite">About Paragraph</label>
+            <textarea id="aboutsite" ref={aboutTextInput}/>
+          </div>
+
+          <button type="submit">Update Information </button>
+        </form>
+      </div>
     </section>
     </>
   );

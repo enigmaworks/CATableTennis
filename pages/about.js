@@ -5,15 +5,18 @@ import Head from 'next/head';
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     const user = req.session.user;
+    const data = await fetch(process.env.URL + "/api/sitedata", {method:"GET"});
+    const {about} = await data.json();
+
     if(user){
-      return {props: { signedin: true, user: user }}
+      return {props: { signedin: true, user: user, abouttext: about }}
     } else {
-      return {props: { signedin: false, user: null }}
+      return {props: { signedin: false, user: null, abouttext: about }}
     }
   }
 );
 
-export default function about() {
+export default function about(props) {
   return (
     <>
       <Head>
@@ -24,21 +27,7 @@ export default function about() {
         <h1>About CATT</h1>
       </header>
       <section>
-        <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-        ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-        nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-        anim id est laborum.
-        </p>
-        <p>
-        Vitae tortor condimentum lacinia quis vel eros donec ac odio. Egestas egestas fringilla phasellus faucibus
-        scelerisque eleifend donec. Ridiculus mus mauris vitae ultricies. Iaculis urna id volutpat lacus laoreet non
-        curabitur gravida arcu. Eu ultrices vitae auctor eu augue ut lectus. Erat nam at lectus urna duis. Aenean
-        sed adipiscing diam donec. Fermentum leo vel orci porta non pulvinar neque. Fermentum et sollicitudin ac
-        orci phasellus egestas tellus. Quam id leo in vitae turpis massa sed elementum. Vitae aliquet nec
-        ullamcorper sit amet risus nullam eget felis.
-        </p>
+        <p>{props.abouttext}</p>
       </section>
     </>
   );

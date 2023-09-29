@@ -5,18 +5,18 @@ import Head from 'next/head';
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     const user = req.session.user;
+    const data = await fetch(process.env.URL + "/api/sitedata", {method:"GET"});
+    const {calendarlink} = await data.json();
+
     if(user){
-      return {props: { signedin: true, user: user }}
+      return {props: { signedin: true, user: user, calendarlink: calendarlink }}
     } else {
-      return {props: { signedin: false, user: null }}
+      return {props: { signedin: false, user: null, calendarlink: calendarlink }}
     }
   }
 );
 
-export default function calendar(){
-  // will be replaceable by an admin
-  const calendarLink = "https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FNew_York&showTitle=0&showTz=0&showCalendars=0&showPrint=0&showTabs=0&showDate=0&showNav=0&src=Y182YTQxZjA4ZThhODQ3OGU5ODc0N2Q0NThlYjRiNWI3MTM5NjE1MjFlYTg4ZWIzNjVmZTU4MjAzNDljZDkzYTdkQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23AD1457";
-
+export default function calendar(props){
   return (<>
     <Head>
       <title>Calendar | Caravel Table Tennis</title>
@@ -25,7 +25,7 @@ export default function calendar(){
       <h1>Calendar</h1>
     </header>
     <div className={styles.calendarframe}>
-      <iframe src={calendarLink} frameborder="0"></iframe>
+      <iframe src={props.calendarlink} frameborder="0"></iframe>
     </div>
   </>);
 }

@@ -150,7 +150,15 @@ form div{
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 10rem 1fr;
+    margin-top: 0.375em;
 }
 form div input {
     width: min-content;
+}
+label{
+    line-height: 1.1em;
+}
+textarea {
+    resize: none;
+    min-height: 8em;
 }

@@ -1,27 +1,30 @@
 import {withSessionRoute} from "helpers/lib/config/withSession";
 import * as fs from "fs";
-let sitedata = require("/data/sitedata.json");
+let sitedata = require("/data/site.json");
 
-export default withSessionRoute(editsite);
+export default withSessionRoute(site);
 
-function editsite(req, res){
-  if(req.session && req.session.user && req.session.user.permissions === 1) {
-    if(req.method = "POST"){
-      const {calendarlink, about} = req.body;
+function site(req, res){
+  if(req.method === "POST"){
+    if(req.session && req.session.user && req.session.user.permissions === 1) {
+      const {calendarlink, about, numplayersonleaderboard} = req.body;
       if(calendarlink){
         sitedata.calendarlink = calendarlink;
       }
       if(about){
         sitedata.about = about;
       }
-      fs.writeFileSync('data/sitedata.json', JSON.stringify(data, null, 4));
+      if(numplayersonleaderboard){
+        sitedata.numplayersonleaderboard = parseInt(numplayersonleaderboard);
+      }
+      fs.writeFileSync('data/site.json', JSON.stringify(sitedata, null, 4));
       return res.status(200).send();
-    } else if (req.method = "GET"){
-      return res.json(sitedata);
     } else {
-      return res.status(405).send();
+      return res.status(401).send();
     }
+  } else if (req.method === "GET"){
+    return res.json(sitedata);
   } else {
-    return res.status(401).send();
+    return res.status(405).send({});
   }
 }
