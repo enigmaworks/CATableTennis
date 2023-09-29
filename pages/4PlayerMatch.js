@@ -19,9 +19,22 @@ export default function Match(){
     <Head>
       <title>Match | Caravel Table Tennis </title>
     </Head>
-    <h2 className={styles.p1}>Billy</h2>
-    <h2 className={styles.p2}>Joe</h2>    {/*Obviously all of these will be switched to variables*/}
-    <h2 className={styles.p3}>Bob</h2>
-    <h2 className={styles.p4}>Will</h2>
+    <div className={styles.side1}>
+      <h2 className={styles.p1}>Billy</h2>
+      <button className={styles.scoreButton}>+</button>
+      <button className={styles.scoreButton}>-</button>
+      <h2 className={styles.p3}>Bob</h2>
+      
+    </div>
+    
+
+    <div className={styles.side2}>
+      <h2 className={styles.p2}>Joe</h2>
+      <button className={styles.scoreButton}>+</button>
+      <button className={styles.scoreButton}>-</button>
+      <h2 className={styles.p4}>Will</h2>
+    </div>
+    
+    
   </>);
 }
