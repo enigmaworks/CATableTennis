@@ -1,6 +1,7 @@
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 import { useRef, useState } from "react";
 import Head from 'next/head';
+import toast, { Toaster } from 'react-hot-toast';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -227,6 +228,10 @@ export default function Admin(props){
 
   return (
     <>
+    <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+    />
     <Head>
       <title>Admin | Caravel Table Tennis</title>
     </Head>
