@@ -54,72 +54,41 @@ export default function MatchPage(props){
     }
   }
 
+  if(gamePhase === "setup"){
+
   return (
   <>
     <Head>
       <title>Match | Caravel Table Tennis </title>
     </Head>
-    { (gamePhase === "setup") ? 
-    <>
-      <header>
-        <h1>Set Up Match</h1>
-        <select ref={matchTypeSelect} onChange={()=>{setNumPlayers(parseInt(matchTypeSelect.current.value))}}>
-          <option value="2">Two Player</option>
-          <option value="4">Four Player</option>
-        </select>
+    <header>
+      <h1>Match</h1>
+    </header>
+    <section>
+      <h2>Setup</h2>
+      <select ref={matchTypeSelect} onChange={()=>{setNumPlayers(parseInt(matchTypeSelect.current.value))}}>
+        <option value="2">Two Player</option>
+        <option value="4">Four Player</option>
+      </select>
+      <div>
+        <h3>{numPlayers === 2 ? "Player One" : "Team One"}</h3>
+        <UserSelect usersdata={props.usersdata} refobj={p1Select} checkfn={playerIsAvailable} changefn={()=>{updateTeam(1)}}></UserSelect>
+        {numPlayers === 4 ? <UserSelect usersdata={props.usersdata} refobj={p2Select} checkfn={playerIsAvailable} changefn={()=>{updateTeam(1)}}></UserSelect> : ""}
+      </div>
 
-        <h2>{numPlayers === 2 ? "Player One" : "Team One"}</h2>
-        <select defaultValue="-1" name="selectplayerone" ref={p1Select} onChange={()=>{updateTeam(1)}}>
-          <option value="-1" disabled>select player</option>
-          {props.usersdata.map(user => {
-            let disabled = true;
-            if(playerIsAvailable(user.id)){
-              disabled = false;
-            }
-            return <option disabled={disabled} key={user.id} value={user.id}>{user.info.firstname} {user.info.lastname}</option>
-          })}
-        </select>
-        {numPlayers === 2 ? "" : 
-          <select defaultValue="-1" name="selectplayertwo" ref={p2Select} onChange={()=>{updateTeam(1)}}>
-            <option value="-1" disabled>select player</option>
-            {props.usersdata.map(user => {
-              let disabled = true;
-              if(playerIsAvailable(user.id)){
-                disabled = false;
-              }
-              return <option disabled={disabled} key={user.id} value={user.id}>{user.info.firstname} {user.info.lastname}</option>
-            })}
-          </select>
-        }
-        <h2>{numPlayers === 2 ? "Player Two" : "Team Two"}</h2>
-        <select defaultValue="-1" name="selectplayerthree" ref={p3Select} onChange={()=>{updateTeam(2)}}>
-          <option value="-1" disabled>select player</option>
-          {props.usersdata.map(user => {
-            let disabled = true;
-            if(playerIsAvailable(user.id)){
-              disabled = false;
-            }
-            return <option disabled={disabled} key={user.id} value={user.id}>{user.info.firstname} {user.info.lastname}</option>
-          })}
-        </select>
-        {numPlayers === 2 ? "" : 
-          <select defaultValue="-1" name="selectplayerfour" ref={p4Select} onChange={()=>{updateTeam(2)}}>
-            <option value="-1" disabled>select player</option>
-            {props.usersdata.map(user => {
-              let disabled = true;
-              if(playerIsAvailable(user.id)){
-                disabled = false;
-              }
-              return <option disabled={disabled} key={user.id} value={user.id}>{user.info.firstname} {user.info.lastname}</option>
-            })}
-          </select>
-        }
-      </header>
+      <div>
+        <h3>{numPlayers === 2 ? "Player Two" : "Team Two"}</h3>
+        <UserSelect usersdata={props.usersdata} refobj={p3Select} checkfn={playerIsAvailable} changefn={()=>{updateTeam(2)}}></UserSelect>
+        {numPlayers === 4 ? <UserSelect usersdata={props.usersdata} refobj={p4Select} checkfn={playerIsAvailable} changefn={()=>{updateTeam(2)}}></UserSelect> : ""}
+      </div>
+      
       <button onClick={()=>{setgamePhase("match")}}>Next</button>
-    </>
-    : <Match backfn={()=>{setgamePhase("setup")}} numPlayers={numPlayers} teamone={team1} teamtwo={team2}/>
-    }
+    </section>
   </>);
+  }
+  if(gamePhase === "match"){
+    return(<Match backfn={()=>{setgamePhase("setup")}} numPlayers={numPlayers} teamone={team1} teamtwo={team2}/>)
+  }
 }
 
 function Match({numPlayers, teamone, teamtwo, backfn}){
@@ -128,26 +97,19 @@ function Match({numPlayers, teamone, teamtwo, backfn}){
   } else if (numPlayers === 4){
     return <>{teamone[0]} & {teamone[1]} VS {teamtwo[0]} & {teamtwo[1]}<button onClick={backfn}>Back</button> </>
   }
-
-
 }
 
-
-
-{/* <div className={styles.side1}>
-      <h2 className={styles.p1}>Billy</h2>
-      <button className={styles.scoreButton2}>+</button>
-      <button className={styles.scoreButton2}>-</button>
-      <h1 className={styles.score1}>4</h1>
-      <h2 className={styles.p3}>Bob</h2>
-      
-    </div>
-    
-
-    <div className={styles.side2}>
-      <h2 className={styles.p2}>Joe</h2>
-      <button className={styles.scoreButton2}>+</button>
-      <button className={styles.scoreButton2}>-</button>
-      <h1 className={styles.score2}>4</h1>
-      <h2 className={styles.p4}>Will</h2>
-    </div> */}
+function UserSelect({usersdata, refobj, checkfn, changefn}){
+  return(
+    <select defaultValue="-1" name="selectplayerfour" ref={refobj} onChange={()=>{changefn()}}>
+      <option value="-1" disabled>select player</option>
+      {usersdata.map(user => {
+        let disabled = true;
+        if(checkfn(user.id)){
+          disabled = false;
+        }
+        return <option disabled={disabled} key={user.id} value={user.id}>{user.info.firstname} {user.info.lastname}</option>
+      })}
+    </select>
+  )
+}
