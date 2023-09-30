@@ -95,12 +95,12 @@ export default function Admin(props){
         lastnameInput.current.value = "";
         gradyearInput.current.value = "";
         await refreshUsersData();
-        alert("created user sucessfully");
+        toast.success("created user sucessfully");
       } else {
-        alert("failed to create user");
+        toast.error("failed to create user");
       }
     } else {
-      alert("You must enter a username, password, and permissions level.");
+      toast.error("You must enter a username, password, and permissions level.");
     }
 
   }
@@ -116,12 +116,12 @@ export default function Admin(props){
       })
       if(res.status === 200){
         passwordChangeInput.current.value = "";
-        alert("User Deleted");
+        toast.success("User Deleted");
         await refreshUsersData();
         userSelect.current.value = usersdata[0].id;
         handleUserSelectChange();
       } else {
-        alert("Something went wrong.");
+        toast.error("Something went wrong.");
       }
     }
   }
@@ -142,12 +142,12 @@ export default function Admin(props){
 
       if(res.status === 200){
         passwordChangeInput.current.value = "";
-        alert("Changes saved.");
+        toast.success("Changes saved.");
       } else {
-        alert("Something went wrong.");
+        toast.error("Something went wrong.");
       }
     } else {
-      alert("Input cannot be blank.");
+      toast.error("Input cannot be blank.");
     }
   }
 
@@ -181,9 +181,9 @@ export default function Admin(props){
     if(res.status === 200){
       await refreshUsersData();
       resetInputs();
-      alert("Changes saved.");
+      toast.success("Changes saved.");
     } else {
-      alert("Something went wrong.");
+      toast.error("Something went wrong.");
     }
   }
 
@@ -194,7 +194,7 @@ export default function Admin(props){
   async function handleUpdateSiteInfo(e){
     e.preventDefault();
     if(calendarLinkInput.current.value === "" && numLeaderboardPlayersInput.current.value === "" && aboutTextInput.current.value === ""){
-      alert("Please enter a value.");
+      toast.error("Please enter a value.");
     } else {
       let data = {};
 
@@ -218,9 +218,9 @@ export default function Admin(props){
         calendarLinkInput.current.value = "";
         numLeaderboardPlayersInput.current.value = "";
         aboutTextInput.current.value = "";
-        alert("Changes saved.");
+        toast.success("Changes saved.");
       } else {
-        alert("Something went wrong.");
+        toast.error("Something went wrong.");
       }
     }
   }
