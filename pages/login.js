@@ -2,6 +2,8 @@ import { withSessionSsr  } from "helpers/lib/config/withSession";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import Head from 'next/head';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -12,6 +14,7 @@ export const getServerSideProps = withSessionSsr(
       return {props: { signedin: false, user: null }}
     }
   }
+  
 );
 
 export default function Login(props){
@@ -35,16 +38,17 @@ export default function Login(props){
       if(res.status === 200){
         return router.push("/");
       } else {
-        alert("Incorrect username or password.");
+        toast.error('Incorrect username or password');
       }
     } else {
-      alert("You must enter both a username and password.");
+      toast.error("You must enter both a username and password.");
     }
   }
   
   if(!props.signedin){
     return (
       <>
+        <Toaster/>
         <Head>
           <title>Login | Caravel Table Tennis</title>
         </Head>
