@@ -48,7 +48,10 @@ export default function Login(props){
   if(!props.signedin){
     return (
       <>
-        <Toaster/>
+       <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+      />
         <Head>
           <title>Login | Caravel Table Tennis</title>
         </Head>
