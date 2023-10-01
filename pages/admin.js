@@ -5,7 +5,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import Select from 'react-select'; 
 import selectTheme from 'helpers/select-theme.js';
 import { AwesomeButton } from 'react-awesome-button';
-import AwesomeButtonStyles from 'react-awesome-button/src/styles/styles.scss';
+import 'react-awesome-button/dist/themes/theme-blue.css';
+// import AwesomeButtonStyles from 'react-awesome-button/src/styles/styles.scss';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
