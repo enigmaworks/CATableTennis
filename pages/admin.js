@@ -2,6 +2,8 @@ import { withSessionSsr  } from "helpers/lib/config/withSession";
 import { useRef, useState } from "react";
 import Head from 'next/head';
 import toast, { Toaster } from 'react-hot-toast';
+import Select from 'react-select'; 
+import selectTheme from 'helpers/select-theme.js';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -55,9 +57,9 @@ export default function Admin(props){
     lossesChangeInput.current.value = "";
   }
 
-  function handleUserSelectChange (e) {
+  function handleUserSelectChange (option) {
     setSelectedUser(usersdata.find((searchUser) => {
-      return userSelect.current.value.toString() === searchUser.id.toString();
+      return option.value.toString() === searchUser.id.toString();
     }));
     resetInputs();
   }
@@ -228,10 +230,7 @@ export default function Admin(props){
 
   return (
     <>
-    <Toaster
-        position="bottom-center"
-        reverseOrder={false}
-    />
+    <Toaster position="bottom-center" reverseOrder={false}/>
     <Head>
       <title>Admin | Caravel Table Tennis</title>
     </Head>
@@ -273,14 +272,12 @@ export default function Admin(props){
       <h2>Edit Existing User</h2>
 
       <div>
-        <select id="userselect" onChange={handleUserSelectChange} ref={userSelect}>
-          {usersdata.map((user) => {
-            return (
-            <option key={user.id} value={user.id}>
-              {user.info.firstname} {user.info.lastname} ( {user.username} )
-            </option>)
-          })}
-        </select>
+        <Select options={usersdata.map((user) => {
+            return ({
+              value: user.id,
+              label: `${user.username} | ${user.info.firstname} ${user.info.lastname}`,
+            })
+        })} onChange={handleUserSelectChange} theme={selectTheme}/>
       </div>
 
       <div>
