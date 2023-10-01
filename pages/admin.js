@@ -4,6 +4,8 @@ import Head from 'next/head';
 import toast, { Toaster } from 'react-hot-toast';
 import Select from 'react-select'; 
 import selectTheme from 'helpers/select-theme.js';
+import { AwesomeButton } from 'react-awesome-button';
+import 'react-awesome-button/dist/styles.css';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -264,7 +266,7 @@ export default function Admin(props){
           <label htmlFor="gradyear">gradyear: </label>
           <input type="number" min="2023" step="1" id="gradyear" ref={gradyearInput} />
         </div>
-        <button type="submit">Create User</button>
+        <AwesomeButton type="primary">Create User</AwesomeButton>
       </form>
     </section>
     
@@ -289,7 +291,7 @@ export default function Admin(props){
             <input type="text" id="passwordChange" ref={passwordChangeInput} />
           </div>
 
-          <button type="submit">Set Password</button>
+          <AwesomeButton type="primary">Set Password</AwesomeButton>
         </form>
 
       </div>
@@ -327,8 +329,8 @@ export default function Admin(props){
             <input type="number" id="lossesChange" placeholder={selectedUser.statistics.l} min="0" max="9999" step="1" ref={lossesChangeInput}/>
           </div>
 
-          <button type="submit">Update User Information</button>
-          <button onClick={deleteUser}>Delete User</button>
+          <AwesomeButton type="primary">Update User Information</AwesomeButton>
+          <AwesomeButton onPress={deleteUser}>Delete User</AwesomeButton>
         </form>
       </div>
 
@@ -350,7 +352,7 @@ export default function Admin(props){
             <textarea id="aboutsite" ref={aboutTextInput}/>
           </div>
 
-          <button type="submit">Update Information </button>
+          <AwesomeButton type="primary">Update Information </AwesomeButton>
         </form>
       </div>
     </section>
