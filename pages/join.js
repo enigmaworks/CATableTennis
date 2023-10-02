@@ -20,10 +20,10 @@ export default function about(props) {
   return (
     <>
       <Head>
-        <title>About | Caravel Table Tennis</title>
+        <title>Join | Caravel Table Tennis</title>
       </Head>
       <header className={styles.heading}>
-        <h1>About CATT</h1>
+        <h1>Join CATT</h1>
       </header>
       <section>
         <p>{props.abouttext}</p>
