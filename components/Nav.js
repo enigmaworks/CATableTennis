@@ -34,8 +34,7 @@ export default function Nav(pageprops){
             <NavLink linkhref="/players">Players</NavLink>
             <NavLink linkhref="/match">Match</NavLink>
             <NavLink linkhref="/calendar">Calendar</NavLink>
-            <NavLink linkhref="/about">About</NavLink>
-            <NavLink linkhref="/contact">Contact Us</NavLink>
+            <NavLink linkhref="/join">Join</NavLink>
           </ul>
         </div>
       </nav>
