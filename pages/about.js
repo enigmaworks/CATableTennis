@@ -23,7 +23,6 @@ export default function about(props) {
         <title>About | Caravel Table Tennis</title>
       </Head>
       <header className={styles.heading}>
-        <img className={styles.logo} alt="Catt logo" src="/CATTLogo.png" />
         <h1>About CATT</h1>
       </header>
       <section>
