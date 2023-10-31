@@ -14,8 +14,12 @@ export const getServerSideProps = withSessionSsr(
 
     if(user && user.permissions === 1){
       let data = await fetch(process.env.URL + "/api/users/getdata", req);
+      let sitedata = await fetch(process.env.URL + "/api/sitedata", req)
+      
       data = await data.json();
-      return { props: {signedin: true, user: user, usersdata: data} }
+      sitedata = await sitedata.json();
+
+      return { props: {signedin: true, user: user, usersdata: data, sitedata: sitedata} }
     } else {
       return {
         redirect: {
@@ -221,9 +225,6 @@ export default function Admin(props){
       })
 
       if(res.status === 200){
-        calendarLinkInput.current.value = "";
-        numLeaderboardPlayersInput.current.value = "";
-        aboutTextInput.current.value = "";
         toast.success("Changes saved.");
       } else {
         toast.error("Something went wrong.");
@@ -335,27 +336,28 @@ export default function Admin(props){
         </form>
       </div>
 
-      <div>
-        <h2>Update Site Information</h2>
-        <form onSubmit={handleUpdateSiteInfo}>
-          <div>
-            <label htmlFor="calendarlink">Google Calendar Embed Link</label>
-            <input type="text" id="calendarlink" ref={calendarLinkInput} />
-          </div>
+    </section>
 
-          <div>
-            <label htmlFor="leaderboardplayers">Players on Leaderboard</label>
-            <input type="number" id="leaderboardplayers" ref={numLeaderboardPlayersInput}/>
-          </div>
+    <section>
+      <h2>Update Site Information</h2>
+      <form onSubmit={handleUpdateSiteInfo}>
+        <div>
+          <label htmlFor="calendarlink">Google Calendar Embed Link</label>
+          <input type="text" id="calendarlink" defaultValue={props.sitedata.calendarlink} ref={calendarLinkInput} />
+        </div>
 
-          <div>
-            <label htmlFor="aboutsite">About Paragraph</label>
-            <textarea id="aboutsite" ref={aboutTextInput}/>
-          </div>
+        <div>
+          <label htmlFor="leaderboardplayers">Players on Leaderboard</label>
+          <input type="number" id="leaderboardplayers" defaultValue={props.sitedata.numplayersonleaderboard} ref={numLeaderboardPlayersInput}/>
+        </div>
 
-          <AwesomeButton type="primary">Update Information </AwesomeButton>
-        </form>
-      </div>
+        <div>
+          <label htmlFor="aboutsite">About Paragraph</label>
+          <textarea id="aboutsite" defaultValue={props.sitedata.about} ref={aboutTextInput}/>
+        </div>
+
+        <AwesomeButton type="primary">Update Information</AwesomeButton>
+      </form>
     </section>
     </>
   );
