@@ -276,12 +276,17 @@ export default function Admin(props){
       <h2>Edit Existing User</h2>
 
       <div>
-        <Select options={usersdata.map((user) => {
+        <Select
+          defaultValue={ { value: selectedUser.id, label: `${selectedUser.username} | ${selectedUser.info.firstname} ${selectedUser.info.lastname}`}}
+          onChange={handleUserSelectChange}
+          theme={selectTheme}
+          options={usersdata.map((user) => {
             return ({
               value: user.id,
               label: `${user.username} | ${user.info.firstname} ${user.info.lastname}`,
             })
-        })} onChange={handleUserSelectChange} theme={selectTheme}/>
+          })}
+        />
       </div>
 
       <div>
