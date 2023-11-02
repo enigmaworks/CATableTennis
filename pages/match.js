@@ -2,7 +2,7 @@ import { withSessionSsr  } from "helpers/lib/config/withSession";
 import Select from 'react-select'; 
 import selectTheme from 'helpers/select-theme.js';
 import styles from "styles/match.module.css";
-import { useRef, useState } from "react";
+import { use, useRef, useState } from "react";
 import Head from 'next/head';
 
 export const getServerSideProps = withSessionSsr(
@@ -28,6 +28,8 @@ export default function MatchPage(props){
   const [numPlayers, setNumPlayers] = useState(2);
   const [team1, setTeam1] = useState([props.usersdata[0].id]);
   const [team2, setTeam2] = useState([props.usersdata[1].id]);
+  const [useTimer, setUseTimer] = useState(false);
+  const timerCheckbox = useRef();
 
   function checkPlayerIsAvailable(id){
     if(team1.includes(id) || team2.includes(id)) return true;
@@ -129,7 +131,13 @@ export default function MatchPage(props){
 
           <div>
             <label htmlFor="usetimer">Use Timer</label>
-            <input type="checkbox" name="usetimer" id="usetimer" />
+            <input
+              type="checkbox"
+              name="usetimer"
+              id="usetimer"
+              ref={timerCheckbox}
+              onChange={()=>{setUseTimer(timerCheckbox.current.checked);}}
+            />
             <button
               onClick={()=>{
                 if(team1.length + team2.length === numPlayers){
@@ -148,11 +156,12 @@ export default function MatchPage(props){
       numPlayers={numPlayers}
       teamone={team1}
       teamtwo={team2}
+      useTimer={useTimer}
     />)
   }
 }
 
-function Match({numPlayers, teamone, teamtwo, backfn}){
+function Match({numPlayers, teamone, teamtwo, useTimer, backfn}){
   if(numPlayers === 2){
     return (<>
       {teamone[0]} VS {teamtwo[0]}
