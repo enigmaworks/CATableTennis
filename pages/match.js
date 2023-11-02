@@ -127,7 +127,8 @@ export default function MatchPage(props){
           </div>
 
           <div>
-            <input type="checkbox" name="" id="" />
+            <label htmlFor="usetimer">Use Timer</label>
+            <input type="checkbox" name="usetimer" id="usetimer" />
             <button
               onClick={()=>{
                 if(team1.length + team2.length === numPlayers){
