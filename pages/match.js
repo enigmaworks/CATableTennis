@@ -1,4 +1,6 @@
 import { withSessionSsr  } from "helpers/lib/config/withSession";
+import Select from 'react-select'; 
+import selectTheme from 'helpers/select-theme.js';
 import styles from "styles/match.module.css";
 import { useRef, useState } from "react";
 import Head from 'next/head';
@@ -26,18 +28,14 @@ export default function MatchPage(props){
   const [numPlayers, setNumPlayers] = useState(2);
   const [team1, setTeam1] = useState([props.usersdata[0].id]);
   const [team2, setTeam2] = useState([props.usersdata[1].id]);
-  const matchTypeSelect = useRef();
-  const p1Select = useRef();
-  const p2Select = useRef();
-  const p3Select = useRef();
-  const p4Select = useRef();
 
-  function playerIsAvailable(id){
+  function checkPlayerIsAvailable(id){
     if(team1.includes(id) || team2.includes(id)) return true;
     return false;
   }
-  function handleNumPlayersChange(){
-    let num = parseInt(matchTypeSelect.current.value)
+  
+  function handleNumPlayersChange(option){
+    let num = parseInt(option.value)
     setNumPlayers(num);
     if(num === 2){
       setTeam1([team1[0]])
@@ -47,18 +45,27 @@ export default function MatchPage(props){
       setTeam2([props.usersdata[1].id, props.usersdata[3].id])
     }
   }
-  function updateTeam(num){
-    if(num===1){
-      if(numPlayers===2){
-        setTeam1([parseInt(p1Select.current.value)]);
+
+  function updateTeam(teamnum, player, option){
+    if(player === 1){
+      if(teamnum===1){
+        if(numPlayers === 2){
+          setTeam1([parseInt(option.value)]);
+        } else {
+          setTeam1([parseInt(option.value), team1[1]]);
+        }
       } else {
-        setTeam1([parseInt(p1Select.current.value), parseInt(p2Select.current.value)]);
+        if(numPlayers === 2){
+          setTeam2([parseInt(option.value)]);
+        } else {
+          setTeam2([parseInt(option.value), team2[1]]);
+        }
       }
-    } else if(num===2){
-      if(numPlayers===2){
-        setTeam2([parseInt(p3Select.current.value)]);
+    } else if (player === 2) {
+      if(teamnum===1){
+        setTeam1([team1[0], parseInt(option.value)]);
       } else {
-        setTeam2([parseInt(p3Select.current.value), parseInt(p4Select.current.value)]);
+        setTeam2([team2[0], parseInt(option.value)]);
       }
     }
   }
@@ -75,50 +82,47 @@ export default function MatchPage(props){
     </header>
     <section>
       <h2>Setup</h2>
-      <select
-        ref={matchTypeSelect}
+      <Select
         onChange={handleNumPlayersChange}
-      >
-        <option value="2">Two Player</option>
-        <option value="4">Four Player</option>
-      </select>
+        defaultValue={{value:2, label: "Two Players"}}
+        theme={selectTheme}
+        options={[
+          {value:2, label: "Two Players"},
+          {value:4, label: "Four Players"}]
+        }
+      />
       <div>
         <h3>{numPlayers === 2 ? "Player One" : "Team One"}</h3>
         <UserSelect
-          defaultvalue={team1[0]}
-          usersdata={props.usersdata}
-          refobj={p1Select}
-          checkfn={playerIsAvailable}
-          changefn={ ()=>{updateTeam(1)} }
-        />
+          defualtSelection={props.usersdata.find(user => user.id === team1[0])}
+          users={props.usersdata}
+          checkfn={checkPlayerIsAvailable}
+          changefn={ (option)=>{updateTeam(1, 1, option)} }
+          />
         { (numPlayers === 4) ?
           <UserSelect
-            defaultvalue={team1[1]}
-            usersdata={props.usersdata}
-            refobj={p2Select}
-            checkfn={playerIsAvailable} 
-            changefn={()=>{updateTeam(1)}}
+            defualtSelection={props.usersdata.find(user => user.id === team1[1])}
+            users={props.usersdata}
+            checkfn={checkPlayerIsAvailable} 
+            changefn={ (option)=>{updateTeam(1, 2, option)} }
           /> 
         : ""}
-
       </div>
 
       <div>
         <h3>{numPlayers === 2 ? "Player Two" : "Team Two"}</h3>
         <UserSelect
-          defaultvalue={team2[0]}
-          usersdata={props.usersdata}
-          refobj={p3Select}
-          checkfn={playerIsAvailable}
-          changefn={ ()=>{updateTeam(2)} }
+          defualtSelection={props.usersdata.find(user => user.id === team2[0])}
+          users={props.usersdata}
+          checkfn={checkPlayerIsAvailable}
+          changefn={ (option)=>{updateTeam(2, 1, option)} }
         />
         { (numPlayers === 4) ?
           <UserSelect
-            defaultvalue={team2[1]}
-            usersdata={props.usersdata}
-            refobj={p4Select}
-            checkfn={playerIsAvailable} 
-            changefn={()=>{updateTeam(2)}}
+            defualtSelection={props.usersdata.find(user => user.id === team2[1])}
+            users={props.usersdata}
+            checkfn={checkPlayerIsAvailable} 
+            changefn={(option)=>{updateTeam(2, 2, option)}}
           /> 
         : ""}
        </div>
@@ -138,32 +142,33 @@ export default function MatchPage(props){
 
 function Match({numPlayers, teamone, teamtwo, backfn}){
   if(numPlayers === 2){
-    return <>{teamone[0]} {teamtwo[0]} <button onClick={backfn}>Back</button></>
+    return <>{teamone[0]} VS {teamtwo[0]} <button onClick={backfn}>Back</button></>
   } else if (numPlayers === 4){
-    return <>{teamone[0]} & {teamone[1]} VS {teamtwo[0]} & {teamtwo[1]}<button onClick={backfn}>Back</button> </>
+    return <>{teamone[0]} {teamone[1]} VS {teamtwo[0]} {teamtwo[1]}<button onClick={backfn}>Back</button> </>
   }
 }
 
-function UserSelect({defaultvalue, usersdata, refobj, checkfn, changefn}){
+function UserSelect({defualtSelection, users, checkfn, changefn}){
   return(
-    <select
-      value={defaultvalue}
+    <Select
       name="selectplayerfour"
-      ref={refobj}
-      onChange={()=>{changefn()}}
-    >
-      { usersdata.map(user => {
-        let disabled = user.id !== defaultvalue && checkfn(user.id);
+      onChange={changefn}
+      theme={selectTheme}
+      value={{
+        value: defualtSelection.id,
+        label: `${defualtSelection.info.firstname} ${defualtSelection.info.lastname}`,
+      }}
+      options={users.map(user => {
+        let disabled = user.id !== defualtSelection.id && checkfn(user.id);
         return(
-          <option
-            disabled={disabled}
-            key={user.id}
-            value={user.id}
-          >
-            {user.info.firstname} {user.info.lastname}
-          </option>
+          {
+            isDisabled: disabled,
+            value: user.id,
+            label: `${user.info.firstname} ${user.info.lastname}`
+          }
         )
-      }) }
-    </select>
+      })
+      }
+    />
   )
 }
