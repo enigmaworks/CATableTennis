@@ -102,7 +102,6 @@ button:hover, input[type="submit"]:hover, .button:hover,
 button:focus-within, input[type="submit"]:focus-within, .button:focus-within{
     box-shadow: var(--shadow-small);
     outline: none;
-    font-weight: 800;
 }
 input {
     all: unset;

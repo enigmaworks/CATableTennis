@@ -4,7 +4,6 @@
   z-index: 2;
   --transistion-time: 0.3s;
 }
-
 .loginout{
   position: absolute;
   right: 0;
@@ -69,7 +68,7 @@
 
 .navlist a{
   padding: 0.5em 3em;
-  width: 12rem;
+  width: 13rem;
   color: inherit;
   text-transform: capitalize;
 }
