@@ -98,6 +98,14 @@ button, input[type="submit"], input[type="button"], .button {
     font-weight: 600;
     min-width: 10rem;
 }
+input[type="checkbox"]{
+    accent-color: var(--clr_highlight);
+    aspect-ratio: 1;
+    width: 1.25em;
+    display: inline-block;
+    margin-inline: .25em;
+    vertical-align: middle;
+}
 button:hover, input[type="submit"]:hover, .button:hover,
 button:focus-within, input[type="submit"]:focus-within, .button:focus-within{
     box-shadow: var(--shadow-small);
