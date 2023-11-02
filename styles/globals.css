@@ -104,17 +104,13 @@ button:focus-within, input[type="submit"]:focus-within, .button:focus-within{
     outline: none;
     font-weight: 800;
 }
-input, select {
+input {
     all: unset;
     color: inherit;
     border: 1px solid var(--clr_dark-a50);
     border-radius: 0.25rem;
     padding: 0.25em 0.25em;
-    height: 1.25em;
     margin: 0.1em 0.1em;
-}
-select{
-    height: auto;
 }
 p {
     margin-top: 1em;
