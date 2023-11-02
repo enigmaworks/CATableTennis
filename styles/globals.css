@@ -82,7 +82,7 @@ a:focus-within {
     text-decoration: underline;
 }
 
-button, input[type="submit"], .button {
+button, input[type="submit"], input[type="button"], .button {
     margin: 0.1em 0.1em;
     padding: 0.125em 1em;
     cursor: pointer;
@@ -103,7 +103,7 @@ button:focus-within, input[type="submit"]:focus-within, .button:focus-within{
     box-shadow: var(--shadow-small);
     outline: none;
 }
-input {
+input:not([type="range"],[type="radio"],[type="image"],[type="file"],[type="checkbox"]){
     all: unset;
     color: inherit;
     border: 1px solid var(--clr_dark-a50);

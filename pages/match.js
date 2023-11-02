@@ -125,12 +125,17 @@ export default function MatchPage(props){
               /> 
             : ""}
           </div>
-          
-          <button onClick={()=>{
-            if(team1.length + team2.length === numPlayers){
-              setgamePhase("match")
-            }
-            }}> Next </button>
+
+          <div>
+            <input type="checkbox" name="" id="" />
+            <button
+              onClick={()=>{
+                if(team1.length + team2.length === numPlayers){
+                  setgamePhase("match")
+                }
+              }}
+            > Next </button>
+          </div>
         </section>
       </>)
     ;
