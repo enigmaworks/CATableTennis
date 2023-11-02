@@ -83,6 +83,7 @@ export default function MatchPage(props){
           <h2>Setup</h2>
           <Select
             onChange={handleNumPlayersChange}
+            isSearchable={false}
             defaultValue={{value:2, label: "Two Players"}}
             theme={selectTheme}
             options={[
