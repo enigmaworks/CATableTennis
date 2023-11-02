@@ -71,80 +71,91 @@ export default function MatchPage(props){
   }
 
   if(gamePhase === "setup"){
-
-  return (
-  <>
-    <Head>
-      <title>Match | Caravel Table Tennis </title>
-    </Head>
-    <header>
-      <h1>Match</h1>
-    </header>
-    <section>
-      <h2>Setup</h2>
-      <Select
-        onChange={handleNumPlayersChange}
-        defaultValue={{value:2, label: "Two Players"}}
-        theme={selectTheme}
-        options={[
-          {value:2, label: "Two Players"},
-          {value:4, label: "Four Players"}]
-        }
-      />
-      <div>
-        <h3>{numPlayers === 2 ? "Player One" : "Team One"}</h3>
-        <UserSelect
-          defualtSelection={props.usersdata.find(user => user.id === team1[0])}
-          users={props.usersdata}
-          checkfn={checkPlayerIsAvailable}
-          changefn={ (option)=>{updateTeam(1, 1, option)} }
+    return (
+      <>
+        <Head>
+          <title>Match | Caravel Table Tennis </title>
+        </Head>
+        <header>
+          <h1>Match</h1>
+        </header>
+        <section>
+          <h2>Setup</h2>
+          <Select
+            onChange={handleNumPlayersChange}
+            defaultValue={{value:2, label: "Two Players"}}
+            theme={selectTheme}
+            options={[
+              {value:2, label: "Two Players"},
+              {value:4, label: "Four Players"}]
+            }
           />
-        { (numPlayers === 4) ?
-          <UserSelect
-            defualtSelection={props.usersdata.find(user => user.id === team1[1])}
-            users={props.usersdata}
-            checkfn={checkPlayerIsAvailable} 
-            changefn={ (option)=>{updateTeam(1, 2, option)} }
-          /> 
-        : ""}
-      </div>
+          <div>
+            <h3>{numPlayers === 2 ? "Player One" : "Team One"}</h3>
+            <UserSelect
+              defualtSelection={props.usersdata.find(user => user.id === team1[0])}
+              users={props.usersdata}
+              checkfn={checkPlayerIsAvailable}
+              changefn={ (option)=>{updateTeam(1, 1, option)} }
+              />
+            { (numPlayers === 4) ?
+              <UserSelect
+                defualtSelection={props.usersdata.find(user => user.id === team1[1])}
+                users={props.usersdata}
+                checkfn={checkPlayerIsAvailable} 
+                changefn={ (option)=>{updateTeam(1, 2, option)} }
+              /> 
+            : ""}
+          </div>
 
-      <div>
-        <h3>{numPlayers === 2 ? "Player Two" : "Team Two"}</h3>
-        <UserSelect
-          defualtSelection={props.usersdata.find(user => user.id === team2[0])}
-          users={props.usersdata}
-          checkfn={checkPlayerIsAvailable}
-          changefn={ (option)=>{updateTeam(2, 1, option)} }
-        />
-        { (numPlayers === 4) ?
-          <UserSelect
-            defualtSelection={props.usersdata.find(user => user.id === team2[1])}
-            users={props.usersdata}
-            checkfn={checkPlayerIsAvailable} 
-            changefn={(option)=>{updateTeam(2, 2, option)}}
-          /> 
-        : ""}
-       </div>
-      
-      <button onClick={()=>{
-        if(team1.length + team2.length === numPlayers){
-          setgamePhase("match")
-        }
-        }}> Next </button>
-    </section>
-  </>);
+          <div>
+            <h3>{numPlayers === 2 ? "Player Two" : "Team Two"}</h3>
+            <UserSelect
+              defualtSelection={props.usersdata.find(user => user.id === team2[0])}
+              users={props.usersdata}
+              checkfn={checkPlayerIsAvailable}
+              changefn={ (option)=>{updateTeam(2, 1, option)} }
+            />
+            { (numPlayers === 4) ?
+              <UserSelect
+                defualtSelection={props.usersdata.find(user => user.id === team2[1])}
+                users={props.usersdata}
+                checkfn={checkPlayerIsAvailable} 
+                changefn={(option)=>{updateTeam(2, 2, option)}}
+              /> 
+            : ""}
+          </div>
+          
+          <button onClick={()=>{
+            if(team1.length + team2.length === numPlayers){
+              setgamePhase("match")
+            }
+            }}> Next </button>
+        </section>
+      </>)
+    ;
   }
   if(gamePhase === "match"){
-    return(<Match backfn={()=>{setgamePhase("setup")}} numPlayers={numPlayers} teamone={team1} teamtwo={team2}/>)
+    return( <Match
+      backfn={ ()=>{ setgamePhase("setup") } }
+      numPlayers={numPlayers}
+      teamone={team1}
+      teamtwo={team2}
+    />)
   }
 }
 
 function Match({numPlayers, teamone, teamtwo, backfn}){
   if(numPlayers === 2){
-    return <>{teamone[0]} VS {teamtwo[0]} <button onClick={backfn}>Back</button></>
+    return (<>
+      {teamone[0]} VS {teamtwo[0]}
+      <button onClick={backfn}>Back</button>
+    </>)
   } else if (numPlayers === 4){
-    return <>{teamone[0]} {teamone[1]} VS {teamtwo[0]} {teamtwo[1]}<button onClick={backfn}>Back</button> </>
+    return (<>
+      {teamone[0]} {teamone[1]} VS {teamtwo[0]} {teamtwo[1]}
+      <button onClick={backfn}>Back</button>
+    </>)
   }
 }
 
