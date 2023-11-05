@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faX} from '@fortawesome/free-solid-svg-icons'
+import Link from "next/link";
 
 
 import styles from "styles/components/nav.module.css"
@@ -46,7 +47,7 @@ function NavLink({linkhref, children}){
   const router = useRouter();
   return (
     <li className="button" is-active={router.pathname === linkhref ? "true" : "false"}>
-      <a href={linkhref}>{children}</a>
+      <Link href={linkhref}>{children}</Link>
     </li>
   );
 }
