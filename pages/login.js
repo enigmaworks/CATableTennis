@@ -1,5 +1,5 @@
 import { withSessionSsr  } from "helpers/lib/config/withSession";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 import { useRef, useState } from "react";
 import Head from 'next/head';
 import toast, { Toaster } from 'react-hot-toast';
@@ -72,12 +72,6 @@ export default function Login(props){
       </>
     );
   } else {
-    return (
-      <>
-        <h1>Login page</h1>
-        <div>Already signed in as {props.user.username}</div>
-        <div><a href="/">Home</a></div>
-      </>
-    );
+    router.push("/");
   }
 }
