@@ -25,10 +25,25 @@ export const getServerSideProps = withSessionSsr(
       }
     });
 
-    data = data.sort((a, b)=>{
-      if(a.percent > b.percent){
+    data = data.filter(user => user.w + user.l > 0);
+
+    const averageWinPercent = data.reduce((total, user) => { return total + user.percent}, 0) / data.length;
+    const eloConstant = 15;
+    data = data.map(user => {
+      const calculatedElo = (user.w + eloConstant * averageWinPercent) / (user.w + user.l + eloConstant)
+      return {...user, elo: calculatedElo}
+    })
+
+    function compare(a, b){
+      //returns true if a is better than b
+      const winPercentWeight = 0; //how important should winpercent be
+      return a.elo > b.elo;
+    }
+
+    data = data.sort((p1, p2)=>{
+      if(compare(p1, p2)){
         return -1;
-      } else if (b.percent > a.percent){
+      } else if (compare(p2, p1)){
         return 1;
       } else {
         return 0;
