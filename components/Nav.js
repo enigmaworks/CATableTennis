@@ -37,7 +37,7 @@ export default function Nav(pageprops){
             <NavLink linkhref="/">Home</NavLink>
             {(pageprops.signedin && pageprops.user.permissions === 1) ? <NavLink linkhref="/admin">Admin Page</NavLink> : ""}
             <NavLink linkhref="/players">Players</NavLink>
-            <NavLink linkhref="/match">Match</NavLink>
+            {(pageprops.signedin && pageprops.user.permissions === 1) ? <NavLink linkhref="/match">Match</NavLink> : ""}
             <NavLink linkhref="/calendar">Calendar</NavLink>
             <NavLink linkhref="/join">Join</NavLink>
           </ul>
