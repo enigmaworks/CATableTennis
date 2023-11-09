@@ -148,19 +148,19 @@ export default function MatchPage(props){
                   p2: team2[0],
                   timer: useTimer,
                 }
-              }, 'match/active');
+              }, 'match');
             } else {
               Router.push({
                 pathname: 'match/active',
                 query: {
                   players: numPlayers,
-                  p1a: team1[0],
-                  p2a: team2[0],
+                  p1: team1[0],
+                  p2: team2[0],
                   p1b: team1[1],
                   p2b: team2[1],
                   timer: useTimer,
                 }
-              }, 'match/active');
+              }, 'match');
             }
           }}>test</button>
         </div>
