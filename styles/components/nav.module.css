@@ -1,19 +1,26 @@
 .nav {
-  position: absolute;
-  top: 0;
+  position: relative;
+  isolation: isolate;
   z-index: 2;
+  height: 3.5rem;
   --transistion-time: 0.3s;
 }
 .loginout{
+  z-index: 3;
   position: absolute;
   right: 0;
   top: 0;
   margin: 0.75rem;
   margin-inline: 1rem;
-  width: max-content;
+  width: auto;
+  height: 2rem;
   font-family: var(--ff_highlight);
 }
 
+.loginout * {
+  display: inline-block;
+  z-index: 3;
+}
 .navcontainer{
   position: absolute;
   top: 0;
@@ -143,11 +150,4 @@
 
 .navbutton{
   background: none;
-}
-
-.logosmall{
-  height: 3rem;
-  aspect-ratio: 1;
-  object-fit: contain;
-  margin: .25rem auto;
 }

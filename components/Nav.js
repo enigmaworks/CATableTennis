@@ -16,12 +16,16 @@ export default function Nav(pageprops){
   
   return (
     <>
-      <div className={styles.logosmall}>
-        <img className={styles.logosmall} alt="Catt logo" src="/CATTLogo.png" />
-      </div>
       <div className={styles.loginout}>
-        {(pageprops.signedin) ? pageprops.user.username : ""}{" | "}
-        {(pageprops.signedin) ? <a href="" onClick={signout}>Log Out</a>: <a href="/login">Log In</a>}
+        {(pageprops.signedin) ? <div>{pageprops.user.username}{" | "}</div> : ""}
+        <div>
+          <Link
+            href={(pageprops.signedin) ? "/" : "/login"}
+            onClick={(pageprops.signedin) ? signout: ()=>{}}
+          >
+            {(pageprops.signedin) ? "Log Out" : "Log In"}
+          </Link>
+        </div>
       </div>
       <nav className={styles.nav} nav-state={navIsOpen ? "open" : "closed"}>
         <div className={styles.navcontainer}>
