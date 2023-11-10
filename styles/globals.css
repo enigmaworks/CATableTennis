@@ -123,6 +123,9 @@ input:not([type="range"],[type="radio"],[type="image"],[type="file"],[type="chec
 .react-select-container input {
     padding: 0;
 }
+.react-select-container{
+    font-size: .95em;
+}
 p {
     margin-top: 1em;
 }
@@ -135,7 +138,7 @@ h3 {
     font-family: var(--ff_highlight), serif;
     font-weight: 800;
     margin-top: .75em;
-    margin-bottom: 0.25em;
+    margin-bottom: 0.5em;
 }
 h1 {
     color: var(--clr_highlight);
