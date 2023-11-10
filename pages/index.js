@@ -1,67 +1,40 @@
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 import styles from "styles/index.module.css";
 import Head from 'next/head';
+import { useState } from "react";
+import { calculateEloAndWinPercents, rankByElo, rankByTotalWins, rankByWinPercent } from "/helpers/rankingFunctions";
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     let data = await fetch(process.env.URL + "/api/users/getdata", req);
     data = await data.json();
+    data = calculateEloAndWinPercents(data);
+
     const site = await fetch(process.env.URL + "/api/sitedata", {method:"GET"});
     const {numplayersonleaderboard} = await site.json();
 
-    data = data.map(user => {
-      let percent;
-      if(user.statistics.w + user.statistics.l === 0){
-        percent = 0;
-      } else{
-        percent = user.statistics.w / (user.statistics.w + user.statistics.l);
-      }
-      return {
-        id: user.id,
-        name: user.info.firstname + " " + user.info.lastname,
-        w: user.statistics.w,
-        l: user.statistics.l,
-        percent: percent,
-      }
-    });
-
-    data = data.filter(user => user.w + user.l > 0);
-
-    const averageWinPercent = data.reduce((total, user) => { return total + user.percent}, 0) / data.length;
-    const eloConstant = 8;
-
-    data = data.map(user => {
-      const calculatedElo = (user.w + (eloConstant * averageWinPercent)) / (user.w + user.l + eloConstant)
-      return {...user, elo: calculatedElo}
-    })
-
-    function compare(a, b){
-      //returns true if a is better than b
-      return a.elo > b.elo;
-    }
-
-    data = data.sort((p1, p2)=>{
-      if(compare(p1, p2)){
-        return -1;
-      } else if (compare(p2, p1)){
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-
-    data = data.slice(0, numplayersonleaderboard);
-
     const user = req.session.user;
     if(user){
-      return {props: { signedin: true, user: user, usersdata: data }}
+      return {props: { signedin: true, user: user, usersdata: data, numplayersonleaderboard: numplayersonleaderboard}}
     } else {
-      return {props: { signedin: false, user: null, usersdata: data }}
+      return {props: { signedin: false, user: null, usersdata: data, numplayersonleaderboard: numplayersonleaderboard }}
     }
   }
 );
 
 export default function Home(props){
+  const [showAll, setShowAll] = useState(false);
+  const [rankingAlgorithm, setRankingAlgorithm] = useState("elo");
+
+  let users = props.usersdata.slice(0,props.numplayersonleaderboard);
+  if(showAll){
+    users = props.usersdata;
+  }
+
+  if(rankingAlgorithm === "elo") users = rankByElo(users);
+  if(rankingAlgorithm === "wins") users = rankByTotalWins(users);
+  if(rankingAlgorithm === "winpercent") users = rankByWinPercent(users);
+
   return (<>
   <Head>
     <title>Caravel Table Tennis</title>
@@ -82,16 +55,16 @@ export default function Home(props){
           <li className={styles.stat}><h3>Losses</h3></li>
         </ul>
       </li>
-      {props.usersdata.map((user, i) => {
+      {users.map((user, i) => {
         return (
-        <li className={styles.player} key={user.id}>
+        <li className={styles.player} key={i}>
           <ul className={styles.playerstats}>
             <li className={styles.rank}>{i+1}</li>
-            <li><h4 className={styles.name}>{user.name}</h4></li>
+            <li><h4 className={styles.name}>{user.info.firstname} {user.info.lastname}</h4></li>
             <li className={styles.stat}>{Math.round(user.elo*100)/100}</li>
-            <li className={styles.stat}>{Math.round(user.percent*10000)/100}%</li>
-            <li className={styles.stat}>{user.w}</li>
-            <li className={styles.stat}>{user.l}</li>
+            <li className={styles.stat}>{Math.round(user.winpercent*10000)/100}%</li>
+            <li className={styles.stat}>{user.statistics.w}</li>
+            <li className={styles.stat}>{user.statistics.l}</li>
           </ul>
         </li>
         );
