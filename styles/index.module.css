@@ -1,6 +1,6 @@
 .leaderboard{
-  --spacing: clamp(0.25rem, 3vw, 4rem);
-  --cell-size: 4rem;
+  --spacing: clamp(0.125rem, 4vw, 3rem);
+  --cell-size: 3rem;
   list-style: none;
   padding: 0;
   border: 2px solid var(--clr_dark);
@@ -8,7 +8,7 @@
 }
 .player ul, .headerrow ul{
   list-style: none;
-  padding: 0.5rem;
+  padding: calc(var(--spacing) / 4);
 }
 .playerstats *, .headerrow *{
   margin: 0;
@@ -19,7 +19,7 @@
 .playerstats, .headerrow ul{
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: var(--cell-size) 1fr repeat(3, var(--cell-size));
+  grid-template-columns: var(--cell-size) 1fr;
   gap: var(--spacing);
 }
 
@@ -44,4 +44,5 @@
 }
 .stat, .rank{
   text-align: center;
+  width: var(--cell-size);
 }
