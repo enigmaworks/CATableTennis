@@ -34,12 +34,14 @@ export default function Nav(pageprops){
             {navIsOpen ? " Close" : " Menu"}
           </button>
           <ul className={styles.navlist} aria-hidden={!navIsOpen} >
-            <NavLink linkhref="/">Home</NavLink>
-            {(pageprops.signedin && pageprops.user.permissions === 1) ? <NavLink linkhref="/admin">Admin Page</NavLink> : ""}
-            <NavLink linkhref="/players">Players</NavLink>
-            {(pageprops.signedin && pageprops.user.permissions === 1) ? <NavLink linkhref="/match">Match</NavLink> : ""}
-            <NavLink linkhref="/calendar">Calendar</NavLink>
-            <NavLink linkhref="/join">Join</NavLink>
+            <NavLink linkhref="/" handleClick={handleOnClick}>Home</NavLink>
+            {(pageprops.signedin && pageprops.user.permissions === 1) ? <>
+              <NavLink linkhref="/admin" handleClick={handleOnClick}>Admin Page</NavLink>
+              <NavLink linkhref="/match" handleClick={handleOnClick}>Match</NavLink>
+            </>: ""}
+            <NavLink linkhref="/players" handleClick={handleOnClick}>Players</NavLink>
+            <NavLink linkhref="/calendar" handleClick={handleOnClick}>Calendar</NavLink>
+            <NavLink linkhref="/join" handleClick={handleOnClick}>Join</NavLink>
           </ul>
         </div>
       </nav>
@@ -47,11 +49,11 @@ export default function Nav(pageprops){
   )
 }
 
-function NavLink({linkhref, children}){
+function NavLink(props){
   const router = useRouter();
   return (
-    <li className="button" is-active={router.pathname === linkhref ? "true" : "false"}>
-      <Link href={linkhref}>{children}</Link>
+    <li className="button" is-active={router.pathname === props.linkhref ? "true" : "false"}>
+      <Link onClick={props.handleClick} href={props.linkhref}>{props.children}</Link>
     </li>
   );
 }
