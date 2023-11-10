@@ -52,7 +52,7 @@ export function calculateEloAndWinPercents(users){
   const usersWithRecords = users.filter(user => user.statistics.w + user.statistics.l > 0);
   const averageWinPercent = usersWithRecords.reduce((total, user) => { return total + user.winpercent}, 0) / usersWithRecords.length;
  
-  const eloConstant = 10;
+  const eloConstant = 7;
   
   users = users.map(user => {
     let calculatedElo = 0
