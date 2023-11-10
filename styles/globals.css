@@ -120,6 +120,9 @@ input:not([type="range"],[type="radio"],[type="image"],[type="file"],[type="chec
     margin: 0.1em 0.1em;
     width: 100%;
 }
+.react-select-container input {
+    padding: 0;
+}
 p {
     margin-top: 1em;
 }
