@@ -28,15 +28,15 @@ export const getServerSideProps = withSessionSsr(
     data = data.filter(user => user.w + user.l > 0);
 
     const averageWinPercent = data.reduce((total, user) => { return total + user.percent}, 0) / data.length;
-    const eloConstant = 15;
+    const eloConstant = 8;
+
     data = data.map(user => {
-      const calculatedElo = (user.w + eloConstant * averageWinPercent) / (user.w + user.l + eloConstant)
+      const calculatedElo = (user.w + (eloConstant * averageWinPercent)) / (user.w + user.l + eloConstant)
       return {...user, elo: calculatedElo}
     })
 
     function compare(a, b){
       //returns true if a is better than b
-      const winPercentWeight = 0; //how important should winpercent be
       return a.elo > b.elo;
     }
 
@@ -76,6 +76,7 @@ export default function Home(props){
         <ul>
           <li className={styles.rank}><h3>Rank</h3></li>
           <li><h3>Player</h3></li>
+          <li className={styles.stat}><h3>Elo</h3></li>
           <li className={styles.stat}><h3>Win %</h3></li>
           <li className={styles.stat}><h3>Wins</h3></li>
           <li className={styles.stat}><h3>Losses</h3></li>
@@ -87,6 +88,7 @@ export default function Home(props){
           <ul className={styles.playerstats}>
             <li className={styles.rank}>{i+1}</li>
             <li><h4 className={styles.name}>{user.name}</h4></li>
+            <li className={styles.stat}>{Math.round(user.elo*100)/100}</li>
             <li className={styles.stat}>{Math.round(user.percent*10000)/100}%</li>
             <li className={styles.stat}>{user.w}</li>
             <li className={styles.stat}>{user.l}</li>
