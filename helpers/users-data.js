@@ -24,9 +24,9 @@ const bcrypt = require ('bcrypt');
 const saltRounds = 10;
 
 export default {
-  getAll: () => data,
-  findUser: (username) => data.find(x => x.username.toString() === username.toString()),
-  findUserById: (id) => data.find(x => x.id.toString() === id.toString()),
+  getAll: () => JSON.parse(JSON.stringify(data)),
+  findUser: (username) => JSON.parse(JSON.stringify(data.find(x => x.username.toString() === username.toString()))),
+  findUserById: (id) => JSON.parse(JSON.stringify(data.find(x => x.id.toString() === id.toString()))),
   createUser: createfn,
   updateUser: updatefn,
   updateUserStats: updatestats,
