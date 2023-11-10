@@ -3,6 +3,8 @@ import styles from "styles/index.module.css";
 import Head from 'next/head';
 import { useState } from "react";
 import { calculateEloAndWinPercents, rankByElo, rankByTotalWins, rankByWinPercent } from "/helpers/rankingFunctions";
+import Select from 'react-select'; 
+import selectTheme from 'helpers/select-theme.js';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -43,7 +45,21 @@ export default function Home(props){
       <h1>Caravel Academy Table Tennis Club</h1>
     </header>
     <section>
-      <h2>Leaderboard</h2>
+      <div className={styles.titleAndOptions}>
+        <h2>Leaderboard</h2>
+        <Select
+          defaultValue={{value: "elo", label: "rank by elo"}}
+          options={[
+            {value: "elo", label: "rank by elo"},
+            {value: "wins", label: "rank by total wins"},
+            { value: "winpercent", label: "rank by win %"}
+          ]}
+          theme={selectTheme}
+          isSearchable={false}
+          className="react-select-container"
+          onChange={option =>{ setRankingAlgorithm(option.value)}}
+        />
+      </div>
       <ol className={styles.leaderboard}>
         <li className={styles.headerrow}>
           <ul>

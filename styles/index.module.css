@@ -6,6 +6,19 @@
   border: 2px solid var(--clr_dark);
   box-shadow: var(--shadow-med);
 }
+.titleAndOptions{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding-bottom: .5rem;
+  align-items: center;
+}
+.titleAndOptions * {
+  margin: 0;
+}
+.selectcontainer{
+  display: inline-block;
+  font-size: .85rem;
+}
 .player ul, .headerrow ul{
   list-style: none;
   padding: calc(var(--spacing) / 4);
