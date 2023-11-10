@@ -27,15 +27,20 @@ export const getServerSideProps = withSessionSsr(
 export default function Home(props){
   const [showAll, setShowAll] = useState(false);
   const [rankingAlgorithm, setRankingAlgorithm] = useState("elo");
+  let leaderboard;
 
-  let users = props.usersdata.slice(0,props.numplayersonleaderboard);
-  if(showAll){
-    users = props.usersdata;
+  if(rankingAlgorithm === "elo") {
+    leaderboard = rankByElo(props.usersdata)
+    leaderboard = leaderboard.slice(0, props.numplayersonleaderboard);
   }
-
-  if(rankingAlgorithm === "elo") users = rankByElo(users);
-  if(rankingAlgorithm === "wins") users = rankByTotalWins(users);
-  if(rankingAlgorithm === "winpercent") users = rankByWinPercent(users);
+  if(rankingAlgorithm === "wins"){
+    leaderboard = rankByTotalWins(props.usersdata)
+    leaderboard = leaderboard.slice(0, props.numplayersonleaderboard);
+  }
+  if(rankingAlgorithm === "winpercent"){
+    leaderboard = rankByWinPercent(props.usersdata)
+    leaderboard = leaderboard.slice(0, props.numplayersonleaderboard);
+  }
 
   return (<>
     <Head>
@@ -71,7 +76,7 @@ export default function Home(props){
             <li className={styles.stat}><h3>Losses</h3></li>
           </ul>
         </li>
-        {users.map((user, i) => {
+        {leaderboard.map((user, i) => {
           return (
           <li className={styles.player} key={i}>
             <ul className={styles.playerstats}>
