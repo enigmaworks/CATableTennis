@@ -36,14 +36,26 @@ export default function MatchPage(props){
         {parseInt(query.players) == 4 ? <>
           <div className={styles.playerBottom}>{team1[1].info.firstname} {team1[1].info.lastname}</div>
         </> : "" }
-        <div className={styles.score}>00</div>
+        <div className={styles.scorecontainer}>
+          <div className={styles.score}>00</div>
+          <div className={styles.buttoncontainer}>
+            <button>+</button>
+            <button>-</button>
+          </div>
+        </div>
       </div>
       <div className={styles.teamTwo}>
         <div className={styles.playerTop}>{team2[0].info.firstname} {team2[0].info.lastname}</div>
         {parseInt(query.players) == 4 ? <>
           <div className={styles.playerBottom}>{team2[1].info.firstname} {team2[1].info.lastname}</div>
         </> : "" }
-        <div className={styles.score}>00</div>
+        <div className={styles.scorecontainer}>
+          <div className={styles.score}>00</div>
+          <div className={styles.buttoncontainer}>
+            <button>+</button>
+            <button>-</button>
+          </div>
+        </div>
       </div>
     </div>
     <div className={styles.actions}>
