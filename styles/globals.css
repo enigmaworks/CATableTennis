@@ -9,10 +9,10 @@
     --ff_highlight: "Gemunu Libre";
     --f-size-scale: 1.4;
     --f-size-base: clamp(0.875rem, calc(1rem + 0.125vmin), 1rem);
-    --f-size-small: calc(1rem / var(--f-size-scale));
-    --f-size-med: calc(1rem * var(--f-size-scale));
-    --f-size-large: calc(1rem * var(--f-size-scale) * var(--f-size-scale));
-    --f-size-xl: calc(1rem * var(--f-size-scale) * var(--f-size-scale) * var(--f-size-scale));
+    --f-size-small: calc(1em / var(--f-size-scale));
+    --f-size-med: calc(1em * var(--f-size-scale));
+    --f-size-large: calc(1em * var(--f-size-scale) * var(--f-size-scale));
+    --f-size-xl: calc(1em * var(--f-size-scale) * var(--f-size-scale) * var(--f-size-scale));
     --shadow-small: 0.0625rem 0.0625rem 0.125rem var( --clr_dark-a50);
     --shadow-med: 0.125rem 0.125rem 0.25rem 0.125rem var( --clr_dark-a50);
 }
