@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 import styles from "styles/match.module.css";
+import Link from "next/link";
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -28,6 +29,7 @@ export default function MatchPage(props){
   let team2 = [props.usersdata.find(user => parseInt(user.id) === parseInt(query.p2)), props.usersdata.find(user => parseInt(user.id) === parseInt(query.p2b))];
 
   return(
+    <>
     <div className={styles.scoreboard}>
       <div className={styles.teamOne}>
         <div className={styles.playerTop}>{team1[0].info.firstname} {team1[0].info.lastname}</div>
@@ -44,5 +46,10 @@ export default function MatchPage(props){
         <div className={styles.score}>00</div>
       </div>
     </div>
+    <div className={styles.actions}>
+
+      <Link href="/match">Exit to Options</Link>
+    </div>
+    </>
   );
 }

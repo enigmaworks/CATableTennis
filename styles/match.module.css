@@ -1,18 +1,47 @@
-.scoreboard{
-
+.scoreboard, .actions{
+  width: 95vmin;
+  margin-inline: auto;
 }
-.teamOne{
-
+.scoreboard{
+  box-shadow: var(--shadow-med);
+  grid-template-columns: 1fr 1fr;
+  display: grid;
+  margin-block: 2rem;
+}
+.teamOne, .teamTwo{
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  border: 4px solid var(--team-color);
+}
+.teamOne {
+  --team-color: var(--clr_highlight);
+  border-right-width: 2px;
 }
 .teamTwo{
-
+  --team-color: var(--clr_dark);
+  border-left-width: 2px;
 }
-.playerTop{
-
+.playerBottom, .playerTop{
+  background-color: var(--team-color);
+  color: white;
+  padding: 0.5rem;
+  text-align: center;
+}
+.playerTop, .playerBottom{
+  font-family: var(--ff_highlight);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 .playerBottom{
-
+  grid-row: 3;
 }
 .score{
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(3rem, 4vmax, 8vmin);
+  width: 100%;
+  aspect-ratio: 1;
 }
