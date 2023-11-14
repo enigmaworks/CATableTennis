@@ -13,6 +13,15 @@ export default function Nav(pageprops){
   function handleOnClick(){
     setNavIsOpen(!navIsOpen);
   }
+
+  const links = [
+    {href: "/", text: "Home"},
+    {href: "/admin", text: "Admin Panel", permissions: 1},
+    {href: "/match", text: "Match", permissions: 1},
+    {href: "/players", text: "Players"},
+    {href: "/calendar", text: "Event Calendar"},
+    {href: "/join", text: "How to Join"},
+  ]
   
   return (
     <>
@@ -33,15 +42,16 @@ export default function Nav(pageprops){
             {navIsOpen ? <FontAwesomeIcon icon={faX} /> : <FontAwesomeIcon icon={faBars} />}
             {navIsOpen ? " Close" : " Menu"}
           </button>
-          <ul className={styles.navlist} aria-hidden={!navIsOpen} >
-            <NavLink linkhref="/" handleClick={handleOnClick}>Home</NavLink>
-            {(pageprops.signedin && pageprops.user.permissions === 1) ? <>
-              <NavLink linkhref="/admin" handleClick={handleOnClick}>Admin Page</NavLink>
-              <NavLink linkhref="/match" handleClick={handleOnClick}>Match</NavLink>
-            </>: ""}
-            <NavLink linkhref="/players" handleClick={handleOnClick}>Players</NavLink>
-            <NavLink linkhref="/calendar" handleClick={handleOnClick}>Calendar</NavLink>
-            <NavLink linkhref="/join" handleClick={handleOnClick}>Join</NavLink>
+          <ul className={styles.navlist} aria-hidden={!navIsOpen}>
+            {links.map(({href, text, permissions}) => {
+              if(permissions){
+                if(pageprops.user && pageprops.user.permissions >= permissions){
+                  return <NavLink linkhref={href} handleClick={handleOnClick}>{text}</NavLink>
+                }
+              } else {
+                return <NavLink linkhref={href} handleClick={handleOnClick}>{text}</NavLink>
+              }
+            })}
           </ul>
         </div>
       </nav>
