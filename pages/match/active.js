@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 import styles from "styles/match.module.css";
 import Link from "next/link";
@@ -26,6 +27,9 @@ export const getServerSideProps = withSessionSsr(
 export default function MatchPage(props){
   const {query} = useRouter();
 
+  const [team1Score, setTeam1Score] = useState(0);
+  const [team2Score, setTeam2Score] = useState(0);
+
   let team1 = [props.usersdata.find(user => parseInt(user.id) === parseInt(query.p1)), props.usersdata.find(user => parseInt(user.id) === parseInt(query.p1b))];
   let team2 = [props.usersdata.find(user => parseInt(user.id) === parseInt(query.p2)), props.usersdata.find(user => parseInt(user.id) === parseInt(query.p2b))];
   let fullscreenHandle = useFullScreenHandle();
@@ -40,10 +44,10 @@ export default function MatchPage(props){
             <div className={styles.playerBottom}>{team1[1].info.firstname} {team1[1].info.lastname}</div>
           </> : "" }
           <div className={styles.scorecontainer}>
-            <div className={styles.score}>00</div>
+            <div className={styles.score}>{team1Score}</div>
             <div className={styles.buttoncontainer}>
-              <button>+</button>
-              <button>-</button>
+              <button onClick={() => {setTeam1Score(team1Score + 1)}}>+</button>
+              <button onClick={() => {if(team1Score > 0) setTeam1Score(team1Score - 1)}}>-</button>
             </div>
           </div>
         </div>
@@ -53,10 +57,10 @@ export default function MatchPage(props){
             <div className={styles.playerBottom}>{team2[1].info.firstname} {team2[1].info.lastname}</div>
           </> : "" }
           <div className={styles.scorecontainer}>
-            <div className={styles.score}>00</div>
+            <div className={styles.score}>{team2Score}</div>
             <div className={styles.buttoncontainer}>
-              <button>+</button>
-              <button>-</button>
+              <button onClick={() => {setTeam2Score(team2Score + 1)}}>+</button>
+              <button onClick={() => {if(team2Score > 0) setTeam2Score(team2Score - 1)}}>-</button>
             </div>
           </div>
         </div>
