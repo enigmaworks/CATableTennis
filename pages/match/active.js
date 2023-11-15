@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 import styles from "styles/match.module.css";
 import Link from "next/link";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -27,39 +28,42 @@ export default function MatchPage(props){
 
   let team1 = [props.usersdata.find(user => parseInt(user.id) === parseInt(query.p1)), props.usersdata.find(user => parseInt(user.id) === parseInt(query.p1b))];
   let team2 = [props.usersdata.find(user => parseInt(user.id) === parseInt(query.p2)), props.usersdata.find(user => parseInt(user.id) === parseInt(query.p2b))];
+  let fullscreenHandle = useFullScreenHandle();
 
   return(
     <>
-    <div className={styles.scoreboard}>
-      <div className={styles.teamOne}>
-        <div className={styles.playerTop}>{team1[0].info.firstname} {team1[0].info.lastname}</div>
-        {parseInt(query.players) == 4 ? <>
-          <div className={styles.playerBottom}>{team1[1].info.firstname} {team1[1].info.lastname}</div>
-        </> : "" }
-        <div className={styles.scorecontainer}>
-          <div className={styles.score}>00</div>
-          <div className={styles.buttoncontainer}>
-            <button>+</button>
-            <button>-</button>
+    <FullScreen handle={fullscreenHandle}>
+      <div className={styles.scoreboard} data-fullscreen={fullscreenHandle.active}>
+        <div className={styles.teamOne}>
+          <div className={styles.playerTop}>{team1[0].info.firstname} {team1[0].info.lastname}</div>
+          {parseInt(query.players) == 4 ? <>
+            <div className={styles.playerBottom}>{team1[1].info.firstname} {team1[1].info.lastname}</div>
+          </> : "" }
+          <div className={styles.scorecontainer}>
+            <div className={styles.score}>00</div>
+            <div className={styles.buttoncontainer}>
+              <button>+</button>
+              <button>-</button>
+            </div>
+          </div>
+        </div>
+        <div className={styles.teamTwo}>
+          <div className={styles.playerTop}>{team2[0].info.firstname} {team2[0].info.lastname}</div>
+          {parseInt(query.players) == 4 ? <>
+            <div className={styles.playerBottom}>{team2[1].info.firstname} {team2[1].info.lastname}</div>
+          </> : "" }
+          <div className={styles.scorecontainer}>
+            <div className={styles.score}>00</div>
+            <div className={styles.buttoncontainer}>
+              <button>+</button>
+              <button>-</button>
+            </div>
           </div>
         </div>
       </div>
-      <div className={styles.teamTwo}>
-        <div className={styles.playerTop}>{team2[0].info.firstname} {team2[0].info.lastname}</div>
-        {parseInt(query.players) == 4 ? <>
-          <div className={styles.playerBottom}>{team2[1].info.firstname} {team2[1].info.lastname}</div>
-        </> : "" }
-        <div className={styles.scorecontainer}>
-          <div className={styles.score}>00</div>
-          <div className={styles.buttoncontainer}>
-            <button>+</button>
-            <button>-</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    </FullScreen>
     <div className={styles.actions}>
-
+      <button onClick={fullscreenHandle.enter}>Enter Fullscreen</button>
       <Link href="/match">Exit to Options</Link>
     </div>
     </>

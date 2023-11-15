@@ -6,7 +6,14 @@
   box-shadow: var(--shadow-med);
   grid-template-columns: 1fr 1fr;
   display: grid;
-  margin-block: 2rem;
+  margin-block: 1.5rem;
+  background-color: white;
+}
+.scoreboard[data-fullscreen="true"]{
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  font-size: 2rem;
 }
 .teamOne, .teamTwo{
   height: 100%;
@@ -25,7 +32,7 @@
 .playerBottom, .playerTop{
   background-color: var(--team-color);
   color: white;
-  padding: 0.5rem;
+  padding: 0.25em;
   text-align: center;
 }
 .playerTop, .playerBottom{
@@ -39,25 +46,34 @@
 }
 .scorecontainer{
   width: 100%;
+}
+.scoreboard[data-fullscreen="false"] .scorecontainer{
   aspect-ratio: 1;
 }
+.scoreboard[data-fullscreen="true"] .scorecontainer{
+  font-size: 10vw;
+  font-weight: 200;
+}
 .score{
-  font-size: clamp(3rem, 4vmax, 8vmin);
+  font-size: calc(1em + 5vmin);
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80%;
+  height: calc(100% - 3rem);
 }
 .buttoncontainer{
-  height: 20%;
+  height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .scorecontainer button{
   min-width: 0;
-  width: 2rem;
+  height: 1.75em;
   aspect-ratio: 1;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
