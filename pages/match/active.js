@@ -38,6 +38,10 @@ export default function MatchPage(props){
     <>
     <FullScreen handle={fullscreenHandle}>
       <div className={styles.scoreboard} data-fullscreen={fullscreenHandle.active}>
+        <div className={styles.timercontainer}>
+          <input type="text" className={styles.timer}/>
+          <button className={styles.timerbutton}></button>
+        </div>
         <div className={styles.teamOne}>
           <div className={styles.playerTop}>{team1[0].info.firstname} {team1[0].info.lastname}</div>
           {parseInt(query.players) == 4 ? <>

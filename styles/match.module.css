@@ -8,6 +8,7 @@
   display: grid;
   margin-block: 1.5rem;
   background-color: white;
+  position: relative;
 }
 .scoreboard[data-fullscreen="true"]{
   width: 100vw;
@@ -83,4 +84,44 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.timercontainer{
+  position: absolute;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 25%;
+  border: 3px solid var(--clr_dark);
+  display: grid;
+  justify-items: center;
+  padding: .25em;
+}
+input.timer{
+  border: none;
+  outline: none;
+  border-radius: 0;
+  text-align: center;
+  background-color: transparent;
+  font-size: calc(1.5em + 3vmin);
+  font-family: var(--ff_highlight);
+  color: var(--clr_med-dark);
+  padding: 0;
+}
+.scoreboard[data-fullscreen="true"] input.timer{
+  font-size: 8vw;
+}
+button.timerbutton{
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
+  border: none;
+  padding: 0;
+}
+button.timerbutton::before{
+  content: "start";
+}
+button.timerbutton[data-timer-active="true"]::before{
+  content: "stop";
 }
