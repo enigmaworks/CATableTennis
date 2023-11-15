@@ -43,7 +43,7 @@ export default function MatchPage(props){
           {parseInt(query.players) == 4 ? <>
             <div className={styles.playerBottom}>{team1[1].info.firstname} {team1[1].info.lastname}</div>
           </> : "" }
-          <div className={styles.scorecontainer}>
+          <div className={styles.scorecontainer} data-winning={team1Score >= team2Score}>
             <div className={styles.score}>{team1Score}</div>
             <div className={styles.buttoncontainer}>
               <button onClick={() => {setTeam1Score(team1Score + 1)}}>+</button>
@@ -56,7 +56,7 @@ export default function MatchPage(props){
           {parseInt(query.players) == 4 ? <>
             <div className={styles.playerBottom}>{team2[1].info.firstname} {team2[1].info.lastname}</div>
           </> : "" }
-          <div className={styles.scorecontainer}>
+          <div className={styles.scorecontainer} data-winning={team2Score >= team1Score}>
             <div className={styles.score}>{team2Score}</div>
             <div className={styles.buttoncontainer}>
               <button onClick={() => {setTeam2Score(team2Score + 1)}}>+</button>

@@ -46,6 +46,10 @@
 }
 .scorecontainer{
   width: 100%;
+  transition: color 250ms;
+}
+.scorecontainer[data-winning="false"]{
+  color: var(--clr_med-dark);
 }
 .scoreboard[data-fullscreen="false"] .scorecontainer{
   aspect-ratio: 1;
@@ -54,6 +58,7 @@
   font-size: 10vw;
   font-weight: 200;
 }
+
 .score{
   font-size: calc(1em + 5vmin);
   text-align: center;
