@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 import styles from "styles/match.module.css";
 import Link from "next/link";
@@ -34,13 +34,33 @@ export default function MatchPage(props){
   let team2 = [props.usersdata.find(user => parseInt(user.id) === parseInt(query.p2)), props.usersdata.find(user => parseInt(user.id) === parseInt(query.p2b))];
   let fullscreenHandle = useFullScreenHandle();
 
+  const timer = useRef();
+  const [timerValue, setTimerValue] = useState("0000");
+  const [timerIsActive, setTimerIsActive] = useState(false);
+  const [timerStartTime, setTimerStartTime] = useState(Date.now());
+  const [timerEndTime, setEndStartTime] = useState(Date.now());
+
+  function handleTimerInput() {
+    stopTimer();
+    let value = timer.current.value;
+    value = value.replaceAll(/\D/gi, "");
+
+    while(value.length < 4){
+      value = "0" + value;
+    }
+    while(value.length > 4){
+      value = value.substring(1);
+    }
+    setTimerValue(value);
+  }
+
   return(
     <>
     <FullScreen handle={fullscreenHandle}>
       <div className={styles.scoreboard} data-fullscreen={fullscreenHandle.active}>
         <div className={styles.timercontainer}>
-          <input type="text" className={styles.timer}/>
-          <button className={styles.timerbutton}></button>
+          <input type="text" className={styles.timer} value={timerValue.substring(0,2) + ":" + timerValue.substring(2)} onInput={handleTimerInput} ref={timer}/>
+          <button className={styles.timerbutton} data-timer-active={timerIsActive} onClick={()=>{setTimerIsActive(!timerIsActive)}}></button>
         </div>
         <div className={styles.teamOne}>
           <div className={styles.playerTop}>{team1[0].info.firstname} {team1[0].info.lastname}</div>
