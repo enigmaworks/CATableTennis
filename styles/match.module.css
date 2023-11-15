@@ -34,15 +34,17 @@
   color: white;
   padding: 0.25em;
   text-align: center;
-}
-.playerTop, .playerBottom{
   font-family: var(--ff_highlight);
   letter-spacing: .1em;
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-weight: 600;
+}
+.playerTop{
+  border-bottom: 4px solid var(--team-color);
 }
 .playerBottom{
   grid-row: 3;
+  border-top: 4px solid var(--team-color);
 }
 .scorecontainer{
   width: 100%;
