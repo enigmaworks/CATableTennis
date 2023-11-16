@@ -31,6 +31,7 @@
   padding: 0;
   list-style: none;
   background-color: white;
+  border-radius: 0.75rem;
   transition:
     transform var(--transistion-time) ease-in,
     opacity var(--transistion-time) ease-out;
@@ -42,8 +43,7 @@
     opacity var(--transistion-time) ease-in;
   transform: translate(0);
   opacity: 1;
-  box-shadow: 0 0 1rem #fff;
-
+  box-shadow: 0 0 1rem var(--clr_light);
 }
 .nav[nav-state="closed"] ul{
   transform: translate(-100%);
@@ -64,6 +64,7 @@
   border: none;
   border-radius: 0;
   font-weight: 600;
+  color: var(--clr_dark);
 }
 
 .navbutton:hover,
@@ -76,6 +77,7 @@
 .navlist a{
   padding: 0.5em 3em;
   width: 13rem;
+  min-width: max-content;
   color: inherit;
   text-transform: capitalize;
 }
@@ -96,6 +98,8 @@
   padding: 0;
   transition: scale 100ms, box-shadow 100ms;
   font-size: calc(var(--f-size-base) + 0.25vmin);
+  background-color: white;
+
 }
 
 .navlist li[is-active="true"]{
@@ -119,7 +123,7 @@
 
 .navlist li:hover,
 .navlist li:focus-within{
-  scale: 1.03;
+  scale: 1 1.03;
 }
 
 .active{
