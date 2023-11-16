@@ -59,7 +59,16 @@
 }
 .scoreboard[data-fullscreen="true"] .scorecontainer{
   font-size: 10vw;
-  font-weight: 200;
+  font-weight: 300;
+}
+.scoreboard[data-fullscreen="true"] .scorecontainer button{
+  font-size: 1.5vw;
+}
+.scoreboard[data-fullscreen="true"] .score{
+  height: calc(100% - (2vw + 1rem));
+}
+.scoreboard[data-fullscreen="true"] .buttoncontainer{
+  height: calc(2vw + 1rem);
 }
 
 .score{
@@ -84,4 +93,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.fullscreenbutton{
+  float: right;
 }

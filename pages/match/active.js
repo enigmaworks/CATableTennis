@@ -4,6 +4,8 @@ import { withSessionSsr  } from "helpers/lib/config/withSession";
 import styles from "styles/match.module.css";
 import Link from "next/link";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExpand } from "@fortawesome/free-solid-svg-icons";
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -27,7 +29,7 @@ export const getServerSideProps = withSessionSsr(
 export default function MatchPage(props){
   const {query} = useRouter();
   
-  if(query.p1 === undefined|| query.p1 === undefined || query.p1 === undefined|| query.p1 === undefined){
+  if(query.p1 === undefined || query.p1 === undefined || query.p1 === undefined|| query.p1 === undefined){
     Router.push("/match");
   }
 
@@ -40,6 +42,16 @@ export default function MatchPage(props){
 
   return(
     <>
+    <header>
+      <h1>{query.p1b !== undefined ? "Team Match" : "Solo Match"}</h1>
+    </header>
+    <div className={styles.actions}>
+      <button >Save Result</button>
+      <Link className="button light" href="/match">Quit Match</Link>
+      <button className={`${styles.fullscreenbutton} fitcontentwidth light`} onClick={fullscreenHandle.enter}>
+        <FontAwesomeIcon icon={faExpand}/>
+      </button>
+    </div>
     <FullScreen handle={fullscreenHandle}>
       <div className={styles.scoreboard} data-fullscreen={fullscreenHandle.active}>
         <div className={styles.teamOne}>
@@ -50,8 +62,8 @@ export default function MatchPage(props){
           <div className={styles.scorecontainer} data-winning={team1Score >= team2Score}>
             <div className={styles.score}>{team1Score}</div>
             <div className={styles.buttoncontainer}>
-              <button onClick={() => {setTeam1Score(team1Score + 1)}}>+</button>
-              <button onClick={() => {if(team1Score > 0) setTeam1Score(team1Score - 1)}}>-</button>
+              <button className="light" onClick={() => {setTeam1Score(team1Score + 1)}}>+</button>
+              <button className="light" onClick={() => {if(team1Score > 0) setTeam1Score(team1Score - 1)}}>-</button>
             </div>
           </div>
         </div>
@@ -63,18 +75,13 @@ export default function MatchPage(props){
           <div className={styles.scorecontainer} data-winning={team2Score >= team1Score}>
             <div className={styles.score}>{team2Score}</div>
             <div className={styles.buttoncontainer}>
-              <button onClick={() => {setTeam2Score(team2Score + 1)}}>+</button>
-              <button onClick={() => {if(team2Score > 0) setTeam2Score(team2Score - 1)}}>-</button>
+              <button className="light" onClick={() => {setTeam2Score(team2Score + 1)}}>+</button>
+              <button className="light" onClick={() => {if(team2Score > 0) setTeam2Score(team2Score - 1)}}>-</button>
             </div>
           </div>
         </div>
       </div>
     </FullScreen>
-    <div className={styles.actions}>
-      <button onClick={fullscreenHandle.enter}>Fullscreen</button>
-      <button>Save Results</button>
-      <Link className="button" href="/match">Exit to Options</Link>
-    </div>
     </>
   );
 }

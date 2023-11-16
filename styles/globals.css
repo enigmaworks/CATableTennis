@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@400;600;800&display=swap');
 
 :root{
     --clr_highlight: #691616;
-    --clr_light: #ddd;
-    --clr_med-dark: #686868;
+    --clr_light: #e8e8e8;
+    --clr_med-dark: #787878;
     --clr_dark: #404040;
     --clr_dark-a50: #40404088;
     --ff_base: "Inter";
@@ -121,6 +121,7 @@ button.light, input[type="submit"].light, input[type="button"].light, a.button.l
 }
 button.important, input[type="submit"], input[type="button"].important, a.button.important{
     background-color: var(--clr_highlight);
+    color: white;
 }
 button.fitcontentwidth, input[type="submit"].fitcontentwidth, input[type="button"].fitcontentwidth, a.button.fitcontentwidth {
     min-width: 0;
