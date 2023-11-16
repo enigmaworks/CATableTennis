@@ -104,7 +104,7 @@ button, input[type="submit"], input[type="button"], a.button {
     text-align: center;
     transition: scale 100ms, box-shadow 100ms;
     font-weight: 600;
-    min-width: 10rem;
+    min-width: 10em;
     border: none; 
 }
 button:hover, input[type="submit"]:hover, .button:hover,
