@@ -138,7 +138,7 @@ export default function MatchPage(props){
             ref={timerCheckbox}
             onChange={()=>{setUseTimer(timerCheckbox.current.checked);}}
           />
-          <button onClick={()=>{
+          <button className="important" onClick={()=>{
             if(numPlayers === 2){
               Router.push({
                 pathname: 'match/active',
@@ -162,7 +162,7 @@ export default function MatchPage(props){
                 }
               }, 'match');
             }
-          }}>test</button>
+          }}>Start Match</button>
         </div>
       </section>
     </>);
