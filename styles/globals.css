@@ -83,7 +83,13 @@ a:focus-within {
     outline: none;
     text-decoration: underline;
 }
-
+input:not([type="range"],[type="radio"],[type="image"],[type="file"],[type="checkbox"]){
+    color: inherit;
+    border: 1px solid var(--clr_dark-a50);
+    border-radius: 0.25rem;
+    padding: 0.25em 0.25em;
+    margin: 0.1em 0.1em;
+}
 button, input[type="submit"], input[type="button"], a.button {
     margin: 0.1em 0.1em;
     padding: 0.125em 1em;
@@ -113,14 +119,6 @@ button:hover, input[type="submit"]:hover, .button:hover,
 button:focus-within, input[type="submit"]:focus-within, .button:focus-within{
     box-shadow: var(--shadow-small);
     outline: none;
-}
-input:not([type="range"],[type="radio"],[type="image"],[type="file"],[type="checkbox"]){
-    color: inherit;
-    border: 1px solid var(--clr_dark-a50);
-    border-radius: 0.25rem;
-    padding: 0.25em 0.25em;
-    margin: 0.1em 0.1em;
-    width: 100%;
 }
 .react-select-container input {
     padding: 0;
