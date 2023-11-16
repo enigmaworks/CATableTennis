@@ -86,11 +86,11 @@ export default function MatchPage(props){
         <Select
           onChange={handleNumPlayersChange}
           isSearchable={false}
-          defaultValue={{value:2, label: "Two Players"}}
+          defaultValue={{value:2, label: "Solo Match "}}
           theme={selectTheme}
           options={[
-            {value:2, label: "Two Players"},
-            {value:4, label: "Four Players"}]
+            {value:2, label: "Solo Match"},
+            {value:4, label: "Team Match"}]
           }
         />
         <div>
