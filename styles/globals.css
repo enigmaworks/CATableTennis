@@ -3,7 +3,7 @@
 
 :root{
     --clr_highlight: #691616;
-    --clr_light: #e8e8e8;
+    --clr_light: #ddd;
     --clr_med-dark: #686868;
     --clr_dark: #404040;
     --clr_dark-a50: #40404088;
@@ -95,7 +95,6 @@ button, input[type="submit"], input[type="button"], a.button {
     margin: 0.1em 0.1em;
     padding: 0.125em 1em;
     cursor: pointer;
-    background-color: var(--clr_dark);
     border-radius: 0.25em;
     color: var(--clr_light);
     font-size: var(--f-size-base);
@@ -106,11 +105,25 @@ button, input[type="submit"], input[type="button"], a.button {
     transition: scale 100ms, box-shadow 100ms;
     font-weight: 600;
     min-width: 10rem;
-    border: none;
-
+    border: none; 
+}
+button:hover, input[type="submit"]:hover, .button:hover,
+button:focus-within, input[type="submit"]:focus-within, .button:focus-within{
+    box-shadow: var(--shadow-small);
+    outline: none;
+}
+button, input[type="button"], a.button {
+    background-color: var(--clr_dark);
+}
+button.light, input[type="submit"].light, input[type="button"].light, a.button.light {
+    background-color: var(--clr_light);
+    color: var(--clr_dark);
 }
 button.important, input[type="submit"], input[type="button"].important, a.button.important{
     background-color: var(--clr_highlight);
+}
+button.fitcontentwidth, input[type="submit"].fitcontentwidth, input[type="button"].fitcontentwidth, a.button.fitcontentwidth {
+    min-width: 0;
 }
 input[type="checkbox"]{
     accent-color: var(--clr_highlight);
@@ -119,11 +132,6 @@ input[type="checkbox"]{
     display: inline-block;
     margin-inline: .25em;
     vertical-align: middle;
-}
-button:hover, input[type="submit"]:hover, .button:hover,
-button:focus-within, input[type="submit"]:focus-within, .button:focus-within{
-    box-shadow: var(--shadow-small);
-    outline: none;
 }
 .react-select-container input {
     padding: 0;
