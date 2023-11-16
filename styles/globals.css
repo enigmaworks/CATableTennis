@@ -3,7 +3,7 @@
 
 :root{
     --clr_highlight: #691616;
-    --clr_light: #ddd;
+    --clr_light: #e8e8e8;
     --clr_med-dark: #686868;
     --clr_dark: #404040;
     --clr_dark-a50: #40404088;
@@ -108,6 +108,9 @@ button, input[type="submit"], input[type="button"], a.button {
     min-width: 10rem;
     border: none;
 
+}
+button.important, input[type="submit"], input[type="button"].important, a.button.important{
+    background-color: var(--clr_highlight);
 }
 input[type="checkbox"]{
     accent-color: var(--clr_highlight);
