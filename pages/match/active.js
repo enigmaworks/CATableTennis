@@ -68,8 +68,9 @@ export default function MatchPage(props){
       </div>
     </FullScreen>
     <div className={styles.actions}>
-      <button onClick={fullscreenHandle.enter}>Enter Fullscreen</button>
-      <Link href="/match">Exit to Options</Link>
+      <button onClick={fullscreenHandle.enter}>Fullscreen</button>
+      <button>Save Results</button>
+      <Link className="button" href="/match">Exit to Options</Link>
     </div>
     </>
   );
