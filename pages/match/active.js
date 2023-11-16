@@ -1,10 +1,9 @@
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 import styles from "styles/match.module.css";
 import Link from "next/link";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { useTimer } from 'react-timer-hook';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -27,6 +26,10 @@ export const getServerSideProps = withSessionSsr(
 
 export default function MatchPage(props){
   const {query} = useRouter();
+  
+  if(query.p1 === undefined|| query.p1 === undefined || query.p1 === undefined|| query.p1 === undefined){
+    Router.push("/match");
+  }
 
   const [team1Score, setTeam1Score] = useState(0);
   const [team2Score, setTeam2Score] = useState(0);
