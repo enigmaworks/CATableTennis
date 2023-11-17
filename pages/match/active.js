@@ -78,17 +78,18 @@ export default function MatchPage(props){
           onChange={()=>{cleanInput(minutesInput)}}
           className={styles.timerValue}
         />
+        <div className={styles.colon}>:</div>
         <input
           type="text"
           inputMode="numeric"
-          defaultValue={0}
+          defaultValue="00"
           disabled={!(api.isPaused() || api.isStopped())}
           ref={secondsInput}
           onChange={()=>{cleanInput(secondsInput)}}
           className={styles.timerValue}
         />
 
-        <button className={`fitcontentwidth ${styles.timerButton}`} onClick={() => { handleStartStop(api) }}>
+        <button className={`fitcontentwidth light ${styles.timerButton}`} onClick={() => { handleStartStop(api) }}>
           {api.isPaused() || api.isStopped() ? "Start" : "Stop"}
         </button>
       </>
@@ -108,10 +109,10 @@ export default function MatchPage(props){
       </button>
     </div>
     <FullScreen handle={fullscreenHandle}>
-      <div className={styles.timercontainer}>
-        <Countdown date={timerDate} autoStart={false} renderer={TimerRenderer}/>
-      </div>
       <div className={styles.scoreboard} data-fullscreen={fullscreenHandle.active}>
+        <div className={styles.timercontainer}>
+          <Countdown date={timerDate} autoStart={false} renderer={TimerRenderer}/>
+        </div>
         <div className={styles.teamOne}>
           <div className={styles.players}>
             {team1[0].info.firstname} {team1[0].info.lastname}
