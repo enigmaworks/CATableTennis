@@ -136,6 +136,8 @@ input[type="checkbox"]{
 }
 .react-select-container input {
     padding: 0;
+    min-width: max-content;
+    max-width: 100%;
 }
 .react-select-container{
     font-size: .95em;
