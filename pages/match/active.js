@@ -28,7 +28,7 @@ export const getServerSideProps = withSessionSsr(
 
 
 export default function MatchPage(props){
-  const {query} = useRouter();
+  let {query} = useRouter();
   
   if(query.p1 === undefined || query.p1 === undefined || query.p1 === undefined|| query.p1 === undefined){
     Router.push("/match");
@@ -51,9 +51,17 @@ export default function MatchPage(props){
       const min = parseInt(minutesInput.current.value);
       setTimerDate(Date.now() + (sec * 1000) + (min * 1000 * 60));
       timer.start();
+    } else if (timer.isCompleted()){
+      restartTimer(timer);
     } else {
       timer.pause()
     }
+  }
+
+  function restartTimer(timer){
+    secondsInput.current.value = "00";
+    minutesInput.current.value = "10";
+    timer.stop();
   }
 
   function cleanInput(ref){
@@ -62,7 +70,7 @@ export default function MatchPage(props){
     if(ref.current.value === "") ref.current.value = 0;
   }
 
-  function TimerRenderer({minutes, seconds, api}){
+  function TimerRenderer({minutes, seconds, api, completed}){
     if(!(api.isPaused() || api.isStopped())){
       minutesInput.current.value = zeroPad(minutes);
       secondsInput.current.value = zeroPad(seconds);
@@ -76,6 +84,7 @@ export default function MatchPage(props){
           disabled={!(api.isPaused() || api.isStopped())}
           ref={minutesInput}
           onChange={()=>{cleanInput(minutesInput)}}
+          data-completed={completed}
           className={styles.timerValue}
         />
         <div className={styles.colon}>:</div>
@@ -86,11 +95,12 @@ export default function MatchPage(props){
           disabled={!(api.isPaused() || api.isStopped())}
           ref={secondsInput}
           onChange={()=>{cleanInput(secondsInput)}}
+          data-completed={completed}
           className={styles.timerValue}
         />
 
         <button className={`fitcontentwidth light ${styles.timerButton}`} onClick={() => { handleStartStop(api) }}>
-          {api.isPaused() || api.isStopped() ? "Start" : "Stop"}
+          {api.isPaused() || api.isStopped() ? "Start" : (api.isCompleted()) ? "Reset" : "Stop"}
         </button>
       </>
     )
@@ -110,9 +120,9 @@ export default function MatchPage(props){
     </div>
     <FullScreen handle={fullscreenHandle}>
       <div className={styles.scoreboard} data-fullscreen={fullscreenHandle.active}>
-        <div className={styles.timercontainer}>
+        {query.timer === "true" ? <div className={styles.timercontainer}>
           <Countdown date={timerDate} autoStart={false} renderer={TimerRenderer}/>
-        </div>
+        </div> : ""}
         <div className={styles.teamOne}>
           <div className={styles.players}>
             {team1[0].info.firstname} {team1[0].info.lastname}

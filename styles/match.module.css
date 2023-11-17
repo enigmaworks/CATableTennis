@@ -130,6 +130,9 @@ input.timerValue:disabled{
   opacity: 1;
   background-color: white;
 }
+input.timerValue:focus-within{
+  outline: none;
+}
 .timerButton{
   margin: 0;
   grid-column: span 3;
@@ -137,4 +140,13 @@ input.timerValue:disabled{
 }
 .timerButton:hover, .timerButton:focus-within{
   box-shadow: none;
+}
+@keyframes flash{
+  100% {
+    color: color-mix(in srgb, var(--clr_med-dark) 50%, red 50%);
+  }
+}
+
+input.timerValue[data-completed="true"]{
+  animation: 0.25s infinite alternate flash;
 }
