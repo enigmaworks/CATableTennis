@@ -2,6 +2,11 @@
   width: 95vmin;
   margin-inline: auto;
 }
+@media (max-height: 100vw) and (max-width: 50rem) {
+  .scoreboard, .actions{
+    width: 95vw;
+  }
+}
 .scoreboard{
   box-shadow: var(--shadow-med);
   grid-template-columns: 1fr 1fr;
@@ -89,9 +94,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.fullscreenbutton{
-  float: right;
 }
 .timercontainer{
   position: absolute;
