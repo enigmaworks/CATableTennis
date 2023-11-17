@@ -12,4 +12,16 @@
   height: 3.5rem;
   margin-right: 0.5rem;
 }
-
+.calendarframe{
+  border: 2px solid var(--clr_dark);
+  box-shadow: var(--shadow-med);
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+}
+.calendarframe iframe{
+  display: block;
+  aspect-ratio: 8 / 6;
+  width: 100%;
+  filter: brightness(85%) contrast(150%) grayscale(1);
+}

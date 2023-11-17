@@ -1,5 +1,5 @@
 import { withSessionSsr  } from "helpers/lib/config/withSession";
-import styles from "/styles/calendar.module.css";
+import styles from "/styles/about.module.css";
 import Head from 'next/head';
 
 export const getServerSideProps = withSessionSsr(
