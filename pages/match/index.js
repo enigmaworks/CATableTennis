@@ -25,7 +25,6 @@ export const getServerSideProps = withSessionSsr(
 );
 
 export default function MatchPage(props){
-  const [gamePhase, setgamePhase] = useState("setup");
   const [numPlayers, setNumPlayers] = useState(2);
   const [team1, setTeam1] = useState([props.usersdata[0].id]);
   const [team2, setTeam2] = useState([props.usersdata[1].id]);
