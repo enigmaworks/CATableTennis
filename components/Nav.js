@@ -19,8 +19,7 @@ export default function Nav(pageprops){
     {href: "/admin", text: "Admin Panel", permissions: 1},
     {href: "/match", text: "Match", permissions: 1},
     {href: "/players", text: "Players"},
-    {href: "/calendar", text: "Event Calendar"},
-    {href: "/join", text: "How to Join"},
+    {href: "/about", text: "About The Club"},
   ]
   
   return (
