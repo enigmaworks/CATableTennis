@@ -6,6 +6,7 @@ import Link from "next/link";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExpand } from "@fortawesome/free-solid-svg-icons";
+import Countdown, { zeroPad } from "react-countdown";
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -40,6 +41,52 @@ export default function MatchPage(props){
   let team2 = [props.usersdata.find(user => parseInt(user.id) === parseInt(query.p2)), props.usersdata.find(user => parseInt(user.id) === parseInt(query.p2b))];
   let fullscreenHandle = useFullScreenHandle();
 
+  const [timerDate, setTimerDate] = useState(Date.now() + 600000);
+  const secondsInput = useRef();
+  const minutesInput = useRef();
+
+  function handleStartStop(timer){
+    if(timer.isStopped() || timer.isPaused()){
+      const sec = parseInt(secondsInput.current.value);
+      const min = parseInt(minutesInput.current.value);
+      setTimerDate(Date.now() + (sec * 1000) + (min * 1000 * 60));
+      timer.start();
+    } else {
+      timer.pause()
+    }
+  }
+
+  function TimerRenderer({minutes, seconds, api}){
+    if(!(api.isPaused() || api.isStopped())){
+      minutesInput.current.value = zeroPad(minutes);
+      secondsInput.current.value = zeroPad(seconds);
+    }
+    return(
+      <>
+        <input
+          type="number"
+          defaultValue={10}
+          ref={minutesInput}
+          min={0}
+          max={59}
+          disabled={!(api.isPaused() || api.isStopped())}
+        />
+        <input
+          type="number"
+          defaultValue={0}
+          ref={secondsInput}
+          min={0}
+          max={59}
+          disabled={!(api.isPaused() || api.isStopped())}
+        />
+
+        <button className="fitcontentwidth" onClick={() => { handleStartStop(api) }}>
+          {api.isPaused() || api.isStopped() ? "Start" : "Stop"}
+        </button>
+      </>
+    )
+  }
+
   return(
     <>
     <header>
@@ -53,6 +100,7 @@ export default function MatchPage(props){
       </button>
     </div>
     <FullScreen handle={fullscreenHandle}>
+      <Countdown date={timerDate} autoStart={false} renderer={TimerRenderer}/>
       <div className={styles.scoreboard} data-fullscreen={fullscreenHandle.active}>
         <div className={styles.teamOne}>
           <div className={styles.playerTop}>{team1[0].info.firstname} {team1[0].info.lastname}</div>
