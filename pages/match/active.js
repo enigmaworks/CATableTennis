@@ -56,6 +56,12 @@ export default function MatchPage(props){
     }
   }
 
+  function cleanInput(ref){
+    ref.current.value = ref.current.value.replaceAll(/\D/gi,"");
+    ref.current.value = ref.current.value.substring(ref.current.value.length - 2);
+    if(ref.current.value === "") ref.current.value = 0;
+  }
+
   function TimerRenderer({minutes, seconds, api}){
     if(!(api.isPaused() || api.isStopped())){
       minutesInput.current.value = zeroPad(minutes);
@@ -64,23 +70,25 @@ export default function MatchPage(props){
     return(
       <>
         <input
-          type="number"
+          type="text"
+          inputMode="numeric"
           defaultValue={10}
-          ref={minutesInput}
-          min={0}
-          max={59}
           disabled={!(api.isPaused() || api.isStopped())}
+          ref={minutesInput}
+          onChange={()=>{cleanInput(minutesInput)}}
+          className={styles.timerValue}
         />
         <input
-          type="number"
+          type="text"
+          inputMode="numeric"
           defaultValue={0}
-          ref={secondsInput}
-          min={0}
-          max={59}
           disabled={!(api.isPaused() || api.isStopped())}
+          ref={secondsInput}
+          onChange={()=>{cleanInput(secondsInput)}}
+          className={styles.timerValue}
         />
 
-        <button className="fitcontentwidth" onClick={() => { handleStartStop(api) }}>
+        <button className={`fitcontentwidth ${styles.timerButton}`} onClick={() => { handleStartStop(api) }}>
           {api.isPaused() || api.isStopped() ? "Start" : "Stop"}
         </button>
       </>
@@ -100,13 +108,16 @@ export default function MatchPage(props){
       </button>
     </div>
     <FullScreen handle={fullscreenHandle}>
-      <Countdown date={timerDate} autoStart={false} renderer={TimerRenderer}/>
+      <div className={styles.timercontainer}>
+        <Countdown date={timerDate} autoStart={false} renderer={TimerRenderer}/>
+      </div>
       <div className={styles.scoreboard} data-fullscreen={fullscreenHandle.active}>
         <div className={styles.teamOne}>
-          <div className={styles.playerTop}>{team1[0].info.firstname} {team1[0].info.lastname}</div>
-          {parseInt(query.players) == 4 ? <>
-            <div className={styles.playerBottom}>{team1[1].info.firstname} {team1[1].info.lastname}</div>
-          </> : "" }
+          <div className={styles.players}>
+            {team1[0].info.firstname} {team1[0].info.lastname}
+            {team1[1] !== undefined ? <div className={styles.spacer}>&</div> : ""}
+            {team1[1] !== undefined ? `${team1[1].info.firstname} ${team1[1].info.lastname}`: ""}
+         </div>
           <div className={styles.scorecontainer} data-winning={team1Score >= team2Score}>
             <div className={styles.score}>{team1Score}</div>
             <div className={styles.buttoncontainer}>
@@ -116,10 +127,11 @@ export default function MatchPage(props){
           </div>
         </div>
         <div className={styles.teamTwo}>
-          <div className={styles.playerTop}>{team2[0].info.firstname} {team2[0].info.lastname}</div>
-          {parseInt(query.players) == 4 ? <>
-            <div className={styles.playerBottom}>{team2[1].info.firstname} {team2[1].info.lastname}</div>
-          </> : "" }
+          <div className={styles.players}>
+            {team2[0].info.firstname} {team2[0].info.lastname}
+            {team2[1] !== undefined ? <div className={styles.spacer}>&</div> : ""}
+            {team2[1] !== undefined ? `${team2[1].info.firstname} ${team2[1].info.lastname}`: ""}
+         </div>
           <div className={styles.scorecontainer} data-winning={team2Score >= team1Score}>
             <div className={styles.score}>{team2Score}</div>
             <div className={styles.buttoncontainer}>
