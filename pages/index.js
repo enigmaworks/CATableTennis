@@ -12,6 +12,9 @@ export const getServerSideProps = withSessionSsr(
     data = await data.json();
     data = calculateEloAndWinPercents(data);
 
+    let now = new Date();
+    data = data.filter(user => user.info.gradyear >= now.getFullYear());
+
     const site = await fetch(process.env.URL + "/api/sitedata", {method:"GET"});
     const {numplayersonleaderboard} = await site.json();
 
@@ -25,7 +28,6 @@ export const getServerSideProps = withSessionSsr(
 );
 
 export default function Home(props){
-  const [showAll, setShowAll] = useState(false);
   const [rankingAlgorithm, setRankingAlgorithm] = useState("elo");
   let leaderboard;
 
