@@ -1,5 +1,5 @@
 import Router, { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 import styles from "styles/match.module.css";
 import Link from "next/link";
@@ -29,9 +29,12 @@ export const getServerSideProps = withSessionSsr(
 
 export default function MatchPage(props){
   let {query} = useRouter();
-  
+
   if(query.p1 === undefined || query.p1 === undefined || query.p1 === undefined|| query.p1 === undefined){
-    Router.push("/match");
+    useEffect(()=>{
+      Router.push("/match");
+    },[])
+    return (<></>);
   }
 
   const [team1Score, setTeam1Score] = useState(0);
@@ -68,6 +71,32 @@ export default function MatchPage(props){
     ref.current.value = ref.current.value.replaceAll(/\D/gi,"");
     ref.current.value = ref.current.value.substring(ref.current.value.length - 2);
     if(ref.current.value === "") ref.current.value = 0;
+  }
+
+  function saveresult(){
+    if(team1Score > team2Score){
+      Router.push({
+        pathname: '/match/save',
+        query: {
+          win1: team1[0],
+          win2: team1[1],
+          lose1: team2[0],
+          lose2: team2[1],
+        }
+      }, "/match/save");
+    } else if(team2Score > team1Score){
+      Router.push({
+        pathname: '/match/save',
+        query: {
+          win1: team2[0],
+          win2: team2[1],
+          lose1: team1[0],
+          lose2: team1[1],
+        }
+      }, "/match/save");
+    } else {
+      alert("can't save tie games")
+    }
   }
 
   function TimerRenderer({minutes, seconds, api, completed}){
@@ -112,7 +141,7 @@ export default function MatchPage(props){
       <h1>{query.p1b !== undefined ? "Team Match" : "Solo Match"}</h1>
     </header>
     <div className={styles.actions}>
-      <button >Save Result</button>
+      <button onClick={saveresult}>Save Result</button>
       <Link className="button light" href="/match">Quit Match</Link>
       <button className={`${styles.fullscreenbutton} fitcontentwidth light`} onClick={fullscreenHandle.enter}>
         <FontAwesomeIcon icon={faExpand}/>
