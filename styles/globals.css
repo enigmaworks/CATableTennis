@@ -53,7 +53,7 @@ section {
 }
 section.centercontent {
     width: 100%;
-    min-height: calc(100vh - 10.5rem);
+    min-height: calc(100vh - 20rem);
     display: grid;
     align-content: center;
     justify-content: center;
