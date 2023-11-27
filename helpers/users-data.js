@@ -92,10 +92,10 @@ function updatefn(id, newdata) {
   }
 }
 
-function updatestats(id, season, w, l){
+function updatestats(id, w, l){
   let user = data.find(x => x.id.toString() === id.toString());
   
-  user.statistics[season] = {w: w, l: l};
+  user.statistics = {w: w, l: l};
   user.lastStatUpdate = new Date().toISOString();
 
   saveData();
