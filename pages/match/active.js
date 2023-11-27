@@ -30,7 +30,8 @@ export const getServerSideProps = withSessionSsr(
 export default function MatchPage(props){
   let {query} = useRouter();
 
-  if(query.p1 === undefined || query.p1 === undefined || query.p1 === undefined|| query.p1 === undefined){
+  //check that both players for both teams are present 1v1 or full 2v2 teams
+  if((query.p1 === undefined || query.p2 === undefined) && ((query.p1a !== undefined && query.p1b !== undefined) || (query.p1b === undefined && query.p1a === undefined))){
     useEffect(()=>{
       Router.push("/match");
     },[])
@@ -75,25 +76,45 @@ export default function MatchPage(props){
 
   function saveresult(){
     if(team1Score > team2Score){
-      Router.push({
-        pathname: '/match/save',
-        query: {
-          win1: team1[0],
-          win2: team1[1],
-          lose1: team2[0],
-          lose2: team2[1],
-        }
-      }, "/match/save");
+      if(team1[1]){
+        Router.push({
+          pathname: '/match/save',
+          query: {
+            win1: team1[0].id,
+            win2: team1[1].id,
+            lose1: team2[0].id,
+            lose2: team2[1].id,
+          }
+        });
+      } else {
+        Router.push({
+          pathname: '/match/save',
+          query: {
+            win1: team1[0].id,
+            lose1: team2[0].id,
+          }
+        });
+      }
     } else if(team2Score > team1Score){
-      Router.push({
-        pathname: '/match/save',
-        query: {
-          win1: team2[0],
-          win2: team2[1],
-          lose1: team1[0],
-          lose2: team1[1],
-        }
-      }, "/match/save");
+      if(team1[2]){
+        Router.push({
+          pathname: '/match/save',
+          query: {
+            win1: team2[0].id,
+            win2: team2[1].id,
+            lose1: team1[0].id,
+            lose2: team1[1].id,
+          }
+        }, '/match/save');
+      } else {
+        Router.push({
+          pathname: '/match/save',
+          query: {
+            win1: team2[0].id,
+            lose1: team1[0].id,
+          }
+        }, '/match/save');
+      }
     } else {
       alert("can't save tie games")
     }
