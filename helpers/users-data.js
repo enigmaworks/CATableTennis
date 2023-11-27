@@ -29,8 +29,8 @@ export default {
   findUserById: (id) => JSON.parse(JSON.stringify(data.find(x => x.id.toString() === id.toString()))),
   createUser: createfn,
   updateUser: updatefn,
-  updateUserStats: updatestats,
-  deleteUser: deletefn
+  deleteUser: deletefn,
+  saveMatchResult: saveMatchResult
 }
 
 function createfn (username, password, permissions, userinfo = {}){
@@ -92,10 +92,15 @@ function updatefn(id, newdata) {
   }
 }
 
-function updatestats(id, w, l){
+function saveMatchResult(id, didwin){
   let user = data.find(x => x.id.toString() === id.toString());
   
-  user.statistics = {w: w, l: l};
+  if(didwin){
+    user.statistics.w += 1;
+  } else {
+    user.statistics.l += 1;
+  }
+
   user.lastStatUpdate = new Date().toISOString();
 
   saveData();
