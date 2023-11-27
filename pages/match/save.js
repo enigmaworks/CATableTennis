@@ -2,6 +2,7 @@ import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { withSessionSsr  } from "helpers/lib/config/withSession";
 import styles from "styles/match.module.css";
+import toast, { Toaster } from 'react-hot-toast';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -64,7 +65,7 @@ export default function SavePage(props){
     if(res.status === 200){
       Router.push("/match");
     } else {
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
     }
     
   }
@@ -74,6 +75,7 @@ export default function SavePage(props){
     <header>
       <h1>Confirm Match Results</h1>
     </header>
+    <Toaster position="bottom-center" reverseOrder={false}/>
     <section className="centercontent">
       <div className={styles.saveScreenContainer}>
         <div>

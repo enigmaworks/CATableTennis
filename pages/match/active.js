@@ -7,6 +7,7 @@ import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExpand } from "@fortawesome/free-solid-svg-icons";
 import Countdown, { zeroPad } from "react-countdown";
+import toast, { Toaster } from 'react-hot-toast';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -116,7 +117,7 @@ export default function MatchPage(props){
         }, '/match/save');
       }
     } else {
-      alert("can't save tie games")
+      toast.error("Can't save tie games!")
     }
   }
 
@@ -161,6 +162,7 @@ export default function MatchPage(props){
     <header>
       <h1>{query.p1b !== undefined ? "Team Match" : "Solo Match"}</h1>
     </header>
+    <Toaster position="bottom-center" reverseOrder={false}/>
     <div className={styles.actions}>
       <button onClick={saveresult}>Save Result</button>
       <Link className="button light" href="/match">Quit Match</Link>
