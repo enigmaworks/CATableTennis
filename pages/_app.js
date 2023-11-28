@@ -1,5 +1,5 @@
 import "/styles/globals.css";
-import Nav from "../components/Nav";
+import Nav from "components/Nav";
 import UserDisplay from "components/UserDisplay";
 
 export default function App({ Component, pageProps }) {

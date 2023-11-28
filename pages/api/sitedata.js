@@ -1,4 +1,4 @@
-import {withSessionRoute} from "helpers/lib/config/withSession";
+import {withSessionRoute} from "helpers/withSession";
 import * as fs from "fs";
 let sitedata = require("/data/site.json");
 

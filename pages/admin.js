@@ -1,4 +1,4 @@
-import { withSessionSsr  } from "helpers/lib/config/withSession";
+import { withSessionSsr  } from "helpers/withSession";
 import { useRef, useState } from "react";
 import Head from 'next/head';
 import toast, { Toaster } from 'react-hot-toast';

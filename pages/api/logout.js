@@ -1,4 +1,4 @@
-import { withSessionRoute } from "helpers/lib/config/withSession";
+import { withSessionRoute } from "helpers/withSession";
 
 export default withSessionRoute(logout);
 

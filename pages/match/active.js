@@ -1,6 +1,6 @@
 import Router, { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { withSessionSsr  } from "helpers/lib/config/withSession";
+import { withSessionSsr  } from "helpers/withSession";
 import styles from "styles/match.module.css";
 import Link from "next/link";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";

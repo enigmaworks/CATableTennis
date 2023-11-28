@@ -1,4 +1,4 @@
-import { withSessionSsr  } from "helpers/lib/config/withSession";
+import { withSessionSsr  } from "helpers/withSession";
 import styles from "/styles/about.module.css";
 import Head from 'next/head';
 
