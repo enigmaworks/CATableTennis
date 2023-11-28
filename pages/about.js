@@ -19,7 +19,7 @@ export const getServerSideProps = withSessionSsr(
 export default function calendar(props){
   return (<>
     <Head>
-      <title>About CA Table Tennis</title>
+      <title>About | Caravel Table Tennis</title>
     </Head>
     <header>
       <h1>About The Club</h1>
