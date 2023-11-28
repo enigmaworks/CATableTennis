@@ -3,8 +3,6 @@ import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faX} from '@fortawesome/free-solid-svg-icons'
 import Link from "next/link";
-
-
 import styles from "styles/components/nav.module.css"
 
 export default function Nav(pageprops){
@@ -23,38 +21,25 @@ export default function Nav(pageprops){
   ]
   
   return (
-    <>
-      <div className={styles.loginout}>
-        {(pageprops.signedin) ? <div>{pageprops.user.username}{" | "}</div> : ""}
-        <div>
-          <Link
-            href={(pageprops.signedin) ? "/" : "/login"}
-            onClick={(pageprops.signedin) ? signout: ()=>{}}
-          >
-            {(pageprops.signedin) ? "Log Out" : "Log In"}
-          </Link>
-        </div>
-      </div>
-      <nav className={styles.nav} nav-state={navIsOpen ? "open" : "closed"}>
-        <div className={styles.navcontainer}>
-          <button className={styles.navbutton} onClick={handleOnClick}>
-            {navIsOpen ? <FontAwesomeIcon icon={faX} /> : <FontAwesomeIcon icon={faBars} />}
-            {navIsOpen ? " Close" : " Menu"}
-          </button>
-          <ul className={styles.navlist} aria-hidden={!navIsOpen}>
-            {links.map(({href, text, permissions}) => {
-              if(permissions){
-                if(pageprops.user && pageprops.user.permissions >= permissions){
-                  return <NavLink linkhref={href} handleClick={handleOnClick}>{text}</NavLink>
-                }
-              } else {
+    <nav className={styles.nav} nav-state={navIsOpen ? "open" : "closed"}>
+      <div className={styles.navcontainer}>
+        <button className={styles.navbutton} onClick={handleOnClick}>
+          {navIsOpen ? <FontAwesomeIcon icon={faX} /> : <FontAwesomeIcon icon={faBars} />}
+          {navIsOpen ? " Close" : " Menu"}
+        </button>
+        <ul className={styles.navlist} aria-hidden={!navIsOpen}>
+          {links.map(({href, text, permissions}) => {
+            if(permissions){
+              if(pageprops.user && pageprops.user.permissions >= permissions){
                 return <NavLink linkhref={href} handleClick={handleOnClick}>{text}</NavLink>
               }
-            })}
-          </ul>
-        </div>
-      </nav>
-    </>
+            } else {
+              return <NavLink linkhref={href} handleClick={handleOnClick}>{text}</NavLink>
+            }
+          })}
+        </ul>
+      </div>
+    </nav>
   )
 }
 
@@ -65,11 +50,4 @@ function NavLink(props){
       <Link onClick={props.handleClick} href={props.linkhref}>{props.children}</Link>
     </li>
   );
-}
-
-
-function signout(){
-  fetch("./api/logout").then(()=>{
-    location.reload(true);
-  })
 }
