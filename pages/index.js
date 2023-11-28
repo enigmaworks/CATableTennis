@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useState } from "react";
 import { calculateEloAndWinPercents, rankByElo, rankByTotalWins, rankByWinPercent } from "/helpers/rankingFunctions";
 import Select from 'react-select'; 
-import selectTheme from 'helpers/select-theme.js';
+import selectTheme from 'helpers/react-select-theme.js';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
