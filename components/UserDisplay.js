@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "styles/components/nav.module.css"
+import styles from "styles/components/userDisplay.module.css"
 
 export default function UserDisplay(pageprops){
   return (
