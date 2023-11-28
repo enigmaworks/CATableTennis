@@ -1,10 +1,10 @@
 import {withIronSessionApiRoute, withIronSessionSsr} from "iron-session/next";
-import {ironOptions} from "./iron-config";
+import config from "./ironsession-config";
 
 export function withSessionRoute(handler) {
-  return withIronSessionApiRoute(handler, ironOptions);
+  return withIronSessionApiRoute(handler, config);
 }
 
 export function withSessionSsr(handler) {
-  return withIronSessionSsr(handler, ironOptions);
+  return withIronSessionSsr(handler, config);
 }

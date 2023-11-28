@@ -1,4 +1,4 @@
-import { withSessionRoute } from "helpers/withSession";
+import { withSessionRoute } from "helpers/withIronSession";
 
 export default withSessionRoute(logout);
 

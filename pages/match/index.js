@@ -1,4 +1,4 @@
-import { withSessionSsr  } from "helpers/withSession";
+import { withSessionSsr  } from "helpers/withIronSession";
 import Select from 'react-select'; 
 import selectTheme from 'helpers/select-theme.js';
 import styles from "styles/match.module.css";

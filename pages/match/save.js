@@ -1,6 +1,6 @@
 import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { withSessionSsr  } from "helpers/withSession";
+import { withSessionSsr  } from "helpers/withIronSession";
 import styles from "styles/match.module.css";
 import toast, { Toaster } from 'react-hot-toast';
 

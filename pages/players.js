@@ -1,4 +1,4 @@
-import { withSessionSsr  } from "helpers/withSession";
+import { withSessionSsr  } from "helpers/withIronSession";
 import Head from 'next/head';
 
 export const getServerSideProps = withSessionSsr(

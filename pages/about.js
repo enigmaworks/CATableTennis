@@ -1,4 +1,4 @@
-import { withSessionSsr  } from "helpers/withSession";
+import { withSessionSsr  } from "helpers/withIronSession";
 import styles from "/styles/about.module.css";
 import Head from 'next/head';
 

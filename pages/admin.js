@@ -1,4 +1,4 @@
-import { withSessionSsr  } from "helpers/withSession";
+import { withSessionSsr  } from "helpers/withIronSession";
 import { useRef, useState } from "react";
 import Head from 'next/head';
 import toast, { Toaster } from 'react-hot-toast';

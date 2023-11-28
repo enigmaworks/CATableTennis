@@ -1,4 +1,4 @@
-import {withSessionRoute} from "helpers/withSession";
+import {withSessionRoute} from "helpers/withIronSession";
 import users from "helpers/users-data";
 
 export default withSessionRoute(_delete);

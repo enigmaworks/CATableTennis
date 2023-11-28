@@ -1,4 +1,4 @@
-export const ironOptions = {
+export default config = {
     cookieName: "CATT_USER_COOKIE",
     password: process.env.API_KEY,
     // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
