@@ -1,0 +1,14 @@
+.container{
+  position: absolute;
+  font-size: .9rem;
+  top: 0;
+  right: 0;
+  width: max-content;
+  height: 3.5rem;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  margin-right: 1.5rem;
+  z-index: 2;
+  gap: 0.5rem;
+}
