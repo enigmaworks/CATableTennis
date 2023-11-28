@@ -25,8 +25,16 @@ const saltRounds = 10;
 
 export default {
   getAll: () => JSON.parse(JSON.stringify(data)),
-  findUser: (username) => JSON.parse(JSON.stringify(data.find(x => x.username.toString() === username.toString()))),
-  findUserById: (id) => JSON.parse(JSON.stringify(data.find(x => x.id.toString() === id.toString()))),
+  findUser: (username) => {
+    const user = data.find(x => x.username.toString() === username.toString());
+    if(user === undefined) return undefined;
+    return JSON.parse(JSON.stringify(user));
+  },
+  findUserById: (id) => {
+    const user = data.find(x => x.id.toString() === id.toString());
+    if(user === undefined) return undefined;
+    return JSON.parse(JSON.stringify(user));
+  },
   createUser: createfn,
   updateUser: updatefn,
   deleteUser: deletefn,
