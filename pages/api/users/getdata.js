@@ -1,4 +1,4 @@
-import users from "helpers/users-data";
+import users from "helpers/userDataFunctions";
 
 export default function getusersdata(req, res){
   if(req.method = "GET"){

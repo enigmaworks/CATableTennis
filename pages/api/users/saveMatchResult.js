@@ -1,5 +1,5 @@
 import {withSessionRoute} from "helpers/withIronSession";
-import users from "helpers/users-data";
+import users from "helpers/userDataFunctions";
 
 export default withSessionRoute(saveMatchResult);
 
