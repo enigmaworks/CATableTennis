@@ -117,6 +117,8 @@ button, input[type="button"], a.button {
 }
 button.light, input[type="submit"].light, input[type="button"].light, a.button.light {
     background-color: var(--clr_light);
+    background-color: white;
+    border: .0625em solid var(--clr_dark);
     color: var(--clr_dark);
 }
 button.important, input[type="submit"], input[type="button"].important, a.button.important{
