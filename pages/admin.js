@@ -10,7 +10,7 @@ export const getServerSideProps = withSessionSsr(
     const user = req.session.user;
 
     if(user && user.permissions === 1){
-      let data = await fetch(process.env.URL + "/api/users/getdata", req);
+      let data = await fetch(process.env.URL + "/api/users/getdata-secure", req);
       let sitedata = await fetch(process.env.URL + "/api/sitedata", req)
       
       data = await data.json();
@@ -33,7 +33,7 @@ export default function Admin(props){
   let [usersdata, setUsersdata] = useState(props.usersdata);
 
   async function refreshUsersData(){
-    let data = await fetch("/api/users/getdata");
+    let data = await fetch("/api/users/getdata-secure");
     data = await data.json();
     setUsersdata(data);
     location.reload();
