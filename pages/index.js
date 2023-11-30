@@ -10,10 +10,10 @@ export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     let data = await fetch(process.env.URL + "/api/users/getdata", req);
     data = await data.json();
-    data = calculateEloAndWinPercents(data);
-
+    
     let now = new Date();
     data = data.filter(user => user.info.gradyear >= now.getFullYear());
+    data = calculateEloAndWinPercents(data);
 
     const site = await fetch(process.env.URL + "/api/sitedata", {method:"GET"});
     const {numplayersonleaderboard} = await site.json();
