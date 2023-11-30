@@ -184,8 +184,8 @@ export default function MatchPage(props){
           <div className={styles.scorecontainer} data-winning={team1Score >= team2Score}>
             <div className={styles.score}>{team1Score}</div>
             <div className={styles.buttoncontainer}>
-              <button className="light" onClick={() => {setTeam1Score(team1Score + 1)}}>+</button>
               <button className="light" onClick={() => {if(team1Score > 0) setTeam1Score(team1Score - 1)}}>-</button>
+              <button className="light" onClick={() => {setTeam1Score(team1Score + 1)}}>+</button>
             </div>
           </div>
         </div>
@@ -198,8 +198,8 @@ export default function MatchPage(props){
           <div className={styles.scorecontainer} data-winning={team2Score >= team1Score}>
             <div className={styles.score}>{team2Score}</div>
             <div className={styles.buttoncontainer}>
-              <button className="light" onClick={() => {setTeam2Score(team2Score + 1)}}>+</button>
               <button className="light" onClick={() => {if(team2Score > 0) setTeam2Score(team2Score - 1)}}>-</button>
+              <button className="light" onClick={() => {setTeam2Score(team2Score + 1)}}>+</button>
             </div>
           </div>
         </div>
