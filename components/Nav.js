@@ -28,13 +28,13 @@ export default function Nav(pageprops){
           {navIsOpen ? " Close" : " Menu"}
         </button>
         <ul className={styles.navlist} aria-hidden={!navIsOpen}>
-          {links.map(({href, text, permissions}) => {
+          {links.map(({href, text, permissions}, i) => {
             if(permissions){
               if(pageprops.user && pageprops.user.permissions >= permissions){
-                return <NavLink linkhref={href} handleClick={handleOnClick}>{text}</NavLink>
+                return <NavLink linkhref={href} handleClick={handleOnClick} key={i}>{text}</NavLink>
               }
             } else {
-              return <NavLink linkhref={href} handleClick={handleOnClick}>{text}</NavLink>
+              return <NavLink linkhref={href} handleClick={handleOnClick} key={i}>{text}</NavLink>
             }
           })}
         </ul>
