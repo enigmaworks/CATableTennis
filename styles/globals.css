@@ -91,6 +91,9 @@ input:not([type="range"],[type="radio"],[type="image"],[type="file"],[type="chec
     padding: 0.25em 0.25em;
     margin: 0.1em 0.1em;
 }
+input:not([type="range"],[type="radio"],[type="image"],[type="file"],[type="checkbox"]):hover{
+    border-color: var(--clr_dark);
+}
 button, input[type="submit"], input[type="button"], a.button {
     margin: 0.1em 0.1em;
     padding: 0.125em 1em;
