@@ -96,17 +96,19 @@ input:not([type="range"],[type="radio"],[type="image"],[type="file"],[type="chec
 }
 button, input[type="submit"], input[type="button"], a.button {
     margin: 0.1em 0.1em;
-    padding: 0.125em 1em;
+    padding: 0.25em 1em;
     cursor: pointer;
     border-radius: 0.25em;
     color: var(--clr_light);
-    font-size: var(--f-size-base);
+    font-size: 1em;
+    line-height: 1.5em;
     font-family: var(--ff_highlight);
-    text-transform: uppercase;
+    text-transform: capitalize;
+    letter-spacing: .03125em;
     text-decoration: none;
     text-align: center;
     transition: scale 100ms, box-shadow 100ms;
-    font-weight: 600;
+    font-weight: 400;
     min-width: 10em;
     border: none; 
 }
@@ -130,6 +132,10 @@ button.important, input[type="submit"], input[type="button"].important, a.button
 }
 button.fitcontentwidth, input[type="submit"].fitcontentwidth, input[type="button"].fitcontentwidth, a.button.fitcontentwidth {
     min-width: 0;
+}
+button.small, input[type="submit"].small, input[type="button"].small, a.button.small {
+    padding: 0.125em 0.75em;
+    text-transform: none;
 }
 input[type="checkbox"]{
     accent-color: var(--clr_highlight);

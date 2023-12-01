@@ -13,7 +13,7 @@ export default function UserDisplay(pageprops){
   } else {
     return (
       <div className={styles.container}>
-        <button className="fitcontentwidth light" onClick={()=>{Router.push("/login")}}>Sign In</button>
+        <button className="fitcontentwidth light small" onClick={()=>{Router.push("/login")}}>Sign In</button>
       </div>
     );
   }
