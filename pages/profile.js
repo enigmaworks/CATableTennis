@@ -1,5 +1,6 @@
 import { withSessionSsr  } from "helpers/withIronSession";
 import { calculateEloAndWinPercents, rankByElo, rankByTotalWins, rankByWinPercent } from "/helpers/rankingFunctions";
+import { useEffect, useState } from "react";
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -24,6 +25,21 @@ export const getServerSideProps = withSessionSsr(
 );
 
 export default function ProfilePage(props){
+  const [rankingAlgorithm, setRankingAlgorithm] = useState("elo");
+  let leaderboard;
+  let rank;
+
+  useEffect(()=>{
+    if(rankingAlgorithm === "elo") {
+      leaderboard = rankByElo(props.usersdata)
+    } else if(rankingAlgorithm === "wins"){
+      leaderboard = rankByTotalWins(props.usersdata)
+    } else if(rankingAlgorithm === "winpercent"){
+      leaderboard = rankByWinPercent(props.usersdata)
+    }
+    rank = 1 + leaderboard.findIndex(user=>user.id === props.user.id);
+  }, [rankingAlgorithm]);
+
   return(
   <>
     <header>
@@ -34,7 +50,7 @@ export default function ProfilePage(props){
       <div>{props.user.firstname} {props.user.lastname}: {props.user.username}</div>
       <div>{props.user.permissions === 0 ? "Player" : props.user.permissions === 1 ? "Admin" : "Super Admin"}</div>
       <div>
-
+        RANK: {}
       </div>
     </section>
   </>)

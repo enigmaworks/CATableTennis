@@ -1,13 +1,18 @@
 import Link from "next/link";
 import Router from "next/router";
 import styles from "styles/components/userDisplay.module.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 
 export default function UserDisplay(pageprops){
   if(pageprops.signedin){
     return (
       <div className={styles.container}>
-        <Link href="/profile" className={styles.profile}>{pageprops.user.firstname} {pageprops.user.lastname}</Link>
-        <button className="fitcontentwidth light" onClick={signout}>Sign Out</button>
+        <Link href="/profile">
+            <FontAwesomeIcon icon={faUserCircle} className={styles.profileIcon}/>
+            {pageprops.user.firstname} {pageprops.user.lastname}
+        </Link>
+        <button className="fitcontentwidth light small" onClick={signout}>Sign Out</button>
       </div>
     );
   } else {
