@@ -1,6 +1,6 @@
 .leaderboard{
   --spacing: clamp(0.125rem, 4vw, 3rem);
-  --cell-size: 3rem;
+  --cell-size: calc(2.25rem + 1vw);
   list-style: none;
   padding: 0;
   border: 2px solid var(--clr_dark);
@@ -21,7 +21,7 @@
 }
 .player ul, .headerrow ul{
   list-style: none;
-  padding: calc(var(--spacing) / 4);
+  padding: calc(.25em + var(--spacing) / 4);
 }
 .playerstats *, .headerrow *{
   margin: 0;
