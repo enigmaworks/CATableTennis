@@ -15,3 +15,15 @@
 .profileIcon{
   margin-inline: .25em;
 }
+.username{
+  display: inline;
+}
+@media only screen and (max-width: 60rem) {
+  .username{
+    display: none;
+  }
+  .profileIcon{
+    font-size: var(--f-size-med);
+    padding-top: .2625em; /* center it pretilly */
+  }
+}
