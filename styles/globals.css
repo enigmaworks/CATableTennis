@@ -167,6 +167,8 @@ h3 {
     font-weight: 800;
     margin-top: .75em;
     margin-bottom: 0.5em;
+    text-wrap: pretty;
+    line-height: 1em;
 }
 h1 {
     color: var(--clr_dark);
