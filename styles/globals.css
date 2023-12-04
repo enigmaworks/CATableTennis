@@ -17,6 +17,7 @@
     --f-size-xl: calc(1em * var(--f-size-scale) * var(--f-size-scale) * var(--f-size-scale));
     --shadow-small: 0.0625rem 0.0625rem 0.125rem var( --clr_dark-a50);
     --shadow-med: 0.125rem 0.125rem 0.25rem 0.125rem var( --clr_dark-a50);
+    --nav-height: 3.5rem;
 }
 *, *::before, *::after {
     font: inherit;
@@ -168,7 +169,7 @@ h3 {
     margin-bottom: 0.5em;
 }
 h1 {
-    color: var(--clr_highlight);
+    color: var(--clr_dark);
     font-size: var(--f-size-xl);
 }
 h2 {

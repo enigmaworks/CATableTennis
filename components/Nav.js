@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faX} from '@fortawesome/free-solid-svg-icons'
 import Link from "next/link";
 import styles from "styles/components/nav.module.css"
+import Image from 'next/image'
 
 export default function Nav(pageprops){
   const [navIsOpen, setNavIsOpen] = useState(false);
@@ -22,11 +23,16 @@ export default function Nav(pageprops){
   
   return (
     <nav className={styles.nav} nav-state={navIsOpen ? "open" : "closed"}>
-      <div className={styles.navcontainer}>
+      <div className={styles.menuRight}>
         <button className={styles.navbutton} onClick={handleOnClick}>
           {navIsOpen ? <FontAwesomeIcon icon={faX} /> : <FontAwesomeIcon icon={faBars} />}
-          {navIsOpen ? " Close" : " Menu"}
         </button>
+        <Link href="/" className={styles.mainlink}>
+          <Image src="/CATTlogo.png" width={50} height={50} className={styles.logo} />
+          <div>Caravel Academy Table Tennis</div>
+        </Link>
+      </div>
+      <div className={styles.navcontainer}>
         <ul className={styles.navlist} aria-hidden={!navIsOpen}>
           {links.map(({href, text, permissions}, i) => {
             if(permissions){
@@ -47,7 +53,7 @@ function NavLink(props){
   const router = useRouter();
   return (
     <li className="button" is-active={router.pathname === props.linkhref ? "true" : "false"}>
-      <Link onClick={props.handleClick} href={props.linkhref}>{props.children}</Link>
+      <Link className={styles.navlink} onClick={props.handleClick} href={props.linkhref}>{props.children}</Link>
     </li>
   );
 }
