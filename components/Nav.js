@@ -18,7 +18,7 @@ export default function Nav(pageprops){
     {href: "/admin", text: "Admin Panel", permissions: 1},
     {href: "/match", text: "Match", permissions: 1},
     {href: "/players", text: "Players"},
-    {href: "/about", text: "About The Club"},
+    {href: "/about", text: "About"},
   ]
   
   return (
