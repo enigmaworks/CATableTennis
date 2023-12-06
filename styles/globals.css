@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@400;700;800&display=swap');
 
 :root{
     --clr_highlight: #691616;
@@ -178,7 +178,7 @@ h2 {
 h3 {
     color: var(--clr_base);
     font-size: var(--f-size-med);
-    font-weight: 600;
+    font-weight: 700;
     margin-top: 0.75em;
 }
 header h1{
