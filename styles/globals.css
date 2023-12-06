@@ -155,10 +155,7 @@ input[type="checkbox"]{
 .react-select-container{
     font-size: .95em;
 }
-p {
-    margin-top: 1em;
-}
-* + p {
+section p + section p {
     margin-bottom: 0.5em;
 }
 h1,
