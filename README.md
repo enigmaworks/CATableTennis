@@ -1,8 +1,8 @@
 ## Caravel Academy Table Tennis
 Home of the source code for the official website of CA Table Tennis Club
 # To Run In Development Mode
-Create an .env.local with the following values:
-  API_KEY="secure api key"
+Create an .env.local with the following values:  
+  API_KEY="secure api key"  
   URL="http://localhost:####/"
 
 Create a root directory data, then a users.json file in that folder.
