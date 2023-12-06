@@ -75,7 +75,7 @@ a {
     margin: 0;
     background-color: transparent;
     border: none;
-    text-decoration: none;
+    text-decoration: underline;
     color: var(--clr_highlight);
 }
 input, textarea{
@@ -84,7 +84,7 @@ input, textarea{
 a:hover,
 a:focus-within {
     outline: none;
-    text-decoration: underline;
+    text-decoration: none;
 }
 input:not([type="range"],[type="radio"],[type="image"],[type="file"],[type="checkbox"]){
     color: inherit;

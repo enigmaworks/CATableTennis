@@ -68,9 +68,7 @@
   gap: .25rem;
   font-weight: 600;
   font-family: var(--ff_highlight);
-}
-.mainlink:hover{
-   text-decoration: none;
+  text-decoration: none;
 }
 .logo{
   display: inline-block;
@@ -91,10 +89,6 @@
   min-width: max-content;
   color: inherit;
   text-transform: capitalize;
-}
-
-.navlist .navlink:hover,
-.navlist .navlink:focus-within{
   text-decoration: none;
 }
 
