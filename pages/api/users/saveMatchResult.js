@@ -1,5 +1,5 @@
 import {withSessionRoute} from "helpers/withIronSession";
-import users from "helpers/userDataFunctions";
+const users = require("helpers/userDataFunctions");
 
 export default withSessionRoute(saveMatchResult);
 

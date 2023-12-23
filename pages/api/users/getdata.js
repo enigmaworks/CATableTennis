@@ -1,4 +1,4 @@
-import users from "helpers/userDataFunctions";
+const users = require("helpers/userDataFunctions");
 
 export default function getusersdata(req, res){
   if(req.method = "GET"){
