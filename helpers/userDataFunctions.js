@@ -23,7 +23,7 @@ let data = require("/data/users.json");
 const bcrypt = require ('bcrypt');
 const saltRounds = 10;
 
-export default {
+const usersdata = {
   getAll: () => JSON.parse(JSON.stringify(data)),
   findUser: (username) => {
     const user = data.find(x => x.username.toString() === username.toString());
@@ -40,6 +40,8 @@ export default {
   deleteUser: deletefn,
   saveMatchResult: saveMatchResult
 }
+
+module.exports = usersdata;
 
 function createfn (username, password, permissions, userinfo = {}){
   let user = {};
