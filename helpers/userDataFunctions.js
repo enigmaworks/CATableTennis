@@ -117,5 +117,5 @@ function saveMatchResult(id, didwin){
 }
 
 function saveData() {
-  fs.writeFileSync('/data/users.json', JSON.stringify(data, null, 4));
+  fs.writeFileSync('data/users.json', JSON.stringify(data, null, 4));
 }
