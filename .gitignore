@@ -2,6 +2,7 @@
 
 # user data
 data/users.json
+data/site.json
 
 # dependencies
 /node_modules
