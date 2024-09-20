@@ -3,6 +3,7 @@
 
 :root{
     --clr_highlight: #691616;
+    --clr_highlight_secondary: rgb(251, 161, 65);
     --clr_light: #e8e8e8;
     --clr_med-dark: #787878;
     --clr_dark: #404040;
@@ -168,7 +169,7 @@ h3 {
     line-height: 1em;
 }
 h1 {
-    color: var(--clr_dark);
+    color: var(--clr_highlight);
     font-size: var(--f-size-xl);
 }
 h2 {

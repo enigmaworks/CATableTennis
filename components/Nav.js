@@ -29,7 +29,7 @@ export default function Nav(pageprops){
         </button>
         <Link href="/" className={styles.mainlink}>
           <Image src="/CATTlogo.png" width={50} height={50} className={styles.logo} />
-          <div>Caravel Academy Table Tennis</div>
+          <div>Caravel Academy Table Tennis Club</div>
         </Link>
       </div>
       <div className={styles.navcontainer}>

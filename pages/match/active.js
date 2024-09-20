@@ -117,7 +117,7 @@ export default function MatchPage(props){
         }, '/match/save');
       }
     } else {
-      toast.error("Can't save tie games!")
+      toast.error("Need a winner to save!")
     }
   }
 
@@ -181,7 +181,7 @@ export default function MatchPage(props){
             {team1[1] !== undefined ? <div className={styles.spacer}>&</div> : ""}
             {team1[1] !== undefined ? `${team1[1].info.firstname} ${team1[1].info.lastname}`: ""}
          </div>
-          <div className={styles.scorecontainer} data-winning={team1Score >= team2Score}>
+          <div className={styles.scorecontainer} data-winning={team1Score > team2Score}>
             <div className={styles.score}>{team1Score}</div>
             <div className={styles.buttoncontainer}>
               <button className="light" onClick={() => {if(team1Score > 0) setTeam1Score(team1Score - 1)}}>-</button>
@@ -195,7 +195,7 @@ export default function MatchPage(props){
             {team2[1] !== undefined ? <div className={styles.spacer}>&</div> : ""}
             {team2[1] !== undefined ? `${team2[1].info.firstname} ${team2[1].info.lastname}`: ""}
          </div>
-          <div className={styles.scorecontainer} data-winning={team2Score >= team1Score}>
+          <div className={styles.scorecontainer} data-winning={team2Score > team1Score}>
             <div className={styles.score}>{team2Score}</div>
             <div className={styles.buttoncontainer}>
               <button className="light" onClick={() => {if(team2Score > 0) setTeam2Score(team2Score - 1)}}>-</button>
