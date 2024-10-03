@@ -9,7 +9,7 @@ import Head from 'next/head';
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     const user = req.session.user;
-    if(user && user.permissions === 1){
+    if(user && user.permissions >= 1){
       let data = await fetch(process.env.URL + "/api/users/getdata", req);
       data = await data.json();
       return {props: { signedin: true, user: user, usersdata: data}}

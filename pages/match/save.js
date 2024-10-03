@@ -7,7 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     const user = req.session.user;
-    if(user && user.permissions === 1){
+    if(user && user.permissions >= 1){
       let data = await fetch(process.env.URL + "/api/users/getdata", req);
       data = await data.json();
       return {props: { signedin: true, user: user, usersdata: data}}
@@ -82,7 +82,7 @@ export default function SavePage(props){
           {winningTeam[0].info.firstname} {winningTeam[0].info.lastname}
           {winningTeam[1] !== undefined ? ` & ${winningTeam[1].info.firstname} ${winningTeam[1].info.lastname}`: ""}
         </div>
-        <div className={styles.saveScreenCompareText}>over</div>
+        <div className={styles.saveScreenCompareText}>defeated</div>
         <div>
           {losingTeam[0].info.firstname} {losingTeam[0].info.lastname}
           {losingTeam[1] !== undefined ? ` & ${losingTeam[1].info.firstname} ${losingTeam[1].info.lastname}`: ""}
