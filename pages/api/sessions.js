@@ -9,13 +9,23 @@ async function createSessionRoute(req, res){
     const {username, password} = req.body;
 
     if(process.env.NODE_ENV === "development"){
-      if (username === "admin" && password === "password"){
+      if (username === "superadmin" && password === "password"){
+        req.session.user = {
+            username: "superadmin",
+            id: 0,
+            permissions: 2,
+            firstname: "Super",
+            lastname: "Admin",
+        };
+        await req.session.save();
+        return res.status(200).send();
+      } else if (username === "admin" && password === "password"){
         req.session.user = {
             username: "admin",
             id: 0,
             permissions: 1,
-            firstname: "Admin",
-            lastname: "Testprofile",
+            firstname: "Standard",
+            lastname: "Admin",
         };
         await req.session.save();
         return res.status(200).send();
@@ -25,7 +35,7 @@ async function createSessionRoute(req, res){
             id: 0,
             permissions: 0,
             firstname: "User",
-            lastname: "Testprofile",
+            lastname: "Testuser",
         };
         await req.session.save();
         return res.status(200).send();

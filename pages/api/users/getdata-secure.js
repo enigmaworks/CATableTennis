@@ -5,7 +5,7 @@ export default withSessionRoute(getDataSecure);
 
 function getDataSecure(req, res){
   if(req.method = "GET"){
-    if(req.session && req.session.user && req.session.user.permissions === 1){
+    if(req.session && req.session.user && req.session.user.permissions === 2){
       let usersdata = users.getAll();
       usersdata = usersdata.map(user => {
         return {

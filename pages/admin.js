@@ -9,7 +9,7 @@ export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     const user = req.session.user;
 
-    if(user && user.permissions === 1){
+    if(user && user.permissions === 2){
       let data = await fetch(process.env.URL + "/api/users/getdata-secure", req);
       let sitedata = await fetch(process.env.URL + "/api/sitedata", req)
       

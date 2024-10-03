@@ -23,10 +23,9 @@ export default function calendar(props){
       <title>About | Caravel Table Tennis</title>
     </Head>
     <header>
-      <h1>Caravel Academy Table Tennis Club</h1>
+      <h1>About CATT</h1>
     </header>
     <section>
-      <h2>About The Club</h2>
       <div>{props.abouttext}</div>
     </section>
     <section>
