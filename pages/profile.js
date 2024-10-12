@@ -1,4 +1,4 @@
-import { withSessionSsr  } from "helpers/withIronSession";
+import { withSessionSsr  } from "/helpers/withIronSession";
 import { calculateEloAndWinPercents, rankByElo, rankByTotalWins, rankByWinPercent } from "/helpers/rankingFunctions";
 import { useEffect, useState } from "react";
 

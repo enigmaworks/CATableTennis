@@ -1,7 +1,7 @@
-import { withSessionSsr  } from "helpers/withIronSession";
+import { withSessionSsr  } from "/helpers/withIronSession";
 import Select from 'react-select'; 
-import selectTheme from 'helpers/react-select-theme.js';
-import styles from "styles/match.module.css";
+import selectTheme from '/helpers/react-select-theme.js';
+import styles from "/styles/match.module.css";
 import { useRef, useState } from "react";
 import Router from "next/router";
 import Head from 'next/head';

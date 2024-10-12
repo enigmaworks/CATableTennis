@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Router from "next/router";
-import styles from "styles/components/userDisplay.module.css"
+import styles from "/styles/components/userDisplay.module.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 

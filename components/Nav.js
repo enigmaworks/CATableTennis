@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faX} from '@fortawesome/free-solid-svg-icons'
 import Link from "next/link";
-import styles from "styles/components/nav.module.css"
+import styles from "/styles/components/nav.module.css"
 import Image from 'next/image'
 
 export default function Nav(pageprops){

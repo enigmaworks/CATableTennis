@@ -1,9 +1,9 @@
-import { withSessionSsr  } from "helpers/withIronSession";
+import { withSessionSsr  } from "/helpers/withIronSession";
 import { useRef, useState } from "react";
 import Head from 'next/head';
 import toast, { Toaster } from 'react-hot-toast';
 import Select from 'react-select'; 
-import selectTheme from 'helpers/react-select-theme.js';
+import selectTheme from '/helpers/react-select-theme.js';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {

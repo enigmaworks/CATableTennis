@@ -1,5 +1,5 @@
-import {withSessionRoute} from "helpers/withIronSession";
-const users = require("helpers/userDataFunctions");
+import {withSessionRoute} from "/helpers/withIronSession";
+const users = require("/helpers/userDataFunctions");
 const bcrypt = require('bcrypt');
 
 export default withSessionRoute(createSessionRoute);

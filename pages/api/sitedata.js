@@ -1,4 +1,4 @@
-import {withSessionRoute} from "helpers/withIronSession";
+import {withSessionRoute} from "/helpers/withIronSession";
 import * as fs from "fs";
 let sitedata = require("/data/site.json");
 

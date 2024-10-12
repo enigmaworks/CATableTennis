@@ -1,4 +1,4 @@
-import { withSessionSsr  } from "helpers/withIronSession";
+import { withSessionSsr  } from "/helpers/withIronSession";
 import Head from 'next/head';
 import { headers } from "../next.config";
 import styles from "/styles/players.module.css";

@@ -1,7 +1,7 @@
 import Router, { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { withSessionSsr  } from "helpers/withIronSession";
-import styles from "styles/match.module.css";
+import { withSessionSsr  } from "/helpers/withIronSession";
+import styles from "/styles/match.module.css";
 import Link from "next/link";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
