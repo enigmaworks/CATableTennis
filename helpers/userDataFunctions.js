@@ -1,19 +1,26 @@
 /* SAMPLE USER OBJECT
 {
-    "id": num,
-    "dateCreated": "ISO Date String",
-    "dateUpdated": "ISO Date String",
-    "lastStatUpdate": "ISO Date String",
-    "username": "string",
-    "flair": "string",
-    "permissions": num (0-1),
-    "info": {
-        "firstname": "string",
-        "lastname": "string",
-        "gradyear": num
-    },
-    "statistics": {"w": num, "l": num},
-    "password": "string hash"
+   {
+        "id": INT,
+        "dateCreated": DATE,
+        "dateUpdated": DATE,
+        "lastStatUpdate": DATE,
+        "username": STRING,
+        "permissions": INT,
+        "info": {
+            "firstname": STRING,
+            "lastname": STRING,
+            "gradyear": INT,
+            "flair": STRING
+        },
+        "statistics": {
+            "w": INT,
+            "l": INT,
+            "elo": INT,
+            "rank": INT
+        },
+        "password": STRING
+    }
 }
 */
 
@@ -61,7 +68,7 @@ function createfn (username, password, permissions, userinfo = {}){
   user.info.gradyear = userinfo.gradyear || "";
   user.info.flair = userinfo.flair || "";
   
-  user.statistics = {"w": 0, "l": 0};
+  user.statistics = {"w": 0, "l": 0, "rank": undefined, "elo": undefined, };
 
   bcrypt.hash(password, saltRounds, function(err, hash) {
     user.password = hash;
