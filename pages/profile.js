@@ -46,12 +46,19 @@ export default function ProfilePage(props){
       <h1>My Profile</h1>
     </header>
     <section>
-      <h2>Account Information</h2>
-      <div>{props.user.firstname} {props.user.lastname}: {props.user.username}</div>
-      <div>{props.user.permissions === 0 ? "Player" : props.user.permissions === 1 ? "Admin" : "Super Admin"}</div>
+      <h2>{props.user.firstname} {props.user.lastname}</h2>
       <div>
-        RANK: {}
+        {props.user.permissions === 0 ? "Player" : props.user.permissions === 1 ? "Admin" : "Super Admin"}
       </div>
+      <h3>
+        Rank: #{"000"}
+      </h3>
+      <div>{'(as of ' + "mm/dd/yyyy" + ')'}</div>
+      <h3>Career Record</h3>
+      <div>Wins: {}</div>
+      <div>Loses: {}</div>
+      <div>Last Game: {"mm/dd/yyyy"}</div>
+      <div></div>
     </section>
   </>)
 }

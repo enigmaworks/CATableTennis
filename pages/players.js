@@ -1,5 +1,7 @@
 import { withSessionSsr  } from "helpers/withIronSession";
 import Head from 'next/head';
+import { headers } from "../next.config";
+import styles from "/styles/players.module.css";
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -17,13 +19,62 @@ export const getServerSideProps = withSessionSsr(
 );
 
 export default function Players(props){
+  let now = new Date();
+  let graduatedPlayers = [];
+  let currentPlayers = []; 
+
+  for(let i = 0; i < props.usersdata.length; i++){
+    let player = props.usersdata[i];
+    let graduationDate = new Date("7/01/" + player.info.gradyear);
+    if(now < graduationDate){
+      currentPlayers.push(player);
+    } else {
+      graduatedPlayers.push(player);
+    }
+  }
   return (<>
   <Head>
     <title>Players | Caravel Table Tennis</title>
   </Head>
+  <header>
+    <h1>Players</h1>
+  </header>
   <section>
-    <h2>Current Players</h2>
-    <h2>Graduated Players</h2>
+      <ul>
+        {currentPlayers.map((player, i)=>{
+          return (
+            <li id={i}>
+              <ul>
+                <li>{player.info.firstname}</li>
+                <li>{player.info.lastname}</li>
+                <li>{player.info.flair}</li>
+                <li>{player.info.gradyear}</li>
+                <li>{player.statistics.w}</li>
+                <li>{player.statistics.l}</li>
+              </ul>
+            </li>
+          );
+        })}
+      </ul>
+      <header>
+        <h2>Graduates</h2>
+      </header>
+      <ul>
+          {graduatedPlayers.map((player, i)=>{
+            return (
+              <li id={i}>
+                <ul>
+                  <li>{player.info.firstname}</li>
+                  <li>{player.info.lastname}</li>
+                  <li>{player.info.flair}</li>
+                  <li>{player.info.gradyear}</li>
+                  <li>{player.statistics.w}</li>
+                  <li>{player.statistics.l}</li>
+                </ul>
+              </li>
+            );
+          })}
+        </ul>
   </section>
   </>);
 }
