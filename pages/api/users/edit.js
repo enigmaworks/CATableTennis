@@ -7,7 +7,7 @@ function getusersdata(req, res){
   if(req.method = "POST"){
     const {id, data} = req.body;
 
-    if(req.session && req.session.user){
+    if(req.session && req.session.user && req.session.user.permissions === 2){
       try{
         users.updateUser(id, data);
         return res.status(200).send();

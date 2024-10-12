@@ -6,7 +6,7 @@ export default withSessionRoute(site);
 
 function site(req, res){
   if(req.method === "POST"){
-    if(req.session && req.session.user && req.session.user.permissions === 1) {
+    if(req.session && req.session.user && req.session.user.permissions === 2) {
       const {calendarlink, about, numplayersonleaderboard} = req.body;
       if(calendarlink){
         sitedata.calendarlink = calendarlink;

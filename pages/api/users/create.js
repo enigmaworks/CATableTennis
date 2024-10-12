@@ -9,7 +9,7 @@ function create(req, res){
     if(users.findUser(username)) return res.status(400).send();
 
     if(req.session && req.session.user) {
-      if(req.session.user.permissions === 1){
+      if(req.session.user.permissions === 2){
         createUser(username, password, permissions, userinfo);
       } else {
         createUser(username, password, 0, userinfo);

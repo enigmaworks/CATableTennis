@@ -6,7 +6,7 @@ export default withSessionRoute(saveMatchResult);
 function saveMatchResult(req, res){
   if(req.method = "POST"){
     const {results} = req.body;
-    if(req.session && req.session.user){
+    if(req.session && req.session.user && req.session.user.permissions >=1 ){
       try{
         for(let i = 0; i < results.length; i++){
           users.saveMatchResult(results[i].id, results[i].won);

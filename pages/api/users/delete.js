@@ -8,7 +8,7 @@ function _delete(req, res){
     const {id} = req.body;
     if(!users.findUserById(id)) return res.status(400).send();
     
-    if(req.session && req.session.user && req.session.user.permissions === 1) {
+    if(req.session && req.session.user && req.session.user.permissions === 2) {
       users.deleteUser(id);
       return res.status(200).send();
     } else {
