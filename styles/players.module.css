@@ -1,0 +1,36 @@
+.playerslist, .player{
+  list-style-type: none;
+  padding: 0; 
+}
+.playerslist{
+  border-left: .25rem solid var(--clr_light);
+  box-shadow: var(--shadow-small);
+}
+.playercontainer{
+  padding-inline: .5rem;
+}
+.playercontainer:nth-child(odd){
+  background-color: var(--clr_light);
+}
+.player{
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: max-content 1fr;
+  gap: .5rem;
+}
+.gradyear{
+  margin-left: .25em;
+}
+.flair{
+  font-family: var(--ff_highlight);
+  color: var(--clr_highlight);
+  font-weight: 800;
+  margin-left: .5em;
+}
+.record{
+  text-align: right;
+} 
+.alumheader{
+  font-size: var(--f-size-med);
+  margin-block: 1rem;
+}

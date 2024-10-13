@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@400;700;800&display=swap');
 
 :root{
     --clr_highlight: hsl(0, 65%, 25%);
     --clr_highlight_secondary: hsl(31, 35%, 50%);
-    --clr_light: hsl(0, 0%, 85%);
+    --clr_light: hsl(0, 0%, 88%);
     --clr_med-light: hsl(0, 0%, 61%);
     --clr_med-dark: hsl(0, 0%, 43%);
-    --clr_dark: hsl(0, 0%, 25%);
+    --clr_dark: hsl(0, 0%, 23%);
     --clr_dark-a50: hsla(0, 0%, 25%, 0.533);
     --ff_base: "Inter";
     --ff_highlight: "Gemunu Libre";
