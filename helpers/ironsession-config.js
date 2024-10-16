@@ -5,5 +5,5 @@ export default {
   cookieOptions: {
     secure: process.env.NODE_ENV === "production" ? true: false,
   },
-  ttl: 60 * 24 //24hrs
+  ttl: 60 * 60 * 24 //24hrs
 }
