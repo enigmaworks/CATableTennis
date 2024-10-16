@@ -24,4 +24,6 @@
   aspect-ratio: 8 / 6;
   width: 100%;
   filter: brightness(85%) contrast(150%) grayscale(1);
+  border: none;
+  outline: none;
 }

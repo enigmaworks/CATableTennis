@@ -3,11 +3,12 @@
 
 :root{
     --clr_highlight: hsl(0, 65%, 25%);
-    --clr_highlight_secondary: hsl(31, 35%, 50%);
+    --clr_highlight_secondary: hsl(31, 96%, 62%);
+    --clr_highlight_secondary-dark: hsl(31, 80%, 28%);
     --clr_light: hsl(0, 0%, 88%);
     --clr_med-light: hsl(0, 0%, 61%);
     --clr_med-dark: hsl(0, 0%, 43%);
-    --clr_dark: hsl(0, 0%, 23%);
+    --clr_dark: hsl(0, 0%, 25%);
     --clr_dark-a50: hsla(0, 0%, 25%, 0.533);
     --ff_base: "Inter";
     --ff_highlight: "Gemunu Libre";
@@ -37,7 +38,7 @@ body, html {
     font-weight: 400;
     font-size: var(--f-size-base);
     color: var(--clr_dark);
-    line-height: 1.75em;
+    line-height: 1.6em;
 }
 img {
     max-width: 100%;
@@ -57,7 +58,7 @@ section {
 }
 section.centercontent {
     width: 100%;
-    min-height: calc(100vh - 20rem);
+    min-height: calc(40vh);
     display: grid;
     align-content: center;
     justify-content: center;
@@ -78,15 +79,15 @@ a {
     background-color: transparent;
     border: none;
     text-decoration: underline;
-    color: var(--clr_highlight);
+    color: var(--clr_highlight_secondary-dark);
 }
 input, textarea{
-    outline-color: var(--clr_highlight);
+    outline-color: var(--clr_highlight_secondary);
 }
 a:hover,
 a:focus-within {
     outline: none;
-    text-decoration: none;
+    scale: 1.01;
 }
 input:not([type="range"],[type="radio"],[type="image"],[type="file"],[type="checkbox"]){
     color: inherit;
@@ -157,8 +158,8 @@ input[type="checkbox"]{
 .react-select-container{
     font-size: .95em;
 }
-section p + section p {
-    margin-bottom: 0.5em;
+section p{
+    padding-bottom: 0.5rem;
 }
 h1,
 h2,
@@ -170,7 +171,7 @@ h3 {
     line-height: 1em;
 }
 h1 {
-    color: var(--clr_dark);
+    color: var(--clr_highlight);
     font-size: var(--f-size-xl);
 }
 h2 {
@@ -178,7 +179,7 @@ h2 {
     font-size: var(--f-size-large);
 }
 h3 {
-    color: var(--clr_base);
+    color: var(--clr_highlight_secondary);
     font-size: var(--f-size-med);
     font-weight: 700;
     margin-top: 0.75em;
