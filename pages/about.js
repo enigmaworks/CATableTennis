@@ -30,34 +30,33 @@ export default function calendar(props){
     <section>
       <h2>Calendar</h2>
       <div className={styles.calendarframe}>
-        <iframe src={props.calendarlink} frameborder="0"></iframe>
+        <iframe src={props.calendarlink} ></iframe>
       </div>
     </section>
     <section>
-      <h2>FAQ</h2>
+      <h2>Club Origins</h2>
 
-      <h3>How can I join?</h3>
-      <p>Ask the supervisor or a member of the club, or visit the  Caravel Club and Activites Website for more information.</p>
-      
-      <h3>Why am I not on the leaderboard?</h3>
       <p>
-        The leaderboard only ranks players with a graduation year in the system less than the current year.
-        If there is a mistake in your record or graduation year, ask an admin to correct the error.
-        Otherwise, play games to improve your record and work your way up the leaderboard.
-        Elo is calculated by weighing the win percentage of each user against the average win percentage of all rankable players.
+        Sajjan Subramanian, class of 2026, was inspired to form the club during the 2023-2024 school year.
+        Acheiving board approval more than half a month later, the club  officially had it's first meeting in October of the 2024-2025 school year.
+      </p>
+    </section>
+    <section>
+      <h2>Website</h2>
+      <p>
+        This website was built by class of Eddie Radecki, class of 2025. Source code is available on Github in <Link href="https://www.github.com/enigmaworks/CATableTennis">this repository</Link>. If something is broken, feel free to reach out to me at eddie.radecki@gmail.com.
       </p>
 
-      <h3>How do I create an account?</h3>
-      <p>Ask the club supervisor or another admin to create you an account.</p>
+      <h3>Leaderboard & Rankings</h3>
+      <p>Rankings only include current players, but you can see the final record of graduated players on the <Link href="/players">players page</Link>.</p>
+      <p>The elo system is inspired by chess rankings, and weighs a player's win percent against the average win percent of all players.</p>
 
-      <h3>How do delete my account? <br></br> How do change my password / other account information?</h3>
-      <p>Only site admins have the ability create accounts, change account information (such as name and graduation year), change passwords, and delete accounts.</p>
+      <h3>Accounts & Joining the Club</h3>
+      <p>Only site admins have the ability create accounts, change account information (name, graduation year, and passwords), and delete accounts. If you wish to update any information or delete your account, reach out to the club supervisor or someone with permissions.</p>
       
-      <h3>Other Technical Questions and Support</h3>
-      <p>
-        This site was created by class of '25 Caravel student Eddie Radecki. All of the source code is available publicly on Github at <Link href="https://www.github.com/enigmaworks/CATableTennis">this repo</Link>, though changes may not be reflected in this live site unless a recent build has been made.
-        Any specific technical questions can be directed to Eddie through his caravel.org email, and more general issues can be directed towards a STEM Club organizer or the helpdesk. Contributions to the source code are welcome.
-      </p>
+      <h3>Matches</h3>
+      <p>To access the scoreboard and match result page, a user account must have Club Leader or Admin permission level. </p>
+      <p> If a match result was saved incorrectly, admins have the ability to update records.</p>
     </section>
   </>);
 }
