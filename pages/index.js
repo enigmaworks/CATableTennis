@@ -1,55 +1,27 @@
 import { withSessionSsr  } from "/helpers/withIronSession";
 import styles from "/styles/index.module.css";
 import Head from 'next/head';
-import { useState } from "react";
-import { calculateEloAndWinPercents, rankByElo, rankByTotalWins, rankByWinPercent } from "/helpers/rankingFunctions";
-import Select from 'react-select'; 
-import selectTheme from '/helpers/react-select-theme.js';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
-    let userData = await require("/helpers/userDataFunctions.js");
-    let data = userData.getAll();
-    data = data.map(user => {
-      return {
-        id: user.id,
-        lastStatUpdate: user.lastStatUpdate,
-        info: user.info,
-        statistics: user.statistics,
-      }
-    });
+    await fetch(process.env.URL + "/api/users/rank", req);
 
-    let now = new Date();
-    data = data.filter(user => user.info.gradyear >= now.getFullYear());
-    data = calculateEloAndWinPercents(data);
+    let usersParams = new URLSearchParams({modifier: "current", id:true, info_first_name:true, info_last_name: true, info_graduation: true, stats_w: true, stats_l: true, stats_elo: true, stats_rank: true});
+    let data = await fetch(process.env.URL + "/api/users/getall?" + usersParams.toString(), req).then(response => {return response.json()});
 
-    const {numplayersonleaderboard} = await require("/data/site.json");
-
+    const {leaderboard_players} = await fetch(process.env.URL + "/api/sitedata?" + new URLSearchParams({leaderboard_players: true}).toString(), req).then(response => {return response.json()});
+    
     const user = req.session.user;
     if(user){
-      return {props: { signedin: true, user: user, usersdata: data, numplayersonleaderboard: numplayersonleaderboard}}
+      return {props: { signedin: true, user: user, usersdata: data, numplayersonleaderboard: leaderboard_players}}
     } else {
-      return {props: { signedin: false, user: null, usersdata: data, numplayersonleaderboard: numplayersonleaderboard }}
+      return {props: { signedin: false, user: null, usersdata: data, numplayersonleaderboard: leaderboard_players }}
     }
   }
 );
 
 export default function Home(props){
-  const [rankingAlgorithm, setRankingAlgorithm] = useState("elo");
-  let leaderboard;
-
-  if(rankingAlgorithm === "elo") {
-    leaderboard = rankByElo(props.usersdata)
-    leaderboard = leaderboard.slice(0, props.numplayersonleaderboard);
-  }
-  if(rankingAlgorithm === "wins"){
-    leaderboard = rankByTotalWins(props.usersdata)
-    leaderboard = leaderboard.slice(0, props.numplayersonleaderboard);
-  }
-  if(rankingAlgorithm === "winpercent"){
-    leaderboard = rankByWinPercent(props.usersdata)
-    leaderboard = leaderboard.slice(0, props.numplayersonleaderboard);
-  }
+  let leaderboard = props.usersdata;
 
   return (<>
     <Head>
@@ -61,18 +33,6 @@ export default function Home(props){
     <section>
       <div className={styles.titleAndOptions}>
         <h2>Leaderboard</h2>
-        <Select
-          defaultValue={{value: "elo", label: "rank by elo"}}
-          options={[
-            {value: "elo", label: "rank by elo"},
-            {value: "wins", label: "rank by total wins"},
-            { value: "winpercent", label: "rank by win %"}
-          ]}
-          theme={selectTheme}
-          isSearchable={false}
-          className="react-select-container"
-          onChange={option =>{ setRankingAlgorithm(option.value)}}
-        />
       </div>
       <ol className={styles.leaderboard}>
         <li className={styles.headerrow}>
@@ -89,17 +49,21 @@ export default function Home(props){
           return (
           <li className={styles.player} key={i}>
             <ul className={styles.playerstats}>
-              <li className={styles.rank}>{i+1}</li>
-              <li><h4 className={styles.name}>{user.info.firstname} {user.info.lastname}</h4></li>
-              <li className={styles.stat}>{Math.round(user.elo*100)/100}</li>
-              <li className={styles.stat}>{Math.round(user.winpercent*10000)/100}%</li>
-              <li className={styles.stat}>{user.statistics.w}</li>
-              <li className={styles.stat}>{user.statistics.l}</li>
+              <li className={styles.rank}>{user.stats_rank}</li>
+              <li><h4 className={styles.name}>{user.info_first_name} {user.info_last_name}</h4></li>
+              <li className={styles.stat}>{Math.round(user.stats_elo*100)/100}</li>
+              <li className={styles.stat}>{Math.round(calculateWinPercent(user.stats_w, user.stats_l) * 10000) / 100}%</li>
+              <li className={styles.stat}>{user.stats_w}</li>
+              <li className={styles.stat}>{user.stats_l}</li>
             </ul>
-          </li>
-          );
+          </li>);
         })}
       </ol>
     </section>
   </>);
+}
+
+function calculateWinPercent(w,l){
+  if(w === 0) return 0;
+  return (w / (w + l));
 }

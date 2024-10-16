@@ -10,13 +10,13 @@ export const getServerSideProps = withSessionSsr(
     const user = req.session.user;
 
     if(user && user.permissions === 2){
-      let data = await fetch(process.env.URL + "/api/users/getdata-secure", req);
-      let sitedata = await fetch(process.env.URL + "/api/sitedata", req)
-      
-      data = await data.json();
+      let usersParams = new URLSearchParams({id:true, username:true, permissions: true, info_first_name:true, info_last_name: true, info_graduation: true, stats_w: true, stats_l: true});
+      let data = await fetch(process.env.URL + "/api/users/getall?" + usersParams.toString(), req).then(response => {return response.json()});
+
+      let sitedata = await fetch(process.env.URL + "/api/sitedata?" + new URLSearchParams({google_calendar_link:true, about_text:true, leaderboard_players:true, leaderboard_update_frequency: true}).toString(), req)
       sitedata = await sitedata.json();
 
-      return { props: {signedin: true, user: user, usersdata: data, sitedata: sitedata} }
+      return { props: {signedin: true, user: user, reqsession: req.session, usersdata: data, usersparams: usersParams.toString(), sitedata: sitedata} }
     } else {
       return {
         redirect: {
@@ -32,14 +32,6 @@ export const getServerSideProps = withSessionSsr(
 export default function Admin(props){
   let [usersdata, setUsersdata] = useState(props.usersdata);
 
-  async function refreshUsersData(){
-    let data = await fetch("/api/users/getdata-secure");
-    data = await data.json();
-    setUsersdata(data);
-    location.reload();
-  }
-
-
   const userSelect = useRef();
   const [selectedUser, setSelectedUser] = useState(props.usersdata[0]);
 
@@ -51,6 +43,15 @@ export default function Admin(props){
   const winsChangeInput = useRef();
   const lossesChangeInput = useRef();
   
+  async function refreshUsersData(){
+    await fetch("http://localhost:3000/api/users/getall?" + props.usersparams, {session: props.reqsession}).then(response => {
+      return response.json()
+    }).then(data => {
+      setUsersdata(data);
+      resetInputs();
+    });
+  }
+
   function resetInputs(){
     passwordChangeInput.current.value = "";
     firstnameChangeInput.current.value = "";
@@ -61,9 +62,9 @@ export default function Admin(props){
     lossesChangeInput.current.value = "";
   }
 
-  function handleUserSelectChange (option) {
+  function handleUserSelectChange (id) {
     setSelectedUser(usersdata.find((searchUser) => {
-      return option.value.toString() === searchUser.id.toString();
+      return parseInt(id) === parseInt(searchUser.id);
     }));
     resetInputs();
   }
@@ -86,11 +87,9 @@ export default function Admin(props){
           username: usernameInput.current.value,
           password: passwordInput.current.value,
           permissions: permissionsInput.current.value,
-          userinfo: {
-            firstname: firstnameInput.current.value,
-            lastname: lastnameInput.current.value,
-            gradyear: gradyearInput.current.value
-          }
+          info_first_name: firstnameInput.current.value,
+          info_last_name: lastnameInput.current.value,
+          info_graduation: gradyearInput.current.value,
         })
       })
   
@@ -123,10 +122,10 @@ export default function Admin(props){
       })
       if(res.status === 200){
         passwordChangeInput.current.value = "";
-        toast.success("User Deleted");
         await refreshUsersData();
-        userSelect.current.value = usersdata[0].id;
-        handleUserSelectChange();
+        toast.success("User Deleted");
+        userSelect.value = usersdata[0].id;
+        handleUserSelectChange(usersdata[0].id);
       } else {
         toast.error("Something went wrong.");
       }
@@ -141,9 +140,7 @@ export default function Admin(props){
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
           id: selectedUser.id,
-          data: {
-            password: passwordChangeInput.current.value
-          }
+          data: {password: passwordChangeInput.current.value}
         })
       })
 
@@ -161,27 +158,21 @@ export default function Admin(props){
   async function handleChangeUserSubmit(e){
     e.preventDefault();
 
-    let info = {
-      firstname: firstnameChangeInput.current.value || selectedUser.info.firstname,
-      lastname: lastnameChangeInput.current.value || selectedUser.info.lastname,
-      gradyear: gradYearChangeInput.current.value || selectedUser.info.gradyear
-    };
+    let data = {}
 
-    let statistics = {
-      w: parseInt(winsChangeInput.current.value || selectedUser.statistics.w),
-      l: parseInt(lossesChangeInput.current.value || selectedUser.statistics.l),
-    };
-
+    if(firstnameChangeInput.current.value !== "") data.info_first_name = firstnameChangeInput.current.value.toString();
+    if(lastnameChangeInput.current.value !== "") data.info_last_name = lastnameChangeInput.current.value.toString();
+    if(gradYearChangeInput.current.value !== "") data.info_graduation = gradYearChangeInput.current.value.toString();
+    if(winsChangeInput.current.value !== "" && parseInt(winsChangeInput.current.value) !== selectedUser.stats_w) data.stats_w = parseInt(winsChangeInput.current.value);
+    if(lossesChangeInput.current.value !== "" && parseInt(lossesChangeInput.current.value) !== selectedUser.stats_l) data.stats_l = parseInt(lossesChangeInput.current.value);
+    if(permissionsChangeInput.current.value !== "" && parseInt(permissionsChangeInput.current.value) !== selectedUser.permissions) data.permissions = parseInt(permissionsChangeInput.current.value);
+    
     const res = await fetch("/api/users/edit", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         id: selectedUser.id,
-        data: {
-          permissions: permissionsChangeInput.current.value,
-          info: info,
-          statistics: statistics
-        }
+        data: data
       })
     })
 
@@ -197,6 +188,7 @@ export default function Admin(props){
   const calendarLinkInput = useRef();
   const numLeaderboardPlayersInput = useRef();
   const aboutTextInput = useRef();
+  const leaderboardUpdateFrequencyInput = useRef();
 
   async function handleUpdateSiteInfo(e){
     e.preventDefault();
@@ -209,10 +201,13 @@ export default function Admin(props){
         data.calendarlink = calendarLinkInput.current.value;
       }
       if(numLeaderboardPlayersInput.current.value !== ""){
-        data.numplayersonleaderboard = numLeaderboardPlayersInput.current.value;
+        data.numplayersonleaderboard = parseInt(numLeaderboardPlayersInput.current.value);
       }
       if(aboutTextInput.current.value !== ""){
         data.about = aboutTextInput.current.value;
+      }
+      if(leaderboardUpdateFrequencyInput.current.value !== ""){
+        data.leaderboard_update_frequency = parseInt(leaderboardUpdateFrequencyInput.current.value);
       }
 
       const res = await fetch("/api/sitedata", {
@@ -251,7 +246,7 @@ export default function Admin(props){
         </div>
         <div>
           <label htmlFor="permissions">permissions: </label>
-          <input type="number" min="0" max="1" step="1" id="permissions" ref={permissionsInput} />
+          <input type="number" min="0" max="2" step="1" id="permissions" ref={permissionsInput} />
         </div>
         <div>
           <label htmlFor="firstname">firstname: </label>
@@ -274,14 +269,14 @@ export default function Admin(props){
 
       <div>
         <Select
-          defaultValue={ { value: selectedUser.id, label: `${selectedUser.username} | ${selectedUser.info.firstname} ${selectedUser.info.lastname}`}}
-          onChange={handleUserSelectChange}
+          defaultValue={ { value: selectedUser.id, label: `${selectedUser.username} | ${selectedUser.info_first_name} ${selectedUser.info_last_name}`}}
+          onChange={option => {handleUserSelectChange(option.value.toString())}}
           theme={selectTheme}
           className="react-select-container"
           options={usersdata.map((user) => {
             return ({
               value: user.id,
-              label: `${user.username} | ${user.info.firstname} ${user.info.lastname}`,
+              label: `${user.username} | ${user.info_first_name} ${user.info_last_name}`,
             })
           })}
         />
@@ -307,17 +302,17 @@ export default function Admin(props){
         <form onSubmit={handleChangeUserSubmit}>
           <div>
             <label htmlFor="firstnameChange">First Name: </label>
-            <input type="text" id="firstnameChange" placeholder={selectedUser.info.firstname} ref={firstnameChangeInput} />
+            <input type="text" id="firstnameChange" placeholder={selectedUser.info_first_name} ref={firstnameChangeInput} />
           </div>
 
           <div>
             <label htmlFor="lastnameChange">Last Name: </label>
-            <input type="text" id="lastnameChange" placeholder={selectedUser.info.lastname} ref={lastnameChangeInput} />
+            <input type="text" id="lastnameChange" placeholder={selectedUser.info_last_name} ref={lastnameChangeInput} />
           </div>
 
           <div>
             <label htmlFor="gradyearChange">Graduation Year: </label>
-            <input type="number" min="2023" step="1" id="gradyearChange" placeholder={selectedUser.info.gradyear} ref={gradYearChangeInput} />
+            <input type="number" min={new Date().getFullYear()} step="1" id="gradyearChange" placeholder={new Date(selectedUser.info_graduation).getFullYear()} ref={gradYearChangeInput} />
           </div>
 
           <div>
@@ -327,11 +322,11 @@ export default function Admin(props){
 
           <div>
             <label htmlFor="winsChange">Wins: </label>
-            <input type="number" id="winsChange" placeholder={selectedUser.statistics.w} min="0" max="9999" step="1" ref={winsChangeInput}/>
+            <input type="number" id="winsChange" placeholder={selectedUser.stats_w} min="0" max="9999" step="1" ref={winsChangeInput}/>
           </div>
           <div>
             <label htmlFor="lossesChange">Losses: </label>
-            <input type="number" id="lossesChange" placeholder={selectedUser.statistics.l} min="0" max="9999" step="1" ref={lossesChangeInput}/>
+            <input type="number" id="lossesChange" placeholder={selectedUser.stats_l} min="0" max="9999" step="1" ref={lossesChangeInput}/>
           </div>
 
           <input type="submit" value="Update User Information"/>
@@ -346,17 +341,22 @@ export default function Admin(props){
       <form onSubmit={handleUpdateSiteInfo}>
         <div>
           <label htmlFor="calendarlink">Google Calendar Embed Link</label>
-          <input type="text" id="calendarlink" defaultValue={props.sitedata.calendarlink} ref={calendarLinkInput} />
+          <input type="text" id="calendarlink" defaultValue={props.sitedata.google_calendar_link} ref={calendarLinkInput} />
         </div>
 
         <div>
           <label htmlFor="leaderboardplayers">Players on Leaderboard</label>
-          <input type="number" id="leaderboardplayers" defaultValue={props.sitedata.numplayersonleaderboard} ref={numLeaderboardPlayersInput}/>
+          <input type="number" id="leaderboardplayers" defaultValue={props.sitedata.leaderboard_players} ref={numLeaderboardPlayersInput}/>
         </div>
 
         <div>
           <label htmlFor="aboutsite">About Paragraph</label>
-          <textarea id="aboutsite" defaultValue={props.sitedata.about} ref={aboutTextInput}/>
+          <textarea id="aboutsite" defaultValue={props.sitedata.about_text} ref={aboutTextInput}/>
+        </div>
+
+        <div>
+          <label htmlFor="leaderboardUpdateFrequencyInput">Leaderboard Update Frequency (days)</label>
+          <input type="number" min="0" max="28" step="1" id="leaderboardUpdateFrequencyInput" defaultValue={props.sitedata.leaderboard_update_frequency} ref={leaderboardUpdateFrequencyInput}/>
         </div>
 
         <input type="submit" value="Update Information"/>

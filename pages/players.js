@@ -6,32 +6,27 @@ import styles from "/styles/players.module.css";
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     const user = req.session.user;
+    const params = {flair: true, info_first_name:true, info_last_name: true, info_graduation: true, stats_w: true, stats_l: true};
+    const currentParams = {modifier: "current", ...params};
+    const graduatedParams = {modifier: "graduated", ...params};
 
-    let data = await fetch(process.env.URL + "/api/users/getdata", req);
-    data = await data.json();
+    let [current, graduated] = await Promise.all([
+      fetch(process.env.URL + "/api/users/getall?" + new URLSearchParams(currentParams).toString(), req).then(response => {return response.json()}),
+      fetch(process.env.URL + "/api/users/getall?" + new URLSearchParams(graduatedParams).toString(), req).then(response => {return response.json()})
+    ]);
 
     if(user){
-      return {props: { signedin: true, user: user, usersdata: data }}
+      return {props: { signedin: true, user: user, currentPlayers: current, graduatedPlayers: graduated}}
     } else {
-      return {props: { signedin: false, user: null, usersdata: data }}
+      return {props: { signedin: false, user: null, currentPlayers: current, graduatedPlayers: graduated}}
     }
   }
 );
 
 export default function Players(props){
-  let now = new Date();
-  let graduatedPlayers = [];
-  let currentPlayers = []; 
+  let graduatedPlayers = props.graduatedPlayers;
+  let currentPlayers = props.currentPlayers; 
 
-  for(let i = 0; i < props.usersdata.length; i++){
-    let player = props.usersdata[i];
-    let graduationDate = new Date("7/01/" + player.info.gradyear);
-    if(now < graduationDate){
-      currentPlayers.push(player);
-    } else {
-      graduatedPlayers.push(player);
-    }
-  }
   return (<>
   <Head>
     <title>Players | Caravel Table Tennis</title>
@@ -43,31 +38,31 @@ export default function Players(props){
       <ul className={styles.playerslist}>
         {currentPlayers.map((player, i)=>{
           return (
-            <li id={i} className={styles.playercontainer}>
+            <li id={i} key={i} className={styles.playercontainer}>
               <ul className={styles.player}>
                 <li>
-                  {player.info.firstname} {player.info.lastname}
-                  <span className={styles.gradyear}>'{player.info.gradyear.substring(2)}</span>
-                  <span className={styles.flair}>{player.info.flair === ''? '' : player.info.flair}</span>
+                  {player.info_first_name} {player.info_last_name}
+                  <span className={styles.gradyear}>'{new Date(player.info_graduation).getFullYear().toString().substring(2)}</span>
+                  <span className={styles.flair}>{player.info_flair === ''? '' : player.info_flair}</span>
                 </li>
-                <li className={styles.record}>{player.statistics.w} - {player.statistics.l}</li>
+                <li className={styles.record}>{player.stats_w} - {player.stats_l}</li>
               </ul>
             </li>
           );
         })}
       </ul>
-      <h2 className={styles.alumheader}>Alum</h2>
+      {graduatedPlayers.length > 0 ? <h2 className={styles.alumheader}>Alum</h2> : ""}
       <ul className={styles.playerslist}>
         {graduatedPlayers.map((player, i)=>{
             return (
-              <li id={i} className={styles.playercontainer}>
+              <li id={i} key={i} className={styles.playercontainer}>
               <ul className={styles.player}>
                 <li>
-                  {player.info.firstname} {player.info.lastname}
-                  <span className={styles.gradyear}>'{player.info.gradyear.substring(2)}</span>
-                  <span className={styles.flair}>{player.info.flair === ''? '' : player.info.flair}</span>
+                  {player.info_first_name} {player.info_last_name}
+                  <span className={styles.gradyear}>'{new Date(player.info_graduation).getFullYear().toString().substring(2)}</span>
+                  <span className={styles.flair}>{player.info_flair === ''? '' : player.info_flair}</span>
                 </li>
-                <li className={styles.record}>{player.statistics.w} - {player.statistics.l}</li>
+                <li className={styles.record}>{player.stats_w} - {player.stats_l}</li>
               </ul>
             </li>
             );

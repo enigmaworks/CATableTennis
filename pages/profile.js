@@ -1,17 +1,14 @@
 import { withSessionSsr  } from "/helpers/withIronSession";
-import { calculateEloAndWinPercents, rankByElo, rankByTotalWins, rankByWinPercent } from "/helpers/rankingFunctions";
-import { useEffect, useState } from "react";
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     const user = req.session.user;
 
     if(user){
-      let data = await fetch(process.env.URL + "/api/users/getdata", req);
-      data = await data.json();
-      data = calculateEloAndWinPercents(data);
+      let params = new URLSearchParams({id: user.id, flair: true, info_graduation: true, stats_w: true, stats_l: true, stats_rank: true, stats_elo: true, date_stats_updated:true, date_created: true});
+      let data = await fetch(process.env.URL + "/api/users/getuser?" + params.toString(), req).then(response => {return response.json()});
 
-      return { props: {signedin: true, user: user, usersdata: data} }
+      return { props: {signedin: true, user: {...user, ...data} }};
     } else {
       return {
         redirect: {
@@ -25,39 +22,24 @@ export const getServerSideProps = withSessionSsr(
 );
 
 export default function ProfilePage(props){
-  const [rankingAlgorithm, setRankingAlgorithm] = useState("elo");
-  let leaderboard;
-  let rank;
-
-  useEffect(()=>{
-    if(rankingAlgorithm === "elo") {
-      leaderboard = rankByElo(props.usersdata)
-    } else if(rankingAlgorithm === "wins"){
-      leaderboard = rankByTotalWins(props.usersdata)
-    } else if(rankingAlgorithm === "winpercent"){
-      leaderboard = rankByWinPercent(props.usersdata)
-    }
-    rank = 1 + leaderboard.findIndex(user=>user.id === props.user.id);
-  }, [rankingAlgorithm]);
-
   return(
   <>
     <header>
       <h1>My Profile</h1>
     </header>
     <section>
-      <h2>{props.user.firstname} {props.user.lastname}</h2>
+      <h2>{props.user.info_first_name} {props.user.info_last_name}</h2>
       <div>
-        {props.user.permissions === 0 ? "Player" : props.user.permissions === 1 ? "Admin" : "Super Admin"}
+        {props.user.permissions === 0 ? "Player" : props.user.permissions === 1 ? "Club Leader" : "Admin"}
       </div>
+      <div>Joined {new Date(props.user.date_created).toLocaleDateString()}</div>
       <h3>
-        Rank: #{"000"}
+        Rank: #{props.user.stats_rank}
       </h3>
-      <div>{'(as of ' + "mm/dd/yyyy" + ')'}</div>
+      <div>As of {new Date(props.user.date_stats_updated).toLocaleDateString()}</div>
       <h3>Career Record</h3>
-      <div>Wins: {}</div>
-      <div>Loses: {}</div>
-      <div>Last Game: {"mm/dd/yyyy"}</div>
+      <div>Wins: {props.user.stats_w}</div>
+      <div>Loses: {props.user.stats_l}</div>
       <div></div>
     </section>
   </>)

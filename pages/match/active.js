@@ -10,12 +10,10 @@ import Countdown, { zeroPad } from "react-countdown";
 import toast, { Toaster } from 'react-hot-toast';
 
 export const getServerSideProps = withSessionSsr(
-  async ({req, res}) => {
+  async ({req, res}) => {    
     const user = req.session.user;
     if(user && user.permissions >= 1){
-      let data = await fetch(process.env.URL + "/api/users/getdata", req);
-      data = await data.json();
-      return {props: { signedin: true, user: user, usersdata: data}}
+      return {props: { signedin: true, user: user}}
     } else {
       return {
         redirect: {
@@ -29,10 +27,9 @@ export const getServerSideProps = withSessionSsr(
 
 
 export default function MatchPage(props){
-  let {query} = useRouter();
-
   //check that both players for both teams are present 1v1 or full 2v2 teams
-  if((query.p1 === undefined || query.p2 === undefined) && ((query.p1a !== undefined && query.p1b !== undefined) || (query.p1b === undefined && query.p1a === undefined))){
+  let {query} = useRouter();
+  if((query.p1_id === undefined || query.p2_id === undefined) && ((query.p3_id !== undefined && query.p4_id !== undefined) || (query.p3_id === undefined && query.p4_id === undefined))){
     useEffect(()=>{
       Router.push("/match");
     },[])
@@ -41,14 +38,22 @@ export default function MatchPage(props){
 
   const [team1Score, setTeam1Score] = useState(0);
   const [team2Score, setTeam2Score] = useState(0);
-
-  let team1 = [props.usersdata.find(user => parseInt(user.id) === parseInt(query.p1)), props.usersdata.find(user => parseInt(user.id) === parseInt(query.p1b))];
-  let team2 = [props.usersdata.find(user => parseInt(user.id) === parseInt(query.p2)), props.usersdata.find(user => parseInt(user.id) === parseInt(query.p2b))];
-  let fullscreenHandle = useFullScreenHandle();
-
   const [timerDate, setTimerDate] = useState(Date.now() + 600000);
   const secondsInput = useRef();
   const minutesInput = useRef();
+  
+  let fullscreenHandle = useFullScreenHandle();
+
+  function userObj(id, firstname, lastname, w, l){
+    return {id: id, info_first_name: firstname, info_last_name: lastname, stats_w: w, stats_l: l};
+  }
+
+  let team1 = [userObj(query.p1_id, query.p1_first, query.p1_last, query.p1_w, query.p1_l)];
+  let team2 = [userObj(query.p2_id, query.p2_first, query.p2_last, query.p2_w, query.p2_l)];
+  if(query.numplayers === "4"){
+    team1.push(userObj(query.p3_id, query.p3_first, query.p3_last, query.p3_w, query.p3_l));
+    team2.push(userObj(query.p4_id, query.p4_first, query.p4_last, query.p4_w, query.p4_l));
+  }
 
   function handleStartStop(timer){
     if(timer.isStopped() || timer.isPaused()){
@@ -77,42 +82,106 @@ export default function MatchPage(props){
 
   function saveresult(){
     if(team1Score > team2Score){
-      if(team1[1]){
+      if(query.numplayers === "4"){
         Router.push({
           pathname: '/match/save',
           query: {
-            win1: team1[0].id,
-            win2: team1[1].id,
-            lose1: team2[0].id,
-            lose2: team2[1].id,
+            numplayers: query.numplayers,
+
+            win1_id: team1[0].id,
+            win1_first: team1[0].info_first_name,
+            win1_last: team1[0].info_last_name,
+            win1_w: team1[0].stats_w,
+            win1_l: team1[0].stats_l,
+
+            win2_id: team1[1].id,
+            win2_first: team1[1].info_first_name,
+            win2_last: team1[1].info_last_name,
+            win2_w: team1[1].stats_w,
+            win2_l: team1[1].stats_l,
+
+            lose1_id: team2[0].id,
+            lose1_first: team2[0].info_first_name,
+            lose1_last: team2[0].info_last_name,
+            lose1_w: team2[0].stats_w,
+            lose1_l: team2[0].stats_l,
+
+            lose2_id: team2[1].id,
+            lose2_first: team2[1].info_first_name,
+            lose2_last: team2[1].info_last_name,
+            lose2_w: team2[1].stats_w,
+            lose2_l: team2[1].stats_l,
           }
         });
       } else {
         Router.push({
           pathname: '/match/save',
           query: {
-            win1: team1[0].id,
-            lose1: team2[0].id,
+            numplayers: query.numplayers,
+
+            win1_id: team1[0].id,
+            win1_first: team1[0].info_first_name,
+            win1_last: team1[0].info_last_name,
+            win1_w: team1[0].stats_w,
+            win1_l: team1[0].stats_l,
+
+            lose1_id: team2[0].id,
+            lose1_first: team2[0].info_first_name,
+            lose1_last: team2[0].info_last_name,
+            lose1_w: team2[0].stats_w,
+            lose1_l: team2[0].stats_l,
           }
         });
       }
     } else if(team2Score > team1Score){
-      if(team1[2]){
+      if(query.numplayers === "4"){
         Router.push({
           pathname: '/match/save',
           query: {
-            win1: team2[0].id,
-            win2: team2[1].id,
-            lose1: team1[0].id,
-            lose2: team1[1].id,
+            numplayers: query.numplayers,
+
+            win1_id: team2[0].id,
+            win1_first: team2[0].info_first_name,
+            win1_last: team2[0].info_last_name,
+            win1_w: team2[0].stats_w,
+            win1_l: team2[0].stats_l,
+
+            win2_id: team2[1].id,
+            win2_first: team2[1].info_first_name,
+            win2_last: team2[1].info_last_name,
+            win2_w: team2[1].stats_w,
+            win2_l: team2[1].stats_l,
+
+            lose1_id: team1[0].id,
+            lose1_first: team1[0].info_first_name,
+            lose1_last: team1[0].info_last_name,
+            lose1_w: team1[0].stats_w,
+            lose1_l: team1[0].stats_l,
+
+            lose2_id: team1[1].id,
+            lose2_first: team1[1].info_first_name,
+            lose2_last: team1[1].info_last_name,
+            lose2_w: team1[1].stats_w,
+            lose2_l: team1[1].stats_l,
           }
         }, '/match/save');
       } else {
         Router.push({
           pathname: '/match/save',
           query: {
-            win1: team2[0].id,
-            lose1: team1[0].id,
+            numplayers: query.numplayers,
+
+            win1_id: team2[0].id,
+            win1_first: team2[0].info_first_name,
+            win1_last: team2[0].info_last_name,
+            win1_w: team2[0].stats_w,
+            win1_l: team2[0].stats_l,
+
+            lose1_id: team1[0].id,
+            lose1_first: team1[0].info_first_name,
+            lose1_last: team1[0].info_last_name,
+            lose1_w: team1[0].stats_w,
+            lose1_l: team1[0].stats_l,
           }
         }, '/match/save');
       }
@@ -177,9 +246,9 @@ export default function MatchPage(props){
         </div> : ""}
         <div className={styles.teamOne}>
           <div className={styles.players}>
-            {team1[0].info.firstname} {team1[0].info.lastname}
+            {team1[0].info_first_name} {team1[0].info_last_name}
             {team1[1] !== undefined ? <div className={styles.spacer}>&</div> : ""}
-            {team1[1] !== undefined ? `${team1[1].info.firstname} ${team1[1].info.lastname}`: ""}
+            {team1[1] !== undefined ? `${team1[1].info_first_name} ${team1[1].info_last_name}`: ""}
          </div>
           <div className={styles.scorecontainer} data-winning={team1Score > team2Score}>
             <div className={styles.score}>{team1Score}</div>
@@ -191,9 +260,9 @@ export default function MatchPage(props){
         </div>
         <div className={styles.teamTwo}>
           <div className={styles.players}>
-            {team2[0].info.firstname} {team2[0].info.lastname}
+            {team2[0].info_first_name} {team2[0].info_last_name}
             {team2[1] !== undefined ? <div className={styles.spacer}>&</div> : ""}
-            {team2[1] !== undefined ? `${team2[1].info.firstname} ${team2[1].info.lastname}`: ""}
+            {team2[1] !== undefined ? `${team2[1].info_first_name} ${team2[1].info_last_name}`: ""}
          </div>
           <div className={styles.scorecontainer} data-winning={team2Score > team1Score}>
             <div className={styles.score}>{team2Score}</div>
