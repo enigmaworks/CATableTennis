@@ -8,6 +8,10 @@ async function getall(req, res){
     let columns = [];
     let requestedColumns = Object.keys(req.query);
     let modifier = req.query.modifier || "none";
+    let sort_column = req.query.sort_column || "none";
+    let sort_descending = req.query.sort_descending;
+    let sort_column_2 = req.query.sort_column2 || "none";
+    let sort_2_descending = req.query.sort_descending;
 
     function checkParam(param){
       if(requestedColumns.includes(param) && req.query[param]) return true;
@@ -53,10 +57,8 @@ async function getall(req, res){
         port: process.env.DB_PORT,
       });
 
-      let rows = [];
-      if(modifier === "none"){
-        await pool.query(`SELECT ${columns} FROM users;`).then(data => rows = data.rows);
-      }
+      let query = `SELECT ${columns} FROM users`;
+
       if(modifier === "current" || modifier === "graduated"){
         let thisyear = new Date().getFullYear();
         let nextyear = thisyear + 1;
@@ -67,13 +69,41 @@ async function getall(req, res){
         } else {
           thisYearsGraduation += thisyear;
         }
-
+        
         if(modifier === "current"){
-          await pool.query(`SELECT ${columns} FROM users WHERE info_graduation >= '${thisYearsGraduation}'::date;`).then(data => rows = data.rows);
+          query += ` WHERE info_graduation >= '${thisYearsGraduation}'::date`;
         } else {
-          await pool.query(`SELECT ${columns} FROM users WHERE info_graduation < '${thisYearsGraduation}'::date;`).then(data => rows = data.rows);
+          query += ` WHERE info_graduation < '${thisYearsGraduation}'::date`;
         }
       }
+
+      if(sort_column === "date_created") query += " ORDER BY date_created";
+      if(sort_column === "date_updated") query += " ORDER BY date_updated";
+      if(sort_column === "date_stats_updated") query += " ORDER BY date_stats_updated";
+      if(sort_column === "info_first_name") query += " ORDER BY info_first_name";
+      if(sort_column === "info_last_name") query += " ORDER BY info_last_name";
+      if(sort_column === "info_graduation") query += " ORDER BY info_graduation";
+      if(sort_column === "stats_w") query += " ORDER BY stats_w";
+      if(sort_column === "stats_l") query += " ORDER BY stats_l";
+      if(sort_column === "stats_elo") query += " ORDER BY stats_elo";
+      if(sort_column === "stats_rank") query += " ORDER BY stats_rank";
+      if(sort_descending) query += " DESC";
+
+      if(sort_column_2 === "date_created") query += ", date_created";
+      if(sort_column_2 === "date_updated") query += ", date_updated";
+      if(sort_column_2 === "date_stats_updated") query += ", date_stats_updated";
+      if(sort_column_2 === "info_first_name") query += ", info_first_name";
+      if(sort_column_2 === "info_last_name") query += ", info_last_name";
+      if(sort_column_2 === "info_graduation") query += ", info_graduation";
+      if(sort_column_2 === "stats_w") query += ", stats_w";
+      if(sort_column_2 === "stats_l") query += ", stats_l";
+      if(sort_column_2 === "stats_elo") query += ", stats_elo";
+      if(sort_column_2 === "stats_rank") query += ", stats_rank";
+      if(sort_2_descending) query += " DESC";
+
+      query += ";";
+      let rows = [];
+      await pool.query(query).then(data => rows = data.rows);
       await pool.end();
       return res.json(rows);
 
