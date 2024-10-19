@@ -1,4 +1,6 @@
+import { useRef } from "react";
 import { withSessionSsr  } from "/helpers/withIronSession";
+import toast, { Toaster } from 'react-hot-toast';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
@@ -19,7 +21,7 @@ export const getServerSideProps = withSessionSsr(
       
       let data = await fetch(process.env.URL + "/api/users/getuser?" + params, req).then(response => {return response.json()});
 
-      return { props: {signedin: true, user: {...user, ...data} }};
+      return { props: {signedin: true, user: {...user, ...data}, session: req.session}};
     } else {
       return {
         redirect: {
@@ -33,8 +35,38 @@ export const getServerSideProps = withSessionSsr(
 );
 
 export default function ProfilePage(props){
+  let oldPasswordInput = useRef();
+  let newPasswordInput = useRef();
+
+  async function handleChangePasswordSubmit(e){
+    e.preventDefault();
+    if(oldPasswordInput.current.value !== "" && newPasswordInput.current.value !== "" ){
+      await fetch('/api/users/edit', {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        session: props.session,
+        body: JSON.stringify({
+          id: props.user.id,
+          old_password: oldPasswordInput.current.value,
+          new_password: newPasswordInput.current.value,
+        })
+      }).then(res => {
+        if(res.ok){
+          toast.success("Changed Password Sucessfully");
+          oldPasswordInput.current.value = "";
+          newPasswordInput.current.value = "";
+        } else if(res.status === "401") {
+          toast.error("Incorrect Password");
+        } else {
+          toast.error("Something went wrong!");
+        }
+      })
+    }
+  }
+
   return(
   <>
+    <Toaster position="bottom-center" reverseOrder={false}/>
     <header>
       <h1>My Profile</h1>
     </header>
@@ -51,7 +83,20 @@ export default function ProfilePage(props){
       <h3>Career Record</h3>
       <div>Wins: {props.user.stats_w}</div>
       <div>Loses: {props.user.stats_l}</div>
-      <div></div>
+    </section>
+    <section>
+      <h2>Change Password</h2>
+      <form onSubmit={handleChangePasswordSubmit}>
+        <div>
+          <label htmlFor="password">Old Password: </label>
+          <input type="password" id="password" ref={oldPasswordInput}/>
+        </div>
+        <div>
+          <label htmlFor="password">New Password: </label>
+          <input type="password" id="password" ref={newPasswordInput}/>
+        </div>
+        <input type="submit" value="Change Password" />
+      </form>
     </section>
   </>)
 }
