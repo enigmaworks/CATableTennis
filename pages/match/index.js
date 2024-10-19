@@ -161,7 +161,7 @@ export default function MatchPage(props){
           />
           <button className="important" onClick={async ()=>{
             if(numPlayers === 2){
-              await getUsers(team1[0], team2[0]).then(([p1,p2]) => {
+              await getUsers(props, team1[0], team2[0]).then(([p1,p2]) => {
                 Router.push({
                   pathname: 'match/active',
                   query: {
@@ -183,7 +183,7 @@ export default function MatchPage(props){
                 }, 'match');
               });
             } else {
-              await getUsers(team1[0], team2[0], team1[1], team2[1]).then(([p1,p2, p3, p4]) => {
+              await getUsers(props, team1[0], team2[0], team1[1], team2[1]).then(([p1,p2, p3, p4]) => {
                 Router.push({
                   pathname: 'match/active',
                   query: {
@@ -248,7 +248,7 @@ function UserSelect({defualtSelection, users, checkfn, changefn}){
   )
 }
 
-async function getUsers(id1, id2, id3, id4){
+async function getUsers(props, id1, id2, id3, id4){
   let u1params = new URLSearchParams({id: id1, info_first_name: true, info_last_name: true, stats_w: true, stats_l: true})
   let u2params = new URLSearchParams({id: id2, info_first_name: true, info_last_name: true, stats_w: true, stats_l: true})
   if(!id3 && !id4){

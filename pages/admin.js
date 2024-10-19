@@ -68,14 +68,9 @@ export default function Admin(props){
   const winsChangeInput = useRef();
   const lossesChangeInput = useRef();
   
-  async function refreshUsersData(){
-    await fetch(props.url + "/api/users/getall?" + props.usersparams).then(response => {
-      return response.json()
-    }).then(data => {
-      resetInputs();
-      setUsersdata(data);
-    });
-  }
+  function refreshUsersData(){
+    location.reload();
+  };
 
   function resetInputs(){
     passwordChangeInput.current.value = "";
