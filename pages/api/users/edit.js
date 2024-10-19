@@ -31,7 +31,7 @@ async function edit(req, res){
           }
         }
         if(updated_column.includes("info_graduation")){
-          await pool.query(`UPDATE users SET info_graduation = '${"July 1 " + data["info_graduation"]}' WHERE id = ${id};`);
+          await pool.query(`UPDATE users SET info_graduation = '${"July 1 " + data["info_graduation"]}'::date WHERE id = ${id};`);
         }
         if (updated_column.includes("password")){
           let password = data.password;
