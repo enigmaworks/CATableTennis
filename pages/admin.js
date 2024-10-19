@@ -224,6 +224,21 @@ export default function Admin(props){
     }
   }
 
+  async function handleForceLeaderboardUpdateClick(){
+    const res = await fetch("/api/users/rank", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          force: true
+        })
+      })
+  
+      if(res.ok){
+        toast.success("Leaderboard Re-Ranked");
+      } else {
+        toast.error("Failed to re-rank leaderboard");
+      }
+  }
   return (
     <>
     <Toaster position="bottom-center" reverseOrder={false}/>
@@ -359,8 +374,14 @@ export default function Admin(props){
           <input type="number" min="0" max="28" step="1" id="leaderboardUpdateFrequencyInput" defaultValue={props.sitedata.leaderboard_update_frequency} ref={leaderboardUpdateFrequencyInput}/>
         </div>
 
+
+
+
         <input type="submit" value="Update Information"/>
       </form>
+      <div>
+        <input type="button" id="forceLeaderboardUpdate" value="Re-Rank Leaderboard" onClick={handleForceLeaderboardUpdateClick}/>
+      </div>
     </section>
     </>
   );
