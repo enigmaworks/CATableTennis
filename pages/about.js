@@ -48,13 +48,13 @@ export default function calendar(props){
 
       <p>
         Sajjan Subramanian, class of 2026, was inspired to form the club during the 2023-2024 school year.
-        Acheiving board approval more than half a month later, the club  officially had it's first meeting in October of the 2024-2025 school year.
+        Acheiving board approval more six months later, the club  officially had it's first meeting in October of 2024.
       </p>
     </section>
     <section>
       <h2>Website</h2>
       <p>
-        This website was built by class of Eddie Radecki, class of 2025. Source code is available on Github in <Link href="https://www.github.com/enigmaworks/CATableTennis">this repository</Link>. If something is broken, feel free to reach out to me at eddie.radecki@gmail.com.
+        This website was built by class of Eddie Radecki, class of 2025. Source code is available on Github in <Link href="https://www.github.com/enigmaworks/CATableTennis">this repository</Link>. If something is broken, feel free to reach out to eddie.radecki@gmail.com.
       </p>
 
       <h3>Leaderboard & Rankings</h3>

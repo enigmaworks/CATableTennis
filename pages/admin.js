@@ -302,9 +302,9 @@ export default function Admin(props){
           <input type="number" min="0" max="2" step="1" id="permissions" ref={permissionsInput} />
         </div>
         <ul>
-          <li>Tier 0: Basic user. Can access profile page and participate in matches.</li>
-          <li>Tier 1: Admin. Can access the match page and save results that affect user's records.</li>
-          <li>Tier 2: SUPER Admin. Can create, edit, and delete accounts, change About Page content, alter records. For trusted individuals ONLY.</li>
+          <li>Tier 0: Basic User. Can access profile page and participate in matches.</li>
+          <li>Tier 1: Club Leader. Can access the match page and save results that affect user's records.</li>
+          <li>Tier 2: Site Admin. Can create, edit, and delete accounts, change About Page content, alter records. For trusted individuals ONLY.</li>
         </ul>
         <div>
           <label htmlFor="firstname">firstname: </label>
