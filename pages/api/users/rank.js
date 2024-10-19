@@ -64,7 +64,7 @@ async function getall(req, res){
             SELECT id,
             RANK () OVER (
               ORDER BY stats_elo DESC
-            ) FROM users WHERE info_graduation >= 'July 1 2024'::DATE
+            ) FROM users WHERE info_graduation >= '${thisYearsGraduation}'::DATE
           )
           UPDATE users SET stats_rank = cte.rank FROM cte WHERE users.id = cte.id;
         `
