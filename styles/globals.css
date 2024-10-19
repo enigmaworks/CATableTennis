@@ -161,6 +161,9 @@ input[type="checkbox"]{
 section p{
     padding-bottom: 0.5rem;
 }
+.bold {
+    font-weight: 800;
+}
 h1,
 h2,
 h3 {
