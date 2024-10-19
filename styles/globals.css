@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@400;700&display=swap');
 
 :root{
     --clr_highlight: hsl(0, 65%, 25%);
@@ -9,8 +9,9 @@
     --clr_light: hsl(0, 0%, 88%);
     --clr_med-light: hsl(0, 0%, 61%);
     --clr_med-dark: hsl(0, 0%, 43%);
+    --clr_med-dark-a50: hsl(0, 0%, 43%, 0.5);
     --clr_dark: hsl(0, 0%, 22%);
-    --clr_dark-a50: hsla(0, 0%, 25%, 0.533);
+    --clr_dark-a50: hsla(0, 0%, 25%, 0.5);
     --ff_base: "Inter";
     --ff_highlight: "Gemunu Libre";
     --f-size-scale: 1.4;

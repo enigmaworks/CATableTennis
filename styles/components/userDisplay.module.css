@@ -21,9 +21,12 @@
 }
 .username{
   display: inline-block;
-  display: inline-block;
+  font-family: var(--ff_highlight);
+  font-size: var(--f-size-base);
+  color: var(--clr_highlight);
+  text-decoration: underline;
 }
-@media only screen and (max-width: 60rem) {
+@media only screen and (max-width: 40rem) {
   .username{
     display: none;
   }

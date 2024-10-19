@@ -1,5 +1,5 @@
 .leaderboard{
-  --spacing: clamp(0.125rem, 4vw, 3rem);
+  --spacing: clamp(0.125rem, 3.5vw - 1.5rem, 3rem);
   --cell-size: calc(2.25rem + 1vw);
   list-style: none;
   padding: 0;

@@ -15,8 +15,9 @@
 .navlist {
   padding: 0;
   list-style: none;
-  background-color: white;
+  background-color: var(--clr_med-dark-a50);
   border-radius: 0.75rem;
+  backdrop-filter: blur(100px);
   transition:
     transform var(--transistion-time) ease-in,
     opacity var(--transistion-time) ease-out;
@@ -28,7 +29,7 @@
     opacity var(--transistion-time) ease-in;
   transform: translate(0);
   opacity: 1;
-  box-shadow: 0 0 1rem var(--clr_light);
+  box-shadow: 0 0 1rem var(--clr_med-dark);
 }
 .nav[nav-state="closed"] ul{
   transform: translate(-100%);
@@ -135,6 +136,9 @@
 .active{
   border-color: var(--clr_highlight);
 }
+.clubname::before{
+  content: "Caravel Academy Table Tennis Club";
+}
 
 @media only screen and (max-width: 60rem) {
   .navlist{
@@ -155,6 +159,11 @@
     border-radius: 0.75rem;
     max-width: 20rem;
     margin-inline: auto;
+  }
+}
+@media only screen and (max-width: 30rem) {
+  .clubname::before{
+    content: "CA Table Tennis";
   }
 }
 
