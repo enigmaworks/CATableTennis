@@ -13,7 +13,7 @@ export const getServerSideProps = withSessionSsr(
       let usersParams = new URLSearchParams({modifier: "current", id:true, info_first_name:true, info_last_name: true, info_graduation: true});
       let data = await fetch(process.env.URL + "/api/users/getall?" + usersParams.toString(), req).then(response => {return response.json()});
 
-      return {props: { signedin: true, user: user, usersdata: data}}
+      return {props: { signedin: true, user: user, usersdata: data, url: process.env.URL}}
     } else {
       return {
         redirect: {
@@ -253,17 +253,17 @@ async function getUsers(id1, id2, id3, id4){
   let u2params = new URLSearchParams({id: id2, info_first_name: true, info_last_name: true, stats_w: true, stats_l: true})
   if(!id3 && !id4){
     return await Promise.all([
-      fetch("http://localhost:3000/api/users/getuser?" + u1params.toString()).then(response => {return response.json()}),
-      fetch("http://localhost:3000/api/users/getuser?" + u2params.toString()).then(response => {return response.json()})
+      fetch(props.url + "api/users/getuser?" + u1params.toString()).then(response => {return response.json()}),
+      fetch(props.url + "api/users/getuser?" + u2params.toString()).then(response => {return response.json()})
     ]);
   } else {
     let u3params = new URLSearchParams({id: id3, info_first_name: true, info_last_name: true, stats_w: true, stats_l: true})
     let u4params = new URLSearchParams({id: id4, info_first_name: true, info_last_name: true, stats_w: true, stats_l: true})
     return await Promise.all([
-      fetch("http://localhost:3000/api/users/getuser?" + u1params.toString()).then(response => {return response.json()}),
-      fetch("http://localhost:3000/api/users/getuser?" + u2params.toString()).then(response => {return response.json()}),
-      fetch("http://localhost:3000/api/users/getuser?" + u3params.toString()).then(response => {return response.json()}),
-      fetch("http://localhost:3000/api/users/getuser?" + u4params.toString()).then(response => {return response.json()})
+      fetch(props.url + "api/users/getuser?" + u1params.toString()).then(response => {return response.json()}),
+      fetch(props.url + "api/users/getuser?" + u2params.toString()).then(response => {return response.json()}),
+      fetch(props.url + "api/users/getuser?" + u3params.toString()).then(response => {return response.json()}),
+      fetch(props.url + "api/users/getuser?" + u4params.toString()).then(response => {return response.json()})
     ]);
   }
 }

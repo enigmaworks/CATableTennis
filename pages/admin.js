@@ -38,6 +38,7 @@ export const getServerSideProps = withSessionSsr(
         user: user,
         usersdata: data,
         usersparams: usersParams.toString(),
+        url: process.env.URL,
         sitedata: sitedata,
       } }
     } else {
@@ -68,7 +69,7 @@ export default function Admin(props){
   const lossesChangeInput = useRef();
   
   async function refreshUsersData(){
-    await fetch("/api/users/getall?" + props.usersparams).then(response => {
+    await fetch(props.url + "/api/users/getall?" + props.usersparams).then(response => {
       return response.json()
     }).then(data => {
       resetInputs();
