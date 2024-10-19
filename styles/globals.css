@@ -132,7 +132,7 @@ button.light, input[type="submit"].light, input[type="button"].light, a.button.l
     color: var(--clr_dark);
 }
 button.important, input[type="submit"], input[type="button"].important, a.button.important{
-    background-color: var(--clr_highlight_secondary-dark);
+    background-color: var(--clr_highlight);
 }
 button.fitcontentwidth, input[type="submit"].fitcontentwidth, input[type="button"].fitcontentwidth, a.button.fitcontentwidth {
     min-width: 0;
