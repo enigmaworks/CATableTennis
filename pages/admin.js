@@ -113,7 +113,9 @@ export default function Admin(props){
           info_last_name: lastnameInput.current.value,
           info_graduation: gradyearInput.current.value,
         })
-      }).then(() => {setInputDisabled(false);});
+      });
+
+      setInputDisabled(false);
       
       if(res.ok){
         usernameInput.current.value = "";
@@ -122,7 +124,7 @@ export default function Admin(props){
         firstnameInput.current.value = "";
         lastnameInput.current.value = "";
         gradyearInput.current.value = "";
-        await refreshUsersData();
+        refreshUsersData();
         toast.success("created user sucessfully");
       } else {
         toast.error("failed to create user");
@@ -142,10 +144,12 @@ export default function Admin(props){
         body: JSON.stringify({
           id: parseInt(selectedUser.id)
         })
-      }).then(() => {setInputDisabled(false);});
+      });
+
+      setInputDisabled(false);
       if(res.status === 200){
         passwordChangeInput.current.value = "";
-        await refreshUsersData();
+        refreshUsersData();
         toast.success("User Deleted");
         userSelect.value = usersdata[0].id;
         handleUserSelectChange(usersdata[0].id);
@@ -166,7 +170,8 @@ export default function Admin(props){
           id: selectedUser.id,
           data: {password: passwordChangeInput.current.value}
         })
-      }).then(() => {setInputDisabled(false);});
+      });
+      setInputDisabled(false);
 
       if(res.status === 200){
         passwordChangeInput.current.value = "";
@@ -199,10 +204,12 @@ export default function Admin(props){
         id: selectedUser.id,
         data: data
       })
-    }).then(() => {setInputDisabled(false);});
+    });
+
+    setInputDisabled(false);
 
     if(res.status === 200){
-      await refreshUsersData();
+      refreshUsersData();
       resetInputs();
       toast.success("Changes saved.");
     } else {
@@ -240,7 +247,9 @@ export default function Admin(props){
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({...data})
-      }).then(() => {setInputDisabled(false);});
+      });
+
+      setInputDisabled(false);
 
       if(res.status === 200){
         toast.success("Changes saved.");
@@ -258,7 +267,8 @@ export default function Admin(props){
       body: JSON.stringify({
         force: true
       })
-    }).then(() => {setInputDisabled(false);});
+    });
+    setInputDisabled(false);
 
     if(res.ok){
       toast.success("Leaderboard Re-Ranked");
