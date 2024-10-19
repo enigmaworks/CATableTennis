@@ -73,7 +73,6 @@ export default function Admin(props){
     }).then(data => {
       resetInputs();
       setUsersdata(data);
-      setSelectedUser(data[0].id)
     });
   }
 
@@ -105,6 +104,8 @@ export default function Admin(props){
     e.preventDefault();
 
     if( usernameInput.current.value !== "" && passwordInput.current.value !== "" && permissionsInput.current.value !== "" ){
+      setInputDisabled(true);
+
       const res = await fetch("/api/users/create", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -130,6 +131,7 @@ export default function Admin(props){
       } else {
         toast.error("failed to create user");
       }
+      setInputDisabled(false);
     } else {
       toast.error("You must enter a username, password, and permissions level.");
     }
@@ -138,6 +140,7 @@ export default function Admin(props){
 
   async function deleteUser(){
     if(confirm("Delete \"" + selectedUser.username + "\"?")){
+      setInputDisabled(true);
       const res = await fetch("/api/users/delete", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -154,12 +157,14 @@ export default function Admin(props){
       } else {
         toast.error("Something went wrong.");
       }
+      setInputDisabled(false);
     }
   }
 
   async function handleChangePasswordSubmit(e){
     e.preventDefault();
     if(passwordChangeInput.current.value !== ""){
+      setInputDisabled(true);
       const res = await fetch("/api/users/edit", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -175,6 +180,7 @@ export default function Admin(props){
       } else {
         toast.error("Something went wrong.");
       }
+      setInputDisabled(false);
     } else {
       toast.error("Input cannot be blank.");
     }
@@ -182,6 +188,7 @@ export default function Admin(props){
 
   async function handleChangeUserSubmit(e){
     e.preventDefault();
+    setInputDisabled(true);
 
     let data = {}
 
@@ -208,6 +215,7 @@ export default function Admin(props){
     } else {
       toast.error("Something went wrong.");
     }
+    setInputDisabled(false);
   }
 
   const calendarLinkInput = useRef();
@@ -220,6 +228,7 @@ export default function Admin(props){
     if(calendarLinkInput.current.value === "" && numLeaderboardPlayersInput.current.value === "" && aboutTextInput.current.value === ""){
       toast.error("Please enter a value.");
     } else {
+      setInputDisabled(true);
       let data = {};
 
       if(calendarLinkInput.current.value !== ""){
@@ -246,24 +255,29 @@ export default function Admin(props){
       } else {
         toast.error("Something went wrong.");
       }
+      setInputDisabled(false);
     }
   }
 
   async function handleForceLeaderboardUpdateClick(){
+    setInputDisabled(true);
     const res = await fetch("/api/users/rank", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-          force: true
-        })
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        force: true
       })
-  
-      if(res.ok){
-        toast.success("Leaderboard Re-Ranked");
-      } else {
-        toast.error("Failed to re-rank leaderboard");
-      }
+    })
+
+    if(res.ok){
+      toast.success("Leaderboard Re-Ranked");
+    } else {
+      toast.error("Failed to re-rank leaderboard");
+    }
+
+    setInputDisabled(false);
   }
+
   return (
     <>
     <Toaster position="bottom-center" reverseOrder={false}/>
@@ -300,7 +314,7 @@ export default function Admin(props){
           <label htmlFor="gradyear">gradyear: </label>
           <input type="number" min="2023" step="1" id="gradyear" ref={gradyearInput} />
         </div>
-        <input type="submit" value="Create User"/>
+        <input type="submit" disabled={inputDisabled} value="Create User"/>
       </form>
     </section>
     
@@ -313,6 +327,7 @@ export default function Admin(props){
           onChange={option => {handleUserSelectChange(option.value.toString())}}
           theme={selectTheme}
           className="react-select-container"
+          disabled={inputDisabled}
           options={usersdata.map((user) => {
             return ({
               value: user.id,
@@ -331,7 +346,7 @@ export default function Admin(props){
             <input type="text" id="passwordChange" ref={passwordChangeInput} />
           </div>
 
-          <input type="submit" value="Set Password"/>
+          <input type="submit" disabled={inputDisabled} value="Set Password"/>
         </form>
 
       </div>
@@ -369,8 +384,8 @@ export default function Admin(props){
             <input type="number" id="lossesChange" placeholder={selectedUser.stats_l} min="0" max="9999" step="1" ref={lossesChangeInput}/>
           </div>
 
-          <input type="submit" value="Update User Information"/>
-          <button onClick={deleteUser}>Delete User</button>
+          <input type="submit" disabled={inputDisabled} value="Update User Information"/>
+          <button onClick={deleteUser} disabled={inputDisabled}>Delete User</button>
         </form>
       </div>
 
@@ -399,13 +414,10 @@ export default function Admin(props){
           <input type="number" min="0" max="28" step="1" id="leaderboardUpdateFrequencyInput" defaultValue={props.sitedata.leaderboard_update_frequency} ref={leaderboardUpdateFrequencyInput}/>
         </div>
 
-
-
-
-        <input type="submit" value="Update Information"/>
+        <input type="submit" disabled={inputDisabled} value="Update Information"/>
       </form>
       <div>
-        <input type="button" id="forceLeaderboardUpdate" value="Re-Rank Leaderboard" onClick={handleForceLeaderboardUpdateClick}/>
+        <input type="button" id="forceLeaderboardUpdate" value="Re-Rank Leaderboard" disabled={inputDisabled} onClick={handleForceLeaderboardUpdateClick}/>
       </div>
     </section>
     </>
