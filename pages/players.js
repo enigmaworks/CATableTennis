@@ -7,7 +7,8 @@ export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     const user = req.session.user;
     const params = {
-      flair: true,
+      sort_column: 'info_last_name',
+      info_flair: true,
       info_first_name:true,
       info_last_name: true,
       info_graduation: true,
