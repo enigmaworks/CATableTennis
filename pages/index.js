@@ -71,7 +71,7 @@ export default function Home(props){
             <ul className={styles.playerstats}>
               <li className={styles.rank}>{user.stats_rank}</li>
               <li><h4 className={styles.name}>{user.info_first_name} {user.info_last_name}</h4></li>
-              <li className={styles.stat}>{Math.round(user.stats_elo*100)/100}</li>
+              <li className={styles.stat}>{user.stats_elo.toFixed(3)}</li>
               <li className={styles.stat}>{Math.round(calculateWinPercent(user.stats_w, user.stats_l) * 10000) / 100}%</li>
               <li className={styles.stat}>{user.stats_w}</li>
               <li className={styles.stat}>{user.stats_l}</li>
