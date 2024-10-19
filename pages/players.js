@@ -6,13 +6,21 @@ import styles from "/styles/players.module.css";
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     const user = req.session.user;
-    const params = {flair: true, info_first_name:true, info_last_name: true, info_graduation: true, stats_w: true, stats_l: true};
-    const currentParams = {modifier: "current", ...params};
-    const graduatedParams = {modifier: "graduated", ...params};
+    const params = {
+      flair: true,
+      info_first_name:true,
+      info_last_name: true,
+      info_graduation: true,
+      stats_w: true,
+      stats_l: true
+    };
+    
+    const currentParams = new URLSearchParams({modifier: "current", ...params}).toString();
+    const graduatedParams = new URLSearchParams({modifier: "graduated", ...params}).toString();
 
     let [current, graduated] = await Promise.all([
-      fetch(process.env.URL + "/api/users/getall?" + new URLSearchParams(currentParams).toString(), req).then(response => {return response.json()}),
-      fetch(process.env.URL + "/api/users/getall?" + new URLSearchParams(graduatedParams).toString(), req).then(response => {return response.json()})
+      fetch(process.env.URL + "/api/users/getall?" + currentParams, Object.assign(req, {next: {revalidate: 3600}})).then(response => {return response.json()}),
+      fetch(process.env.URL + "/api/users/getall?" + graduatedParams, Object.assign(req, {next: {revalidate: 3600}})).then(response => {return response.json()})
     ]);
 
     if(user){

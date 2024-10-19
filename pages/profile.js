@@ -5,8 +5,19 @@ export const getServerSideProps = withSessionSsr(
     const user = req.session.user;
 
     if(user){
-      let params = new URLSearchParams({id: user.id, flair: true, info_graduation: true, stats_w: true, stats_l: true, stats_rank: true, stats_elo: true, date_stats_updated:true, date_created: true});
-      let data = await fetch(process.env.URL + "/api/users/getuser?" + params.toString(), req).then(response => {return response.json()});
+      let params = new URLSearchParams({
+        id: user.id,
+        flair: true,
+        info_graduation: true,
+        stats_w: true,
+        stats_l: true,
+        stats_rank: true,
+        stats_elo: true,
+        date_stats_updated:true,
+        date_created: true}
+      ).toString();
+      
+      let data = await fetch(process.env.URL + "/api/users/getuser?" + params, req).then(response => {return response.json()});
 
       return { props: {signedin: true, user: {...user, ...data} }};
     } else {

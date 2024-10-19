@@ -10,13 +10,36 @@ export const getServerSideProps = withSessionSsr(
     const user = req.session.user;
 
     if(user && user.permissions === 2){
-      let usersParams = new URLSearchParams({id:true, username:true, permissions: true, info_first_name:true, info_last_name: true, info_graduation: true, stats_w: true, stats_l: true});
-      let data = await fetch(process.env.URL + "/api/users/getall?" + usersParams.toString(), req).then(response => {return response.json()});
+      let usersParams = new URLSearchParams({
+        id:true,
+        username:true,
+        permissions: true,
+        info_first_name:true,
+        info_last_name: true,
+        info_graduation: true,
+        stats_w: true,
+        stats_l: true
+      });
+      let data = await fetch(
+        process.env.URL + "/api/users/getall?" + usersParams.toString(),
+        req
+      ).then(response => {return response.json()});
 
-      let sitedata = await fetch(process.env.URL + "/api/sitedata?" + new URLSearchParams({google_calendar_link:true, about_text:true, leaderboard_players:true, leaderboard_update_frequency: true}).toString(), req)
-      sitedata = await sitedata.json();
+      let siteParams = new URLSearchParams({
+        google_calendar_link:true,
+        about_text:true,
+        leaderboard_players:true,
+        leaderboard_update_frequency: true
+      })
+      let sitedata = await fetch(process.env.URL + "/api/sitedata?" + siteParams.toString(), req).then(response => response.json());
 
-      return { props: {signedin: true, user: user, reqsession: req.session, usersdata: data, usersparams: usersParams.toString(), sitedata: sitedata} }
+      return { props: {
+        signedin: true,
+        user: user,
+        usersdata: data,
+        usersparams: usersParams.toString(),
+        sitedata: sitedata
+      } }
     } else {
       return {
         redirect: {
@@ -30,6 +53,7 @@ export const getServerSideProps = withSessionSsr(
 );
 
 export default function Admin(props){
+  let [inputDisabled, setInputDisabled] = useState(false);
   let [usersdata, setUsersdata] = useState(props.usersdata);
 
   const userSelect = useRef();
@@ -44,11 +68,12 @@ export default function Admin(props){
   const lossesChangeInput = useRef();
   
   async function refreshUsersData(){
-    await fetch("http://localhost:3000/api/users/getall?" + props.usersparams, {session: props.reqsession}).then(response => {
+    await fetch("http://localhost:3000/api/users/getall?" + props.usersparams).then(response => {
       return response.json()
     }).then(data => {
-      setUsersdata(data);
       resetInputs();
+      setUsersdata(data);
+      setSelectedUser(data[0].id)
     });
   }
 

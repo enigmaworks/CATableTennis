@@ -5,7 +5,10 @@ import Head from 'next/head';
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     await fetch(process.env.URL + "/api/users/rank", {method: "POST"});
-    const {leaderboard_players} = await fetch(process.env.URL + "/api/sitedata?" + new URLSearchParams({leaderboard_players: true}).toString(), req).then(response => {return response.json()});
+    const {leaderboard_players} = await fetch(
+      process.env.URL + "/api/sitedata?" + new URLSearchParams({leaderboard_players: true}).toString(),
+      Object.assign(req, {next: {revalidate: 3600}})
+    ).then(response => {return response.json()});
 
     let usersParams = new URLSearchParams({
       modifier: "current",
@@ -21,9 +24,12 @@ export const getServerSideProps = withSessionSsr(
       stats_l: true,
       stats_elo: true,
       stats_rank: true
-    });
+    }).toString();
 
-    let data = await fetch(process.env.URL + "/api/users/getall?" + usersParams.toString(), req).then(response => {return response.json()});    
+    let data = await fetch(
+      process.env.URL + "/api/users/getall?" + usersParams, 
+      req
+    ).then(response => {return response.json()});    
 
     const user = req.session.user;
     if(user){

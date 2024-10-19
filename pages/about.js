@@ -5,13 +5,23 @@ import Link from "next/link";
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
-    let usersParams = new URLSearchParams({google_calendar_link: true, about_text: true});
-    let data = await fetch(process.env.URL + "/api/sitedata?" + usersParams.toString(), req).then(response => {return response.json()});
+    let usersParams = new URLSearchParams({google_calendar_link: true, about_text: true}).toString();
+    let data = await fetch(process.env.URL + "/api/sitedata?" + usersParams, Object.assign(req, {next: {revalidate: 3600}})).then(response => {return response.json()});
 
     if(req.session && req.session.user){
-      return {props: { signedin: true, user: req.session.user, calendarlink: data.google_calendar_link, abouttext:data.about_text }}
+      return {props: {
+        signedin: true,
+        user: req.session.user,
+        calendarlink: data.google_calendar_link,
+        abouttext:data.about_text
+      }}
     } else {
-      return {props: { signedin: false, user: null, calendarlink: data.google_calendar_link, abouttext:data.about_text }}
+      return {props: {
+        signedin: false,
+        user: null,
+        calendarlink: data.google_calendar_link,
+        abouttext:data.about_text
+      }}
     }
   }
 );
