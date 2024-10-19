@@ -59,3 +59,11 @@
   text-align: center;
   width: var(--cell-size);
 }
+.rankingdates{
+  margin-top: .75rem;
+  color: var(--clr_med-dark);
+  font-size: var(--f-size-small);
+}
+.rankingdates p{
+  line-height: .75em;
+}

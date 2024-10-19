@@ -72,7 +72,7 @@ export default function ProfilePage(props){
     </header>
     <section>
       <h2>{props.user.info_first_name} {props.user.info_last_name}</h2>
-      <div>
+      <div className="bold">
         {props.user.permissions === 0 ? "Player" : props.user.permissions === 1 ? "Club Leader" : "Admin"}
       </div>
       <div>Joined {new Date(props.user.date_created).toLocaleDateString()}</div>
