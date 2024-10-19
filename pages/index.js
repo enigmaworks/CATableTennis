@@ -7,7 +7,7 @@ export const getServerSideProps = withSessionSsr(
     await fetch(process.env.URL + "/api/users/rank", {method: "POST"});
     const {leaderboard_players} = await fetch(
       process.env.URL + "/api/sitedata?" + new URLSearchParams({leaderboard_players: true}).toString(),
-      Object.assign(req, {next: {revalidate: 3600}})
+      Object.assign(req, {next: {revalidate: 900}})
     ).then(response => {return response.json()});
 
     let usersParams = new URLSearchParams({

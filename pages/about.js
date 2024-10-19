@@ -6,7 +6,7 @@ import Link from "next/link";
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     let usersParams = new URLSearchParams({google_calendar_link: true, about_text: true}).toString();
-    let data = await fetch(process.env.URL + "/api/sitedata?" + usersParams, Object.assign(req, {next: {revalidate: 3600}})).then(response => {return response.json()});
+    let data = await fetch(process.env.URL + "/api/sitedata?" + usersParams, Object.assign(req, {next: {revalidate: 900}})).then(response => {return response.json()});
 
     if(req.session && req.session.user){
       return {props: {

@@ -19,8 +19,8 @@ export const getServerSideProps = withSessionSsr(
     const graduatedParams = new URLSearchParams({modifier: "graduated", ...params}).toString();
 
     let [current, graduated] = await Promise.all([
-      fetch(process.env.URL + "/api/users/getall?" + currentParams, Object.assign(req, {next: {revalidate: 3600}})).then(response => {return response.json()}),
-      fetch(process.env.URL + "/api/users/getall?" + graduatedParams, Object.assign(req, {next: {revalidate: 3600}})).then(response => {return response.json()})
+      fetch(process.env.URL + "/api/users/getall?" + currentParams, Object.assign(req, {next: {revalidate: 900}})).then(response => {return response.json()}),
+      fetch(process.env.URL + "/api/users/getall?" + graduatedParams, Object.assign(req, {next: {revalidate: 900}})).then(response => {return response.json()})
     ]);
 
     if(user){
