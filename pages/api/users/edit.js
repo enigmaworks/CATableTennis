@@ -7,7 +7,7 @@ export default withSessionRoute(edit);
 
 async function edit(req, res){
   if(req.method = "POST"){
-    if(req.session && req.session.user && req.session.user.permissions === 2){
+    if(req.session && req.session.user && req.session.user.permissions >= 1){
       try{
         const pool = new pg.Pool({
           host: process.env.DB_HOST,

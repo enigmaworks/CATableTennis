@@ -8,7 +8,7 @@ export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
     const user = req.session.user;
     if(user && user.permissions >= 1){
-      return {props: { signedin: true, user: user}}
+      return {props: { signedin: true, user: user, session: req.session}}
     } else {
       return {
         redirect: {
@@ -58,6 +58,7 @@ export default function SavePage(props){
       fetch("/api/users/edit", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
+        session: props.session,
         body: JSON.stringify({
           id: winningTeam[0].id,
           data: {stats_w: parseInt(winningTeam[0].stats_w) + 1}
@@ -66,6 +67,7 @@ export default function SavePage(props){
       fetch("/api/users/edit", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
+        session: props.session,
         body: JSON.stringify({
           id: losingTeam[0].id,
           data: {stats_l: parseInt(winningTeam[0].stats_l) + 1}
@@ -81,6 +83,7 @@ export default function SavePage(props){
         fetch("/api/users/edit", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
+          session: props.session,
           body: JSON.stringify({
             id: winningTeam[1].id,
             data: {stats_w: parseInt(winningTeam[1].stats_w) + 1}
@@ -89,6 +92,7 @@ export default function SavePage(props){
         fetch("/api/users/edit", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
+          session: props.session,
           body: JSON.stringify({
             id: losingTeam[1].id,
             data: {stats_l: parseInt(winningTeam[1].stats_l) + 1}
