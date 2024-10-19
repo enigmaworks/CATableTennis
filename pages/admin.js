@@ -29,7 +29,8 @@ export const getServerSideProps = withSessionSsr(
         google_calendar_link:true,
         about_text:true,
         leaderboard_players:true,
-        leaderboard_update_frequency: true
+        leaderboard_update_frequency: true,
+        last_leaderboard_update: true,
       })
       let sitedata = await fetch(process.env.URL + "/api/sitedata?" + siteParams.toString(), req).then(response => response.json());
 
@@ -290,15 +291,15 @@ export default function Admin(props){
       <h2>Create New User Account</h2>
       <form onSubmit={handleCreateUserSubmit}>
         <div>
-          <label htmlFor="username">username: </label>
+          <label htmlFor="username">Username</label>
           <input type="text" id="username" ref={usernameInput} />
         </div>
         <div>
-          <label htmlFor="password">password: </label>
+          <label htmlFor="password">Password</label>
           <input type="text" id="password" ref={passwordInput} />
         </div>
         <div>
-          <label htmlFor="permissions">permissions: </label>
+          <label htmlFor="permissions">Permissions</label>
           <input type="number" min="0" max="2" step="1" id="permissions" ref={permissionsInput} />
         </div>
         <ul>
@@ -307,15 +308,15 @@ export default function Admin(props){
           <li>Tier 2: Site Admin. Can create, edit, and delete accounts, change About Page content, alter records. For trusted individuals ONLY.</li>
         </ul>
         <div>
-          <label htmlFor="firstname">firstname: </label>
+          <label htmlFor="firstname">First Name</label>
           <input type="text"  id="firstname" ref={firstnameInput} />
         </div>
         <div>
-          <label htmlFor="lastname"> lastname: </label>
+          <label htmlFor="lastname">Last Name</label>
           <input type="text"  id="lastname" ref={lastnameInput} />
         </div>
         <div>
-          <label htmlFor="gradyear">gradyear: </label>
+          <label htmlFor="gradyear">Graduation Year</label>
           <input type="number" min="1900" step="1" id="gradyear" defaultValue={new Date().getFullYear() + 1}ref={gradyearInput} />
         </div>
         <input type="submit" disabled={inputDisabled} value="Create User"/>
@@ -342,15 +343,15 @@ export default function Admin(props){
       </div>
 
       <div>
-        <h3>Set New Password</h3>
+        <h3>Change Password</h3>
 
         <form onSubmit={handleChangePasswordSubmit}>
           <div>
-            <label htmlFor="passwordChange">New password: </label>
-            <input type="text" id="passwordChange" ref={passwordChangeInput} />
+            <label htmlFor="passwordChange">New Password</label>
+            <input type="password" id="passwordChange" ref={passwordChangeInput} />
           </div>
 
-          <input type="submit" disabled={inputDisabled} value="Set Password"/>
+          <input type="submit" disabled={inputDisabled} value="Save New Password"/>
         </form>
 
       </div>
@@ -360,35 +361,35 @@ export default function Admin(props){
 
         <form onSubmit={handleChangeUserSubmit}>
           <div>
-            <label htmlFor="firstnameChange">First Name: </label>
+            <label htmlFor="firstnameChange">First Name</label>
             <input type="text" id="firstnameChange" placeholder={selectedUser.info_first_name} ref={firstnameChangeInput} />
           </div>
 
           <div>
-            <label htmlFor="lastnameChange">Last Name: </label>
+            <label htmlFor="lastnameChange">Last Name</label>
             <input type="text" id="lastnameChange" placeholder={selectedUser.info_last_name} ref={lastnameChangeInput} />
           </div>
 
           <div>
-            <label htmlFor="gradyearChange">Graduation Year: </label>
+            <label htmlFor="gradyearChange">Graduation Year</label>
             <input type="number" min={new Date().getFullYear()} step="1" id="gradyearChange" placeholder={new Date(selectedUser.info_graduation).getFullYear()} ref={gradYearChangeInput} />
           </div>
 
           <div>
-            <label htmlFor="permissionsChange">Permissions: </label>
+            <label htmlFor="permissionsChange">Permissions</label>
             <input type="number" min="0" max="1" step="1" id="permissionsChange" placeholder={selectedUser.permissions} ref={permissionsChangeInput} />
           </div>
 
           <div>
-            <label htmlFor="winsChange">Wins: </label>
+            <label htmlFor="winsChange">Wins</label>
             <input type="number" id="winsChange" placeholder={selectedUser.stats_w} min="0" max="9999" step="1" ref={winsChangeInput}/>
           </div>
           <div>
-            <label htmlFor="lossesChange">Losses: </label>
+            <label htmlFor="lossesChange">Losses</label>
             <input type="number" id="lossesChange" placeholder={selectedUser.stats_l} min="0" max="9999" step="1" ref={lossesChangeInput}/>
           </div>
 
-          <input type="submit" disabled={inputDisabled} value="Update User Information"/>
+          <input type="submit" disabled={inputDisabled} value="Save Account Details"/>
           <button onClick={deleteUser} disabled={inputDisabled}>Delete User</button>
         </form>
       </div>
@@ -397,11 +398,12 @@ export default function Admin(props){
 
     <section>
       <h2>Update Site Information</h2>
+      <h3>Home Page Content</h3>
+      <div>
+        <input type="button" id="forceLeaderboardUpdate" value="Re-rank Leaderboard" disabled={inputDisabled} onClick={handleForceLeaderboardUpdateClick}/>
+        <p>Next scheduled ranking: {new Date(new Date(props.sitedata.last_leaderboard_update).getTime() + (props.sitedata.leaderboard_update_frequency * 86400000)).toLocaleDateString()}</p>
+      </div>
       <form onSubmit={handleUpdateSiteInfo}>
-        <div>
-          <label htmlFor="calendarlink">Google Calendar Embed Link</label>
-          <input type="text" id="calendarlink" defaultValue={props.sitedata.google_calendar_link} ref={calendarLinkInput} />
-        </div>
 
         <div>
           <label htmlFor="leaderboardplayers">Players on Leaderboard</label>
@@ -409,20 +411,23 @@ export default function Admin(props){
         </div>
 
         <div>
-          <label htmlFor="aboutsite">About Paragraph</label>
-          <textarea id="aboutsite" defaultValue={props.sitedata.about_text} ref={aboutTextInput}/>
+          <label htmlFor="leaderboardUpdateFrequencyInput">Ranking Frequency (days)</label>
+          <input type="number" min="0" max="28" step="1" id="leaderboardUpdateFrequencyInput" defaultValue={props.sitedata.leaderboard_update_frequency} ref={leaderboardUpdateFrequencyInput}/>
+        </div>
+        
+        <h3>About Page Content</h3>
+
+        <div>
+          <label htmlFor="calendarlink">Google Calendar Embed Link</label>
+          <input type="text" id="calendarlink" defaultValue={props.sitedata.google_calendar_link} ref={calendarLinkInput} />
         </div>
 
         <div>
-          <label htmlFor="leaderboardUpdateFrequencyInput">Leaderboard Update Frequency (days)</label>
-          <input type="number" min="0" max="28" step="1" id="leaderboardUpdateFrequencyInput" defaultValue={props.sitedata.leaderboard_update_frequency} ref={leaderboardUpdateFrequencyInput}/>
+          <label htmlFor="aboutsite">About Paragraph</label>
+          <textarea id="aboutsite" defaultValue={props.sitedata.about_text} ref={aboutTextInput}/>
         </div>
-
         <input type="submit" disabled={inputDisabled} value="Update Information"/>
       </form>
-      <div>
-        <input type="button" id="forceLeaderboardUpdate" value="Re-Rank Leaderboard" disabled={inputDisabled} onClick={handleForceLeaderboardUpdateClick}/>
-      </div>
     </section>
     </>
   );
