@@ -38,7 +38,7 @@ export const getServerSideProps = withSessionSsr(
         user: user,
         usersdata: data,
         usersparams: usersParams.toString(),
-        url: process.env.URL
+        sitedata: sitedata,
       } }
     } else {
       return {
@@ -117,8 +117,8 @@ export default function Admin(props){
           info_last_name: lastnameInput.current.value,
           info_graduation: gradyearInput.current.value,
         })
-      })
-  
+      }).then(() => {setInputDisabled(false);});
+      
       if(res.ok){
         usernameInput.current.value = "";
         passwordInput.current.value = "";
@@ -131,7 +131,6 @@ export default function Admin(props){
       } else {
         toast.error("failed to create user");
       }
-      setInputDisabled(false);
     } else {
       toast.error("You must enter a username, password, and permissions level.");
     }
@@ -147,7 +146,7 @@ export default function Admin(props){
         body: JSON.stringify({
           id: parseInt(selectedUser.id)
         })
-      })
+      }).then(() => {setInputDisabled(false);});
       if(res.status === 200){
         passwordChangeInput.current.value = "";
         await refreshUsersData();
@@ -157,7 +156,6 @@ export default function Admin(props){
       } else {
         toast.error("Something went wrong.");
       }
-      setInputDisabled(false);
     }
   }
 
@@ -172,7 +170,7 @@ export default function Admin(props){
           id: selectedUser.id,
           data: {password: passwordChangeInput.current.value}
         })
-      })
+      }).then(() => {setInputDisabled(false);});
 
       if(res.status === 200){
         passwordChangeInput.current.value = "";
@@ -180,7 +178,6 @@ export default function Admin(props){
       } else {
         toast.error("Something went wrong.");
       }
-      setInputDisabled(false);
     } else {
       toast.error("Input cannot be blank.");
     }
@@ -206,7 +203,7 @@ export default function Admin(props){
         id: selectedUser.id,
         data: data
       })
-    })
+    }).then(() => {setInputDisabled(false);});
 
     if(res.status === 200){
       await refreshUsersData();
@@ -215,7 +212,6 @@ export default function Admin(props){
     } else {
       toast.error("Something went wrong.");
     }
-    setInputDisabled(false);
   }
 
   const calendarLinkInput = useRef();
@@ -248,14 +244,13 @@ export default function Admin(props){
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({...data})
-      })
+      }).then(() => {setInputDisabled(false);});
 
       if(res.status === 200){
         toast.success("Changes saved.");
       } else {
         toast.error("Something went wrong.");
       }
-      setInputDisabled(false);
     }
   }
 
@@ -267,15 +262,13 @@ export default function Admin(props){
       body: JSON.stringify({
         force: true
       })
-    })
+    }).then(() => {setInputDisabled(false);});
 
     if(res.ok){
       toast.success("Leaderboard Re-Ranked");
     } else {
       toast.error("Failed to re-rank leaderboard");
     }
-
-    setInputDisabled(false);
   }
 
   return (
