@@ -4,18 +4,32 @@ import Head from 'next/head';
 
 export const getServerSideProps = withSessionSsr(
   async ({req, res}) => {
-    await fetch(process.env.URL + "/api/users/rank", req);
-
-    let usersParams = new URLSearchParams({modifier: "current", id:true, info_first_name:true, info_last_name: true, info_graduation: true, stats_w: true, stats_l: true, stats_elo: true, stats_rank: true});
-    let data = await fetch(process.env.URL + "/api/users/getall?" + usersParams.toString(), req).then(response => {return response.json()});
-
+    await fetch(process.env.URL + "/api/users/rank", {method: "POST"});
     const {leaderboard_players} = await fetch(process.env.URL + "/api/sitedata?" + new URLSearchParams({leaderboard_players: true}).toString(), req).then(response => {return response.json()});
-    
+
+    let usersParams = new URLSearchParams({
+      modifier: "current",
+      sort_column: "stats_rank",
+      sort_column_2: "info_last_name",
+      num: leaderboard_players,
+      ignore_unranked: true,
+      id:true,
+      info_first_name:true,
+      info_last_name: true,
+      info_graduation: true,
+      stats_w: true,
+      stats_l: true,
+      stats_elo: true,
+      stats_rank: true
+    });
+
+    let data = await fetch(process.env.URL + "/api/users/getall?" + usersParams.toString(), req).then(response => {return response.json()});    
+
     const user = req.session.user;
     if(user){
-      return {props: { signedin: true, user: user, usersdata: data, numplayersonleaderboard: leaderboard_players}}
+      return {props: { signedin: true, user: user, usersdata: data}}
     } else {
-      return {props: { signedin: false, user: null, usersdata: data, numplayersonleaderboard: leaderboard_players }}
+      return {props: { signedin: false, user: null, usersdata: data}}
     }
   }
 );
