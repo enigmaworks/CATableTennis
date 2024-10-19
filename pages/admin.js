@@ -316,7 +316,7 @@ export default function Admin(props){
         </div>
         <div>
           <label htmlFor="gradyear">gradyear: </label>
-          <input type="number" min="2023" step="1" id="gradyear" ref={gradyearInput} />
+          <input type="number" min="1900" step="1" id="gradyear" defaultValue={new Date().getFullYear() + 1}ref={gradyearInput} />
         </div>
         <input type="submit" disabled={inputDisabled} value="Create User"/>
       </form>
