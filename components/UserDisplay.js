@@ -9,8 +9,8 @@ export default function UserDisplay(pageprops){
     return (
       <div className={styles.container}>
         <Link href="/profile">
+            <div className={styles.username}>{pageprops.user.info_first_name} {pageprops.user.info_last_name}</div>
             <FontAwesomeIcon icon={faUserCircle} className={styles.profileIcon}/>
-            <div className={styles.username}>{pageprops.user.firstname} {pageprops.user.lastname}</div>
         </Link>
         <button className="fitcontentwidth light small" onClick={signout}>Sign Out</button>
       </div>

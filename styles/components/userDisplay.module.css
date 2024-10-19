@@ -14,16 +14,17 @@
 }
 .profileIcon{
   margin-inline: .25em;
+  color: var(--clr_highlight);
+  font-size: var(--f-size-med);
+  position: relative;
+  top: 0.125em;
 }
 .username{
-  display: inline;
+  display: inline-block;
+  display: inline-block;
 }
 @media only screen and (max-width: 60rem) {
   .username{
     display: none;
-  }
-  .profileIcon{
-    font-size: var(--f-size-med);
-    padding-top: .2625em; /* center it pretilly */
   }
 }
