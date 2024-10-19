@@ -90,7 +90,7 @@ async function getall(req, res){
       const sort_column = req.query.sort_column || "none";
       const sort_descending = req.query.sort_descending;
       const sort_column_2 = req.query.sort_column_2 || "none";
-      const sort_2_descending = req.query.sort_descending;
+      const sort_2_descending = req.query.sort_2_descending;
       
       if(sort_column === "date_created") query += " ORDER BY date_created";
       if(sort_column === "date_updated") query += " ORDER BY date_updated";
@@ -123,7 +123,6 @@ async function getall(req, res){
 
       // finalize the query and run it
       query += ";";
-
       let rows = [];
       await pool.query(query).then(data => rows = data.rows);
       await pool.end();
