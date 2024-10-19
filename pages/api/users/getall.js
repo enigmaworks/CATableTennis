@@ -89,7 +89,7 @@ async function getall(req, res){
       // check if the selected data should be sorted by the value of specific columns and modify the query appropriately
       const sort_column = req.query.sort_column || "none";
       const sort_descending = req.query.sort_descending;
-      const sort_column_2 = req.query.sort_column2 || "none";
+      const sort_column_2 = req.query.sort_column_2 || "none";
       const sort_2_descending = req.query.sort_descending;
       
       if(sort_column === "date_created") query += " ORDER BY date_created";
