@@ -189,14 +189,33 @@ header h1{
 form div{
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: 10rem 1fr;
+    grid-template-columns: auto 1fr;
     margin-top: 0.375em;
+    gap: 0.5em
+}
+form div label {
+    min-width: 8rem;
 }
 form div input {
     width: min-content;
 }
+form div textarea{
+    grid-row-start: 2;
+    grid-column: span 2;
+}
+@media only screen and (max-width: 40rem) {
+    form div{
+        grid-auto-flow: row;
+        grid-template-columns: 1fr;
+    }
+    form div input {
+        width: auto;
+    }
+}
 label{
     line-height: 1.1em;
+    font-weight: 800;
+    color: var(--clr_med-dark);
 }
 textarea {
     resize: none;
