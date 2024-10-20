@@ -229,7 +229,7 @@ export default function MatchPage(props){
   return(
     <>
     <header>
-      <h1>{query.p1b !== undefined ? "Team Match" : "Solo Match"}</h1>
+      <h1>{query.p1b !== undefined ? "Doubles Match" : "Singles Match"}</h1>
     </header>
     <Toaster position="bottom-center" reverseOrder={false}/>
     <div className={styles.actions}>
