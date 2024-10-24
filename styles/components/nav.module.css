@@ -38,9 +38,17 @@
   pointer-events: none;
 }
 
+.menuRight{
+  z-index: 0;
+}
+.nav[nav-state="open"] .menuRight{
+  box-shadow:  0 -100vw 0 100vw white;
+}
+
 .nav[nav-state="open"] .navcontainer,
 .nav[nav-state="open"] .menuRight{
-  position: fixed;
+  background-color: #fff;
+  position: fixed;  
 }
 
 .menuRight {
@@ -147,6 +155,7 @@
     padding-top: 3.5rem;
     background-color: #fff8;
     backdrop-filter: blur(20px);
+    border-radius: 0;
   }
   .nav[nav-state="open"] ul{
     transform: translate(0);
@@ -159,6 +168,13 @@
     border-radius: 0.75rem;
     max-width: 20rem;
     margin-inline: auto;
+  }
+  .menuRight{
+    z-index: 1;
+  }
+  .nav[nav-state="open"] .menuRight{
+    box-shadow: none;
+    background-color: #0000;
   }
 }
 @media only screen and (max-width: 30rem) {
