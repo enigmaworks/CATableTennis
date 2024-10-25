@@ -5,7 +5,10 @@ export default withSessionRoute(getall);
 
 async function getall(req, res){
   if(req.method = "GET"){
-    
+    if(req.body.force === true && !(req.session && req.session.user && req.session.user.permissions === 2)){
+      return res.status(401).send();
+    }
+
     try{
       const pool = new pg.Pool({
         host: process.env.DB_HOST,
@@ -26,7 +29,7 @@ async function getall(req, res){
       const nextupdate = new Date(lastupdate.getTime() + frequency);
       const now = new Date();
 
-      if(now.getTime() < nextupdate.getTime() && !(req.body.force && req.session && req.session.user && req.session.user.permissions === 2)){
+      if((now < nextupdate) && !(req.body.force === true)){
         // no need to rank
         return res.status(304).send();
       } else {
