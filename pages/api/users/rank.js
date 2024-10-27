@@ -72,7 +72,8 @@ async function getall(req, res){
           UPDATE users SET stats_rank = cte.rank FROM cte WHERE users.id = cte.id;
         `
         );
-
+        await pool.query(`UPDATE site_info SET last_leaderboard_update = '${now.toDateString()}'::DATE;`);
+        
         await pool.end();
         return res.status(200).send();
       }
